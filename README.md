@@ -66,9 +66,21 @@ Deux formulaires (devis et partenaire) partagent `src/scripts/forms.ts` :
 PUBLIC_FORM_ENDPOINT=https://formspree.io/f/xxxxxxxx
 ```
 
+## Métadonnées et partage
+
+Gérées dans `src/layouts/Base.astro` : chaque page passe son `title` et sa `description`, le reste est généré.
+
+- **Aperçus de partage** : Open Graph (Facebook, LinkedIn, WhatsApp, iMessage, Slack) et X / Twitter (`summary_large_image`), avec l'image `public/og-image.jpg` (1200×630).
+- **Référencement** : lien canonique, `robots`, `sitemap-index.xml` généré au build (`@astrojs/sitemap`), `public/robots.txt`, données structurées JSON-LD (`LocalBusiness`).
+- **Navigateur** : favicon SVG (`public/favicon.svg`), couleur de thème bleu nuit.
+- **URL publique** : lue dans la variable `SITE_URL` (par défaut `https://carsitting.fr`). Les aperçus exigent des URL absolues : définir `SITE_URL` sur Vercel avec le domaine définitif, et mettre à jour la ligne `Sitemap:` de `public/robots.txt`.
+- Une image dédiée à une page : `<Base title="…" image="/mon-image.jpg" imageAlt="…">`. `noindex` garde une page hors des moteurs de recherche.
+
+Après une mise en ligne, forcer la mise à jour des aperçus déjà en cache avec le [débogueur Facebook](https://developers.facebook.com/tools/debug/) et le [Post Inspector LinkedIn](https://www.linkedin.com/post-inspector/).
+
 ## Déploiement (Vercel)
 
-Pas encore fait. Le site est statique : il suffit de relier ce dépôt à un projet Vercel (preset Astro détecté automatiquement) et d'y définir `PUBLIC_FORM_ENDPOINT`.
+Pas encore fait. Le site est statique : il suffit de relier ce dépôt à un projet Vercel (preset Astro détecté automatiquement) et d'y définir `PUBLIC_FORM_ENDPOINT` et `SITE_URL`.
 
 ## À faire
 

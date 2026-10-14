@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://carsitting.fr/sitemap-index.xml

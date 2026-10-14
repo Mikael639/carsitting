@@ -16,6 +16,13 @@ function smoothScroll() {
   gsap.ticker.lagSmoothing(0);
 }
 
+// Fige le défilement (menu mobile ouvert) : Lenis s'arrête, la page ne bouge plus derrière le panneau.
+export function setScrollLock(lock: boolean) {
+  document.documentElement.classList.toggle('menu-open', lock);
+  if (lock) lenis?.stop();
+  else lenis?.start();
+}
+
 function header() {
   const el = document.querySelector<HTMLElement>('header');
   if (!el) return;

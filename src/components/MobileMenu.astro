@@ -1,0 +1,22 @@
+---
+import { navLinks } from '../data/nav';
+const p = Astro.url.pathname.replace(/\/$/, '') || '/';
+const links = [{ href: '/', label: 'Accueil' }, ...navLinks, { href: '/demander-un-devis', label: 'Demander un devis' }];
+---
+<!-- Hors de <header> : le backdrop-filter du header piégerait ce panneau « fixed » dans sa hauteur. -->
+<div id="mobile-menu" class="mobile-menu flex lg:hidden" inert role="dialog" aria-modal="true" aria-label="Menu">
+  <nav class="mobile-menu__nav" aria-label="Menu principal">
+    <p class="label mb-8">Menu</p>
+    <ul>
+      {links.map(({ href, label }, i) => (
+        <li style={`--i:${i}`}>
+          <a href={href} class="mobile-menu__link" aria-current={p === href ? 'page' : undefined}>{label}</a>
+        </li>
+      ))}
+    </ul>
+    <p class="mobile-menu__foot">
+      <a href="mailto:contact@carsitting.fr" class="inline-block py-2">contact@carsitting.fr</a><br />
+      Paris · La juste impression, à chaque fois.
+    </p>
+  </nav>
+</div>

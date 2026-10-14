@@ -30,7 +30,10 @@ body { @apply bg-nuit text-ivoire font-sans font-light; font-size: 16px; line-he
 .nav-link[aria-current="page"] { @apply text-or; }
 
 /* Charte : l'or patiné n'est jamais en aplat (sauf le sceau) — le bouton passe en ivoire au survol. */
-.btn { @apply inline-block border border-or text-or uppercase px-8 py-4 transition-colors duration-500 hover:border-ivoire hover:text-ivoire; font-size: 12px; letter-spacing: .22em; }
+/* Dans @layer components : sinon `display` écraserait les utilitaires (hidden, sm:inline-block…). */
+@layer components {
+  .btn { @apply inline-block border border-or text-or uppercase px-8 py-4 transition-colors duration-500 hover:border-ivoire hover:text-ivoire; font-size: 12px; letter-spacing: .22em; }
+}
 
 /* ——— Fonds de section (rythme du site Framer) ———
    s-nuit : ouvertures, équipes, modalités, formulaire partenaire
@@ -54,6 +57,28 @@ html.js-motion main section :is(h1, h2, h3, p, blockquote, article, li, form, .b
 html.js-motion main section :is(article, form) :is(h1, h2, h3, p, blockquote, li, .btn, [data-stat]),
 html.js-motion main section [data-marquee] li { opacity: 1; }
 
+/* ——— Menu mobile ——— */
+@layer components {
+  .menu-toggle { @apply relative grid size-11 shrink-0 cursor-pointer place-items-center border-0 bg-transparent p-0; }
+}
+.menu-toggle__bar { @apply absolute left-1/2 block h-px w-6 -translate-x-1/2 bg-ivoire; transition: transform .5s cubic-bezier(.44, 0, .56, 1); }
+.menu-toggle__bar:first-child { transform: translate(-50%, -4px); }
+.menu-toggle__bar:last-child { transform: translate(-50%, 4px); }
+.menu-toggle[aria-expanded="true"] .menu-toggle__bar:first-child { transform: translate(-50%, 0) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-toggle__bar:last-child { transform: translate(-50%, 0) rotate(-45deg); }
+.menu-toggle:focus-visible, .mobile-menu a:focus-visible, .nav-link:focus-visible, .btn:focus-visible { @apply outline-2 outline-offset-4 outline-or; }
+
+.mobile-menu { position: fixed; inset: 0; z-index: 40; align-items: center; background: var(--color-nuit-deep); padding: 96px 28px 40px; overflow-y: auto; visibility: hidden; opacity: 0; transition: opacity .45s cubic-bezier(.44, 0, .56, 1), visibility 0s linear .45s; }
+.mobile-menu[data-open] { visibility: visible; opacity: 1; transition-delay: 0s; }
+.mobile-menu__nav { width: 100%; max-width: 28rem; margin-inline: auto; }
+.mobile-menu__link { display: block; padding: 14px 0; border-bottom: 1px solid var(--color-or-faint); font-family: var(--font-serif); font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; color: var(--color-ivoire); transition: color .4s; }
+.mobile-menu__link:hover, .mobile-menu__link[aria-current="page"] { color: var(--color-or); }
+.mobile-menu li { opacity: 0; transform: translateY(16px); transition: opacity .6s cubic-bezier(.44, 0, .56, 1), transform .6s cubic-bezier(.44, 0, .56, 1); }
+.mobile-menu[data-open] li { opacity: 1; transform: none; transition-delay: calc(.08s * var(--i) + .12s); }
+.mobile-menu__foot { margin-top: 36px; font-size: 14px; line-height: 1.7; color: var(--color-ivoire-muted); }
+html.menu-open { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .mobile-menu, .mobile-menu li, .menu-toggle__bar { transition: none !important; } }
+
 /* Onglets : soulignement fin qui se déploie depuis la gauche. */
 .nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: var(--color-or); transform: scaleX(0); transform-origin: left; transition: transform .6s cubic-bezier(.44, 0, .56, 1); }
 .nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
@@ -75,6 +100,8 @@ main img { filter: saturate(.85) sepia(.12) contrast(1.02); }
 .f-field { @apply flex flex-col gap-2; }
 .f-label { @apply font-sans font-normal uppercase; font-size: 11px; letter-spacing: .15em; line-height: 1.2; }
 .f-input { @apply w-full appearance-none rounded-[2px] border font-sans outline-none transition-colors duration-300; min-height: 48px; padding: 13px 14px; font-size: 15px; line-height: 1.3; letter-spacing: 0; }
+/* iOS Safari zoome la page au focus d'un champ dont le texte fait moins de 16 px. */
+@media (max-width: 639px) { .f-input { font-size: 16px; } }
 textarea.f-input { resize: vertical; min-height: 104px; }
 .f-noresize textarea.f-input { resize: none; }
 .f-select { @apply cursor-pointer pr-10; background-repeat: no-repeat; background-position: right 14px center; background-size: 12px; }

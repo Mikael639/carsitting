@@ -1,19 +1,23 @@
 ---
-const p = Astro.url.pathname;
-const links = [["/qui-sommes-nous","qui sommes nous ?"],["/nos-services","nos services"],["/#les-maisons","Les maisons"]];
+import { navLinks } from '../data/nav';
+const p = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<header class="sticky top-0 z-50 bg-nuit/90 backdrop-blur border-b border-or-faint">
-  <nav class="mx-auto max-w-7xl flex items-center justify-between gap-4 px-6 py-5 text-sm">
-    <a href="/" class="flex items-center gap-3" aria-label="Car Sitting — Service voiturier">
-      <span class="grid size-10 place-items-center rounded-md bg-or text-nuit font-serif font-bold text-lg">CS</span>
+<header class="sticky top-0 z-50 border-b border-or-faint bg-nuit/90 backdrop-blur">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-4 text-sm sm:px-6 sm:py-5" aria-label="Navigation principale">
+    <a href="/" class="flex shrink-0 items-center gap-3 whitespace-nowrap" aria-label="Car Sitting — Service voiturier, accueil">
+      <span class="grid size-10 place-items-center rounded-md bg-or font-serif text-lg font-bold text-nuit">CS</span>
       <span class="leading-tight">
-        <span class="block label !text-ivoire">Car Sitting</span>
-        <span class="block label !text-[10px] !text-or">Service voiturier</span>
+        <span class="label block !text-ivoire">Car Sitting</span>
+        <span class="label block !text-[10px] !text-or">Service voiturier</span>
       </span>
     </a>
-    <div class="flex items-center gap-5 md:gap-10">
-      {links.map(([h,t]) => <a href={h} class="nav-link hidden md:inline" aria-current={p===h?'page':undefined}>{t}</a>)}
-      <a href="/demander-un-devis" class="btn !px-5 !py-3 !bg-or/10 whitespace-nowrap" aria-current={p==='/demander-un-devis'?'page':undefined}>demander un devis</a>
+    <div class="flex items-center gap-4 sm:gap-6 lg:gap-10">
+      {navLinks.map(({ href, label }) => <a href={href} class="nav-link hidden lg:inline" aria-current={p === href ? 'page' : undefined}>{label}</a>)}
+      <a href="/demander-un-devis" class="btn hidden whitespace-nowrap !px-5 !py-3 sm:inline-block" aria-current={p === '/demander-un-devis' ? 'page' : undefined}>demander un devis</a>
+      <button type="button" data-menu-toggle class="menu-toggle lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Ouvrir le menu">
+        <span class="menu-toggle__bar"></span>
+        <span class="menu-toggle__bar"></span>
+      </button>
     </div>
   </nav>
 </header>

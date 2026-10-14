@@ -2,6 +2,7 @@
 import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import MobileMenu from '../components/MobileMenu.astro';
 import '../styles/global.css';
 interface Props {
   title: string;
@@ -83,13 +84,15 @@ const organization = {
   </head>
   <body>
     <Header transition:persist />
+    <MobileMenu />
     <main transition:animate="none"><slot /></main>
     <Footer />
-    <div id="veil" aria-hidden="true"></div>
     <script>
       import { initMotion, cleanupMotion } from '../scripts/motion';
+      import { initMenu } from '../scripts/menu';
       document.addEventListener('astro:before-swap', cleanupMotion);
       document.addEventListener('astro:page-load', initMotion);
+      initMenu();
     </script>
   </body>
 </html>

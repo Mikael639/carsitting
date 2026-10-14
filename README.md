@@ -47,6 +47,15 @@ Définie dans `src/styles/global.css` (`@theme`) :
 
 Toutes les règles (sceau, photos, ton de voix) sont dans [BRAND.md](BRAND.md).
 
+## Responsive et mobile
+
+Testé de 320 à 1280 px sur les 4 pages : aucun défilement horizontal.
+
+- **Navigation** : liens dans l'en-tête à partir de 1024 px ; en dessous, bouton menu (`src/scripts/menu.ts`, `MobileMenu.astro`) qui ouvre un panneau plein écran. Le bouton « demander un devis » reste visible dès 640 px. Liens définis une seule fois dans `src/data/nav.ts`.
+- **Accessibilité du menu** : `aria-expanded`, focus gardé dans le panneau, fermeture avec Échap ou au clic sur un lien, défilement figé derrière.
+- **Formulaires** : champs à 16 px sur téléphone (évite le zoom automatique d'iOS Safari), hauteur de 48 px minimum.
+- **Pièges CSS** : les classes maison qui fixent un `display` (`.btn`, `.menu-toggle`) sont dans `@layer components`, sinon elles écrasent `hidden` et les variantes responsive de Tailwind.
+
 ## Animations
 
 Gérées par `src/scripts/motion.ts` : défilement fluide, apparition des blocs au scroll, parallaxe de l'ouverture, dévoilement des images, compteurs, défilement des partenaires, en-tête qui se cache en descendant. Les transitions entre pages utilisent le routeur client d'Astro. Tout est désactivé pour les visiteurs ayant demandé moins d'animations (`prefers-reduced-motion`).
@@ -87,6 +96,5 @@ Pas encore fait. Le site est statique : il suffit de relier ce dépôt à un pro
 - Choisir le service de réception des demandes (Formspree ou route Vercel + Resend).
 - Remplacer le monogramme « CS » de substitution par le fichier de logo officiel.
 - Renseigner les vraies coordonnées (téléphone, mentions légales, réseaux sociaux) dans `Footer.astro`.
-- Ajouter un menu pour mobile : sous 768 px, seul le bouton « demander un devis » reste dans l'en-tête.
 - Remplacer les photos qui s'éloignent de la charte (lumière basse, gros plans sur le geste), notamment celle de l'hôtel.
 - Ajouter les logos des partenaires (affichés en texte pour l'instant).

@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import Stats from '../components/Stats.astro';
+import Field from '../components/form/Field.astro';
+import Submit from '../components/form/Submit.astro';
+const valeurs = [
+  ["I","Discrétion","Présents sans jamais occuper la scène."],
+  ["II","Irréprochabilité","Une tenue, un geste et un mot à la juste mesure."],
+  ["III","Confiance","Clés, véhicules et confidences confiés à des mains sûres."],
+  ["IV","Élégance","La sobriété d’un service parfaitement chorégraphié."],
+];
+---
+<Base title="Qui sommes-nous — CarSitting">
+  <section class="relative isolate px-6 py-32 text-center overflow-hidden">
+    <img src="/images/paris-nuit.jpg" alt="" width="1920" height="1080" fetchpriority="high" class="absolute inset-0 -z-20 size-full object-cover" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-nuit-deep/75 to-nuit"></div>
+    <p class="label mb-6">CarSitting · Paris</p>
+    <h1 class="display mx-auto max-w-4xl">Depuis MMXVI, nous veillons sur le seuil des maisons d’exception parisiennes.</h1>
+  </section>
+
+  <section class="s-ivoire px-6 py-24">
+    <div class="mx-auto max-w-3xl space-y-6">
+      <p class="label">Notre conviction</p>
+      <blockquote class="heading font-normal italic">« Le voiturier est le seuil vivant de l’établissement. »</blockquote>
+      <p class="text-ivoire-muted">Nous avons fondé CarSitting avec une idée simple : l’accueil ne commence pas au comptoir, mais à l’instant où une voiture s’arrête devant une maison. Depuis 2016, nous composons ce premier geste avec la précision d’un rituel — discret pour l’hôte, parfaitement lisible pour la maison.</p>
+      <p class="text-ivoire-muted">Nous ne déposons pas seulement des clés. Nous assurons la continuité d’un lieu, de sa promesse et de son standing. Chaque arrivée est préparée, chaque départ est accompagné, chaque détail tient sa place.</p>
+    </div>
+  </section>
+
+  <section class="s-ivoire px-6 py-24">
+    <div class="mx-auto max-w-6xl">
+      <p class="label mb-4">Nos valeurs</p>
+      <h2 class="heading">Les exigences qui nous tiennent</h2>
+      <div class="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        {valeurs.map(([n,t,d]) => <article><p class="font-serif text-or text-3xl">{n}</p><h3 class="font-serif text-2xl my-2">{t}</h3><p class="text-ivoire-muted">{d}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="s-nuit px-6 py-24">
+    <div class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[4fr_5fr] lg:gap-16">
+      <div>
+        <p class="label mb-4">Nos équipes</p>
+        <h2 class="heading mb-6">Le standard humain d’une maison.</h2>
+        <p class="text-ivoire-muted">Nous sélectionnons les tempéraments autant que les parcours. Formation, tenue, posture et attention au détail : nos voituriers portent la maison avec calme, avant même d’en prononcer le nom.</p>
+      </div>
+      <div class="overflow-hidden">
+        <img src="/images/voiturier-smoking.jpg" alt="Voiturier en smoking, portière ouverte sur une rue pavée" width="1000" height="525" loading="lazy" class="aspect-[1000/525] w-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <Stats />
+
+  <section id="contact" class="s-nuit scroll-mt-24 px-5 py-24 sm:px-6 md:py-36">
+    <div class="mx-auto grid max-w-6xl items-start gap-14 lg:grid-cols-2 lg:gap-[72px]">
+      <div class="space-y-7">
+        <span class="grid size-16 place-items-center rounded-full border border-or/55 font-serif text-[30px] text-or" aria-hidden="true">CS</span>
+        <p class="label">Demander un devis</p>
+        <h2 class="font-serif text-[40px] leading-[1.04] tracking-[-0.02em] text-ivoire md:text-[54px]">Parlons du seuil de votre établissement.</h2>
+        <p class="text-[18px] text-ivoire/75">Décrivez votre établissement, vos flux et vos temps forts. Nous vous répondrons avec une proposition claire, calibrée pour votre maison.</p>
+        <a href="/demander-un-devis" class="inline-block rounded-full border border-or/60 px-[18px] py-3 text-[12px] uppercase tracking-[0.14em] text-ivoire transition-colors duration-500 hover:border-ivoire">Devenir partenaire</a>
+      </div>
+
+      <form data-form data-subject="Devenir partenaire" class="form-dark space-y-[18px] border border-or/28 bg-ivoire/[0.055] p-6 sm:p-[34px]">
+        <Field label="Établissement" name="Établissement" placeholder="Nom de la maison" autocomplete="organization" />
+        <Field label="Fonction" name="Fonction" placeholder="Direction, réception, événementiel" autocomplete="organization-title" />
+        <Field label="Email" name="Email" type="email" placeholder="vous@maison.fr" autocomplete="email" inputmode="email" required />
+        <Field label="Message" name="Message" type="textarea" placeholder="Quelques lignes sur vos besoins" class="f-noresize" />
+        <div class="hidden" aria-hidden="true"><label>Ne pas remplir <input name="_gotcha" tabindex="-1" autocomplete="off" /></label></div>
+        <Submit label="Demander une proposition" class="w-full" />
+        <p data-status role="status" class="f-status"></p>
+        <p class="text-[13px] leading-normal tracking-[0.04em] text-ivoire/52">Réponse sous quarante-huit heures ouvrées. Échange confidentiel.</p>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    import { initForms } from '../scripts/forms';
+    document.addEventListener('astro:page-load', initForms);
+  </script>
+</Base>

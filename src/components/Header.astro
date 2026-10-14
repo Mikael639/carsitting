@@ -1,0 +1,19 @@
+---
+const p = Astro.url.pathname;
+const links = [["/qui-sommes-nous","qui sommes nous ?"],["/nos-services","nos services"],["/#les-maisons","Les maisons"]];
+---
+<header class="sticky top-0 z-50 bg-nuit/90 backdrop-blur border-b border-or-faint">
+  <nav class="mx-auto max-w-7xl flex items-center justify-between gap-4 px-6 py-5 text-sm">
+    <a href="/" class="flex items-center gap-3" aria-label="Car Sitting — Service voiturier">
+      <span class="grid size-10 place-items-center rounded-md bg-or text-nuit font-serif font-bold text-lg">CS</span>
+      <span class="leading-tight">
+        <span class="block label !text-ivoire">Car Sitting</span>
+        <span class="block label !text-[10px] !text-or">Service voiturier</span>
+      </span>
+    </a>
+    <div class="flex items-center gap-5 md:gap-10">
+      {links.map(([h,t]) => <a href={h} class="nav-link hidden md:inline" aria-current={p===h?'page':undefined}>{t}</a>)}
+      <a href="/demander-un-devis" class="btn !px-5 !py-3 !bg-or/10 whitespace-nowrap" aria-current={p==='/demander-un-devis'?'page':undefined}>demander un devis</a>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import Ornament from '../components/Ornament.astro';
+import Field from '../components/form/Field.astro';
+import Submit from '../components/form/Submit.astro';
+const evenements = ['Mariage', 'Vernissage', 'Anniversaire', 'Inauguration', 'Bar/Bat mitzvah', 'Dîner privé', 'Soirée d’entreprise', 'Autre'];
+const etablissements = ['Hôtel', 'Restaurant', 'Commerce', 'Club'];
+const priseEnCharge = ['Offerte par l’établissement', 'Tarifée au client — 20 € par véhicule'];
+---
+<Base title="Demander un devis — CarSitting">
+  <section class="relative isolate grid min-h-[46vh] place-items-center overflow-hidden px-6 py-24 text-center">
+    <img src="/images/restaurant.jpg" alt="" width="1021" height="765" fetchpriority="high" class="absolute inset-0 -z-20 size-full object-cover" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-nuit-deep/80 to-nuit/85"></div>
+    <div>
+      <Ornament />
+      <p class="label">Car Sitting · Paris</p>
+    </div>
+  </section>
+
+  <section class="s-ivoire px-5 py-20 sm:px-6 md:py-28">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="display !text-nuit text-center">Parlons du seuil de votre établissement.</h1>
+      <p class="mx-auto mt-6 max-w-xl text-center text-encre/70">Quelques indications suffisent pour préparer une proposition précise, à votre mesure.</p>
+
+      <form data-form data-subject="Demande de devis" class="form-light mt-16 space-y-12" aria-describedby="devis-mentions">
+        <fieldset>
+          <legend class="w-full text-center font-serif text-3xl text-nuit md:text-4xl">Quel accompagnement souhaitez-vous envisager ?</legend>
+          <p class="mt-3 text-center text-sm text-encre/60">Vous pouvez modifier votre choix à tout moment.</p>
+          <div class="mt-8 grid gap-5 sm:grid-cols-2">
+            <label class="f-choice">
+              <input type="radio" name="Parcours" value="Solution ponctuelle" class="sr-only" checked />
+              <span class="block font-serif text-[28px] leading-tight text-encre">Solution ponctuelle</span>
+              <span class="mt-2 block text-[15px] text-encre/70">Pour un événement précis.</span>
+            </label>
+            <label class="f-choice">
+              <input type="radio" name="Parcours" value="Service régulier" class="sr-only" />
+              <span class="block font-serif text-[28px] leading-tight text-encre">Service régulier / accompagnement continu</span>
+              <span class="mt-2 block text-[15px] text-encre/70">Pour une présence dans la durée.</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset data-branch="Solution ponctuelle" class="space-y-6">
+          <legend class="f-section">Votre événement</legend>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <Field label="Professionnel ou particulier" name="Profil" type="select" options={['Professionnel', 'Particulier']} required />
+            <Field label="Type d’événement" name="Type d’événement" type="select" options={evenements} required />
+          </div>
+          <div class="grid gap-6 sm:grid-cols-3">
+            <Field label="Date de l’événement" name="Date de l’événement" type="date" required />
+            <Field label="Début souhaité" name="Début souhaité" type="time" required />
+            <Field label="Fin prévue" name="Fin prévue" type="time" required />
+          </div>
+          <Field label="Adresse de l’événement" name="Adresse de l’événement" placeholder="Adresse complète" autocomplete="street-address" required />
+          <div class="grid gap-6 sm:grid-cols-3">
+            <Field label="Nombre d’invités" name="Nombre d’invités" type="number" min={1} inputmode="numeric" required />
+            <Field label="Véhicules attendus" name="Véhicules attendus" type="number" min={1} inputmode="numeric" required />
+            <Field label="Voituriers souhaités" name="Voituriers souhaités" type="number" min={1} inputmode="numeric" required />
+          </div>
+          <Field label="Notes ou précisions utiles" name="Notes" type="textarea" placeholder="Quelques lignes sur votre demande" />
+        </fieldset>
+
+        <fieldset data-branch="Service régulier" class="space-y-6" disabled hidden>
+          <legend class="f-section">Votre établissement</legend>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <Field label="Type d’établissement" name="Type d’établissement" type="select" options={etablissements} required />
+            <Field label="Prise en charge des véhicules" name="Prise en charge des véhicules" type="select" options={priseEnCharge} required />
+          </div>
+          <Field label="Jours et horaires d’ouverture" name="Jours et horaires" type="textarea" rows={3} placeholder="Ex. mardi à samedi, de 18 h à 1 h" required />
+          <Field label="Adresse de la prestation" name="Adresse de la prestation" placeholder="Adresse complète" autocomplete="street-address" required />
+          <label class="f-check">
+            <input type="checkbox" name="Adresse de facturation identique" data-billing-same checked />
+            <span>Adresse de facturation identique à l’adresse de prestation</span>
+          </label>
+          <fieldset data-billing-other disabled hidden>
+            <Field label="Adresse de facturation" name="Adresse de facturation" placeholder="Adresse complète" autocomplete="billing street-address" required />
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="space-y-6">
+          <legend class="f-section">Vos coordonnées</legend>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <Field label="Nom et prénom" name="Nom et prénom" autocomplete="name" required />
+            <Field label="Email" name="Email" type="email" autocomplete="email" inputmode="email" placeholder="vous@maison.fr" required />
+          </div>
+          <Field label="Téléphone" name="Téléphone" type="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required />
+        </fieldset>
+
+        <div class="hidden" aria-hidden="true"><label>Ne pas remplir <input name="_gotcha" tabindex="-1" autocomplete="off" /></label></div>
+
+        <div class="text-center">
+          <Submit label="Demander une proposition" />
+          <p data-status role="status" class="f-status mx-auto mt-5 max-w-lg"></p>
+          <p id="devis-mentions" class="mt-4 text-sm text-encre/60">Réponse sous 48 h · Échange confidentiel · Sans engagement</p>
+          <p class="mt-2 text-xs text-encre/50">Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    import { initForms } from '../scripts/forms';
+    document.addEventListener('astro:page-load', initForms);
+  </script>
+</Base>

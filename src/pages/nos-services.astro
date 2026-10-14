@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import Ornament from '../components/Ornament.astro';
+import Partners from '../components/Partners.astro';
+import Cta from '../components/Cta.astro';
+const prestations = [
+  ["I","Hôtels","Un accueil sans rupture, du perron à la chambre. Gestion continue des arrivées et des départs, présence discrète, coordination avec votre réception.","/images/services-hotel.jpg","Piscine et façade d’un hôtel parisien"],
+  ["II","Restaurants","Une dépose précise et une circulation fluide aux heures de pointe. Vos clients accueillis, vos abords dégagés, aucun frottement visible.","/images/services-restaurant.webp","Terrasse de restaurant face à la tour Eiffel"],
+  ["III","Événements privés","Via votre établissement, un dispositif sur-mesure : équipe dimensionnée, arrivées multiples orchestrées, un protocole invisible pour vos invités.","/images/services-evenement.jpg","Voituriers accueillant une invitée lors d’une soirée privée"],
+];
+const formules = [["À l’année","Une présence intégrée au rythme de votre maison."],["Ponctuel","Une équipe préparée pour vos séquences choisies."],["Événementiel","Un protocole calibré pour vos temps forts."]];
+const reperes = ["Tenue irréprochable","Équipes sélectionnées et formées","Discrétion absolue","Entière confiance"];
+---
+<Base title="Nos services — CarSitting">
+  <section class="px-6 py-28 text-center bg-gradient-to-b from-nuit-deep to-encre">
+    <p class="label mb-6">Nos services</p>
+    <h1 class="display mx-auto max-w-4xl">Un service, décliné pour chaque maison.</h1>
+    <Ornament />
+    <p class="mx-auto max-w-xl text-ivoire-muted">Le même standard d’excellence, adapté à la nature de votre établissement.</p>
+    <div class="mt-10"><a href="/demander-un-devis" class="btn">Demander un devis</a></div>
+  </section>
+
+  <section class="s-ivoire px-6 py-24 text-center">
+    <p class="label mb-4">Notre philosophie</p>
+    <h2 class="heading mx-auto max-w-2xl">Un seul niveau d’exigence, quelle que soit la prestation.</h2>
+    <p class="mx-auto mt-6 max-w-2xl text-ivoire-muted">De l’arrivée d’un hôte à la fin d’une soirée, chaque geste est tenu avec la même précision. Votre maison reste au premier plan.</p>
+  </section>
+
+  <section class="s-ivoire px-6 py-24">
+    <div class="mx-auto max-w-5xl space-y-16">
+      {prestations.map(([n,t,d,src,alt]) => (
+        <article class="grid gap-6 md:grid-cols-[6rem_1fr_1fr] border-t border-or pt-8 items-center">
+          <p class="font-serif text-or text-5xl">{n}</p>
+          <div><h3 class="font-serif text-3xl mb-3">{t}</h3><p class="text-ivoire-muted">{d}</p></div>
+          <img src={src} alt={alt} loading="lazy" class="aspect-[4/3] w-full object-cover" />
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="s-nuit px-6 py-24">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="heading mb-12">Modalités d’intervention</h2>
+      <div class="grid gap-10 md:grid-cols-3">
+        {formules.map(([t,d]) => <div><p class="label mb-3">{t}</p><p class="text-ivoire-muted">{d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="s-ivoire px-6 py-24">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="heading mb-12">Ce qui nous distingue</h2>
+      <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {reperes.map(r => <li class="label !text-nuit border-t border-or pt-4">{r}</li>)}
+      </ul>
+      <blockquote class="mt-16 font-serif text-3xl italic text-center">« Une présence qui règle le rythme sans jamais le prendre. »</blockquote>
+    </div>
+  </section>
+
+  <Partners title="Ils nous font déjà confiance" names={["Madame Rêve","Baronne","Girafe","Too","Mun","Molitor","Polo de Paris","Maison Revka"]} />
+  <Cta theme="ivoire" />
+</Base>

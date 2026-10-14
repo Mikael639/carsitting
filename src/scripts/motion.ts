@@ -1,0 +1,155 @@
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const EASE = 'power3.out';
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let lenis: Lenis | null = null;
+
+function smoothScroll() {
+  if (reduced || lenis) return;
+  lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 3) });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis?.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+}
+
+function header() {
+  const el = document.querySelector<HTMLElement>('header');
+  if (!el) return;
+  let last = 0;
+  ScrollTrigger.create({
+    start: 0,
+    end: 'max',
+    onUpdate: (self) => {
+      const y = self.scroll();
+      const down = y > last && y > 120;
+      gsap.to(el, { yPercent: down ? -100 : 0, duration: 0.5, ease: EASE, overwrite: true });
+      last = y;
+    },
+  });
+}
+
+function intro() {
+  const hero = document.querySelector('main > section:first-child');
+  if (!hero) return;
+  const items = hero.querySelectorAll('p, h1, .btn, [aria-hidden="true"]');
+  gsap.fromTo(
+    items,
+    { opacity: 0, y: 36 },
+    { opacity: 1, y: 0, duration: 1.2, ease: EASE, stagger: 0.14, delay: 0.15, clearProps: 'transform' },
+  );
+  const bg = hero.querySelector<HTMLElement>('img.absolute');
+  if (bg) {
+    gsap.fromTo(bg, { scale: 1.14 }, { scale: 1, duration: 2.2, ease: 'power2.out' });
+    gsap.to(bg, {
+      yPercent: 14,
+      ease: 'none',
+      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
+    });
+  }
+}
+
+function reveals() {
+  const hero = document.querySelector('main > section:first-child');
+  const targets = [...document.querySelectorAll<HTMLElement>(
+    'main section h1, main section h2, main section h3, main section p, main section blockquote, main section article, main section li, main section form, main section .btn, main section [data-stat]',
+  )].filter((el) => {
+    if (hero?.contains(el) || el.closest('[data-marquee]')) return false;
+    // Cartes et formulaires : révélés d'un bloc, sans animer leurs enfants.
+    const block = el.parentElement?.closest('article, form');
+    return !block;
+  });
+
+  ScrollTrigger.batch(targets, {
+    start: 'top 88%',
+    once: true,
+    onEnter: (batch) =>
+      gsap.to(batch, { opacity: 1, y: 0, duration: 1, ease: EASE, stagger: 0.12, overwrite: true, clearProps: 'transform' }),
+  });
+  gsap.set(targets, { opacity: 0, y: 32 });
+}
+
+function images() {
+  const hero = document.querySelector('main > section:first-child');
+  document.querySelectorAll<HTMLImageElement>('main img').forEach((img) => {
+    if (hero?.contains(img)) return;
+    const wrap = img.parentElement!;
+    // Le zoom d'entrée (115 %) ne doit pas déborder de la carte ni élargir la page.
+    if (!img.closest('.overflow-hidden')) {
+      const frame = document.createElement('div');
+      frame.className = 'overflow-hidden ' + [...img.classList].filter((c) => c.startsWith('mb-')).join(' ');
+      img.classList.forEach((c) => c.startsWith('mb-') && img.classList.remove(c));
+      img.replaceWith(frame);
+      frame.append(img);
+    }
+    gsap.fromTo(
+      img,
+      { clipPath: 'inset(0 0 100% 0)', scale: 1.15 },
+      {
+        clipPath: 'inset(0 0 0% 0)',
+        scale: 1,
+        duration: 1.4,
+        ease: 'power3.inOut',
+        scrollTrigger: { trigger: wrap, start: 'top 85%', once: true },
+        clearProps: 'clipPath',
+      },
+    );
+  });
+}
+
+function marquee() {
+  const list = document.querySelector<HTMLElement>('[data-marquee]');
+  if (!list || list.dataset.ready) return;
+  list.dataset.ready = '1';
+  list.innerHTML += list.innerHTML;
+  list.classList.remove('flex-wrap', 'justify-center');
+  const tween = gsap.to(list, { xPercent: -50, duration: 40, ease: 'none', repeat: -1 });
+  list.addEventListener('mouseenter', () => gsap.to(tween, { timeScale: 0.2, duration: 0.6 }));
+  list.addEventListener('mouseleave', () => gsap.to(tween, { timeScale: 1, duration: 0.6 }));
+}
+
+function stats() {
+  document.querySelectorAll<HTMLElement>('[data-stat]').forEach((el) => {
+    const m = el.textContent?.match(/^(\d[\d\s]*)(\+?)$/);
+    if (!m) return;
+    const end = parseInt(m[1].replace(/\s/g, ''), 10);
+    const obj = { v: 0 };
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 90%',
+      once: true,
+      onEnter: () =>
+        gsap.to(obj, {
+          v: end,
+          duration: 2,
+          ease: 'power2.out',
+          onUpdate: () => (el.textContent = Math.round(obj.v).toLocaleString('fr-FR') + m[2]),
+        }),
+    });
+  });
+}
+
+export function initMotion() {
+  document.documentElement.classList.add('motion-ready');
+  if (reduced) {
+    document.documentElement.classList.remove('js-motion');
+    return;
+  }
+  smoothScroll();
+  lenis?.scrollTo(0, { immediate: true });
+  header();
+  intro();
+  reveals();
+  images();
+  marquee();
+  stats();
+  ScrollTrigger.refresh();
+}
+
+export function cleanupMotion() {
+  ScrollTrigger.getAll().forEach((t) => t.kill());
+  gsap.killTweensOf('*');
+}

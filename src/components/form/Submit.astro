@@ -1,0 +1,7 @@
+---
+// Bouton d'envoi « CarSitting Submit » : pilule bleu nuit, filet or, états envoi / succès.
+const { label = 'Demander une proposition', class: cls = '' } = Astro.props;
+---
+<button type="submit" class:list={['f-submit', cls]} data-label={label}>
+  <span data-submit-text>{label}</span>
+</button>

@@ -1,0 +1,11 @@
+---
+const { names = ["Madame Rêve","Baronne","Girafe","Too","Mun","Molitor","Polo de Paris","Maison Revka","Café de l'Homme","Thoumieux","Maxim's"], title = "Ils nous font confiance" } = Astro.props;
+---
+<section id="les-maisons" class="s-encre px-6 py-24 text-center scroll-mt-20">
+  <p class="label mb-12">{title}</p>
+  <div class="overflow-hidden">
+    <ul data-marquee class="flex w-max gap-x-16 pr-16 font-serif text-2xl uppercase tracking-widest text-ivoire-muted whitespace-nowrap">
+      {names.map((n: string) => <li>{n}</li>)}
+    </ul>
+  </div>
+</section>

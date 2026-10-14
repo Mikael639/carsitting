@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  --color-nuit: rgb(27, 35, 64);
+  --color-nuit-deep: rgb(18, 25, 48);
+  --color-ivoire: rgb(245, 241, 233);
+  --color-or: rgb(169, 139, 84);
+  --color-encre: rgb(26, 26, 26);
+  --color-ivoire-muted: rgba(245, 241, 233, 0.72);
+  --color-or-faint: rgba(169, 139, 84, 0.32);
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Jost", sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+/* Garde-fou : aucune animation ne doit créer de défilement horizontal (clip ne casse pas le header sticky). */
+body { overflow-x: clip; }
+body { @apply bg-nuit text-ivoire font-sans font-light; font-size: 16px; line-height: 1.58; letter-spacing: 0.01em; }
+@media (min-width: 810px) { body { font-size: 17px; line-height: 1.65; } }
+@media (min-width: 1200px) { body { font-size: 18px; } }
+
+.display { @apply font-serif font-normal text-ivoire; font-size: 42px; line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; }
+@media (min-width: 810px) { .display { font-size: 56px; line-height: 1; } }
+@media (min-width: 1200px) { .display { font-size: 76px; line-height: .98; } }
+.heading { @apply font-serif font-bold text-ivoire; font-size: 34px; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+@media (min-width: 810px) { .heading { font-size: 42px; } }
+@media (min-width: 1200px) { .heading { font-size: 41px; line-height: 1.05; } }
+.label { @apply font-sans font-normal uppercase text-or; font-size: 12px; letter-spacing: .22em; line-height: 1.1; }
+.nav-link { @apply relative whitespace-nowrap uppercase text-ivoire-muted transition-colors duration-500 hover:text-ivoire; font-size: 12px; letter-spacing: .22em; line-height: 1.1; }
+.nav-link[aria-current="page"] { @apply text-or; }
+
+/* Charte : l'or patiné n'est jamais en aplat (sauf le sceau) — le bouton passe en ivoire au survol. */
+.btn { @apply inline-block border border-or text-or uppercase px-8 py-4 transition-colors duration-500 hover:border-ivoire hover:text-ivoire; font-size: 12px; letter-spacing: .22em; }
+
+/* ——— Fonds de section (rythme du site Framer) ———
+   s-nuit : ouvertures, équipes, modalités, formulaire partenaire
+   s-ivoire : sections de lecture (manifeste, service, approche, récit, valeurs, prestations, devis)
+   s-encre : partenaires, conclusions, pied de page
+   s-or : bandeau des repères chiffrés */
+.s-nuit { background-color: var(--color-nuit-deep); }
+.s-encre { background-color: var(--color-encre); }
+.s-ivoire { @apply bg-ivoire text-encre; }
+.s-ivoire :is(.display, .heading, h2, h3, blockquote) { color: var(--color-nuit); }
+.s-ivoire .text-ivoire-muted { color: rgb(26 26 26 / .7); }
+.s-ivoire .btn { @apply hover:border-nuit hover:text-nuit; }
+.s-or { @apply bg-or text-nuit; }
+.s-or .label { color: var(--color-nuit); }
+
+/* Mouvement : éléments masqués tant que le script n'a pas pris la main (JS actif, pas de reduced-motion). */
+html.js-motion main section :is(h1, h2, h3, p, blockquote, article, li, form, .btn, [data-stat]) { opacity: 0; }
+
+/* Les cartes (article) et les formulaires se révèlent d'un bloc : leur contenu reste visible
+   (sinon un parcours affiché après coup resterait invisible). */
+html.js-motion main section :is(article, form) :is(h1, h2, h3, p, blockquote, li, .btn, [data-stat]),
+html.js-motion main section [data-marquee] li { opacity: 1; }
+
+/* Onglets : soulignement fin qui se déploie depuis la gauche. */
+.nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: var(--color-or); transform: scaleX(0); transform-origin: left; transition: transform .6s cubic-bezier(.44, 0, .56, 1); }
+.nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
+
+/* Transition de page : fondu bleu nuit. */
+::view-transition-old(root) { animation: .45s cubic-bezier(.44, 0, .56, 1) both fade-out; }
+::view-transition-new(root) { animation: .7s cubic-bezier(.44, 0, .56, 1) .15s both fade-in; }
+@keyframes fade-out { to { opacity: 0; } }
+@keyframes fade-in { from { opacity: 0; } }
+header { transition-property: background-color; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* Charte : étalonnage chaud, légèrement désaturé, identique partout. */
+main img { filter: saturate(.85) sepia(.12) contrast(1.02); }
+/* ——— Formulaires (d'après le « Parcours de devis » et le « Formulaire partenaire » Framer) ———
+   Le bleu de focus par défaut de Framer est remplacé par l'or patiné : pas de couleur hors palette. */
+.f-field { @apply flex flex-col gap-2; }
+.f-label { @apply font-sans font-normal uppercase; font-size: 11px; letter-spacing: .15em; line-height: 1.2; }
+.f-input { @apply w-full appearance-none rounded-[2px] border font-sans outline-none transition-colors duration-300; min-height: 48px; padding: 13px 14px; font-size: 15px; line-height: 1.3; letter-spacing: 0; }
+textarea.f-input { resize: vertical; min-height: 104px; }
+.f-noresize textarea.f-input { resize: none; }
+.f-select { @apply cursor-pointer pr-10; background-repeat: no-repeat; background-position: right 14px center; background-size: 12px; }
+.f-error { @apply min-h-0 text-[13px] leading-snug; }
+.f-error:empty { display: none; }
+.f-status { @apply text-sm; }
+.f-status:empty { display: none; }
+.f-section { @apply mb-6 w-full border-b pb-3 font-sans font-normal uppercase text-or; font-size: 12px; letter-spacing: .22em; }
+/* Pas de marge ici : elle écraserait les espacements utilitaires (space-y) entre blocs. */
+fieldset { min-width: 0; border: 0; padding: 0; margin-inline: 0; }
+
+/* Choix du parcours : carte encadrée d'or, pleine opacité quand elle est sélectionnée. */
+.f-choice { @apply block cursor-pointer rounded-[2px] border border-or/42 p-7 transition-colors duration-300 hover:border-or; }
+.f-choice:has(:checked) { @apply border-or bg-or/[0.07]; }
+.f-choice:has(:focus-visible) { @apply outline-2 outline-offset-2 outline-or; }
+
+.f-check { @apply flex cursor-pointer items-start gap-3 text-[14px]; }
+.f-check input { @apply mt-0.5 size-[18px] shrink-0 cursor-pointer; accent-color: var(--color-or); }
+
+/* Bouton d'envoi : pilule bleu nuit, filet or (le sceau reste le seul aplat or). */
+.f-submit { @apply inline-flex items-center justify-center rounded-full border border-or/66 bg-nuit font-sans font-normal uppercase text-ivoire transition-colors duration-500 hover:border-or hover:bg-nuit-deep disabled:cursor-default disabled:opacity-70; padding: 16px 22px; font-size: 12px; letter-spacing: .18em; }
+.f-submit:focus-visible { @apply outline-2 outline-offset-2 outline-or; }
+
+/* Thème clair : formulaire de devis sur ivoire, texte encre. */
+.form-light .f-label { @apply text-encre; }
+.form-light .f-input { @apply border-encre/24 bg-ivoire text-encre placeholder:text-encre/42 focus:border-or; }
+.form-light .f-input[aria-invalid="true"] { border-color: #9b2c2c; }
+.form-light .f-error { color: #9b2c2c; }
+.form-light .f-section { @apply border-encre/15; }
+.form-light .f-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231A1A1A' stroke-width='1.2'/%3E%3C/svg%3E"); }
+.form-light .f-status { @apply text-encre; }
+.form-light .f-check { @apply text-encre; }
+
+/* Thème sombre : formulaire partenaire, carte translucide sur bleu nuit. */
+.form-dark .f-label { @apply text-or; font-size: 12px; letter-spacing: .22em; }
+.form-dark .f-input { @apply border-or/26 bg-ivoire/[0.06] font-light text-ivoire placeholder:text-ivoire/38 focus:border-or/70; padding: 14px 16px; }
+.form-dark .f-input[aria-invalid="true"] { border-color: #e8a0a0; }
+.form-dark .f-error { color: #f0b4b4; }
+.form-dark .f-status { @apply text-ivoire; }
+.f-input option { @apply bg-ivoire text-encre; }
+input[type="date"].f-input, input[type="time"].f-input { @apply cursor-text; }
+.form-dark input::-webkit-calendar-picker-indicator { filter: invert(1); }

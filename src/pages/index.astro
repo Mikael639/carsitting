@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Ornament from '../components/Ornament.astro';
+import Partners from '../components/Partners.astro';
+import Stats from '../components/Stats.astro';
+import Cta from '../components/Cta.astro';
+const maisons = [
+  ["Hôtels","Une arrivée sans rupture, au rythme de votre réception.","/images/hotel.jpg","Voiturier accueillant une cliente devant un hôtel"],
+  ["Restaurants","Une dépose précise, une circulation discrète, aucun frottement visible.","/images/restaurant.jpg","Salle de restaurant parisien"],
+  ["Événements privés","Un protocole lisible pour vos invités, invisible pour votre déroulé.","/images/evenement.jpg","Voiturier ouvrant la portière lors d’un événement privé"],
+];
+const etapes = [
+  ["I","Discrétion","Être présent sans s’imposer. Accompagner sans capter l’attention."],
+  ["II","Tenue irréprochable","Silhouette, langage, posture : le même soin que celui attendu en salle."],
+  ["III","Ponctualité","Une équipe dimensionnée, un flux anticipé, une attente jamais laissée au hasard."],
+  ["IV","Confiance","Les clés, les véhicules, les noms : tout est traité avec une rigueur silencieuse."],
+];
+---
+<Base title="CarSitting — Voituriers premium · Paris">
+  <section class="relative isolate min-h-[85vh] grid place-items-center text-center px-6 py-24 overflow-hidden">
+    <img src="/images/voiturier-smoking.jpg" alt="" width="1000" height="525" fetchpriority="high" class="absolute inset-0 -z-20 size-full object-cover" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-nuit-deep/80 via-nuit/75 to-nuit"></div>
+    <div class="max-w-4xl">
+      <p class="label mb-8">Voituriers premium · Paris</p>
+      <h1 class="display">Le standing de votre maison, jusqu’au trottoir.</h1>
+      <Ornament />
+      <p class="mx-auto max-w-xl text-ivoire-muted">La première présence que vos hôtes rencontrent. La dernière impression qu’ils emportent.</p>
+      <div class="mt-10"><a href="/demander-un-devis" class="btn">Demander un devis</a></div>
+    </div>
+  </section>
+
+  <section class="s-ivoire px-6 py-28 text-center">
+    <blockquote class="heading mx-auto max-w-3xl font-normal italic">« Le voiturier n’est pas un service périphérique. Il est le seuil vivant de votre maison. »</blockquote>
+    <Ornament />
+    <p class="mx-auto max-w-2xl text-ivoire-muted">CarSitting accompagne les maisons qui savent que l’accueil commence avant la porte. Une arrivée fluide, une clé remise avec exactitude, une silhouette tenue à la bonne distance : chaque geste prolonge votre standing. Première impression à l’arrivée, dernière impression au départ.</p>
+  </section>
+
+  <section class="s-ivoire px-5 pb-8 pt-4 sm:px-6 md:pb-12" aria-label="Le geste">
+    <figure class="mx-auto max-w-6xl">
+      <div class="overflow-hidden">
+        <img src="/images/voiturier-demeure.jpg" alt="Voiturier ouvrant la portière d’une berline devant une demeure" width="1536" height="1024" loading="lazy" class="aspect-[4/3] w-full object-cover object-[35%_20%] sm:aspect-[16/9]" />
+      </div>
+      <figcaption class="label mt-5 text-center !text-or">Le geste · Paris</figcaption>
+    </figure>
+  </section>
+
+  <section class="s-ivoire px-6 py-24">
+    <div class="mx-auto max-w-6xl">
+      <p class="label mb-4">Le service</p>
+      <h2 class="heading max-w-2xl">Une présence calibrée pour les maisons d’exigence.</h2>
+      <div class="mt-14 grid gap-10 md:grid-cols-3">
+        {maisons.map(([t,d,src,alt]) => <article class="border-t border-or pt-6"><img src={src} alt={alt} loading="lazy" class="mb-6 aspect-[4/3] w-full object-cover" /><h3 class="font-serif text-3xl mb-3">{t}</h3><p class="text-ivoire-muted">{d}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <Partners title="ILS NOUS FONT CONFIANCE" />
+
+  <section class="s-ivoire px-6 py-24">
+    <div class="mx-auto max-w-6xl">
+      <p class="label mb-4">L’approche</p>
+      <h2 class="heading max-w-2xl">La chorégraphie du service, tenue dans le détail.</h2>
+      <div class="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        {etapes.map(([n,t,d]) => <article><p class="font-serif text-or text-3xl">{n}</p><h3 class="font-serif text-2xl my-2">{t}</h3><p class="text-ivoire-muted">{d}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <Stats />
+  <Cta />
+</Base>

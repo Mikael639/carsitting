@@ -51,7 +51,7 @@ Toutes les règles (sceau, photos, ton de voix) sont dans [BRAND.md](BRAND.md).
 
 - **Ouverture plein écran** (`src/components/Hero.astro`) : photo pleine largeur sous un voile translucide (la photo reste visible, le texte lisible), texte qui apparaît en décalé, parallaxe, indicateur « Défiler ». L'accueil enchaîne 4 photos en fondu toutes les 6 s ; les autres pages en ont une. Inspiré de Les 3 Valets, avec plus d'espace (Madame Rêve). L'en-tête est transparent sur l'ouverture puis devient bleu nuit dès qu'on défile.
 - **Photos de l'ouverture** : prévoir du 1920 px de large minimum, sinon elles paraissent floues en plein écran. Les listes sont dans chaque page (`slides`).
-- **Défilé des logos** (`src/components/Partners.astro`) : déposer un fichier par maison dans `public/logos/` (liste des noms dans `public/logos/LISEZ-MOI.md`). Les logos passent en ivoire uni ; tant qu'un logo manque, le nom de la maison s'affiche à sa place.
+- **Défilé des logos** (`src/components/Partners.astro`) : les 11 logos des maisons sont dans `public/logos/` (récupérés sur leurs sites officiels, provisoires : voir `public/logos/SOURCES.md`). Ils passent en ivoire uni. Pour en remplacer un, déposer un fichier du même nom (liste dans `LISEZ-MOI.md`) ; tant qu'un logo manque, le nom de la maison s'affiche à sa place.
 
 ## Responsive et mobile
 
@@ -103,4 +103,4 @@ Pas encore fait. Le site est statique : il suffit de relier ce dépôt à un pro
 - Remplacer le monogramme « CS » de substitution par le fichier de logo officiel.
 - Renseigner les vraies coordonnées (téléphone, mentions légales, réseaux sociaux) dans `Footer.astro`.
 - Remplacer les photos qui s'éloignent de la charte (lumière basse, gros plans sur le geste), notamment celle de l'hôtel.
-- Ajouter les logos des partenaires (affichés en texte pour l'instant).
+- Obtenir l'accord des maisons pour afficher leurs logos et les remplacer par les versions officielles (kit presse, ou Paris Society pour ses adresses).

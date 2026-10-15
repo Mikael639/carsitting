@@ -23,6 +23,16 @@ export function setScrollLock(lock: boolean) {
   else lenis?.start();
 }
 
+// En-tête : transparent sur l'ouverture, solide dès qu'on défile (actif même sans animations).
+let headerBound = false;
+function headerState() {
+  const sync = () => document.querySelector('header')?.classList.toggle('is-solid', window.scrollY > 40);
+  sync();
+  if (headerBound) return;
+  headerBound = true;
+  window.addEventListener('scroll', sync, { passive: true });
+}
+
 function header() {
   const el = document.querySelector<HTMLElement>('header');
   if (!el) return;
@@ -39,24 +49,56 @@ function header() {
   });
 }
 
+// Photos de l'ouverture : fondu enchaîné lent (6 s par image), en pause quand l'onglet est caché.
+let slideTimer: number | undefined;
+function heroSlides(hero: Element) {
+  window.clearInterval(slideTimer);
+  const slides = [...hero.querySelectorAll<HTMLElement>('.hero-slide')];
+  if (slides.length < 2) return;
+  const counter = hero.querySelector<HTMLElement>('[data-hero-index]');
+  let i = 0;
+  const show = (n: number) => {
+    slides[i].removeAttribute('data-active');
+    i = (n + slides.length) % slides.length;
+    slides[i].setAttribute('data-active', '');
+    if (counter) counter.textContent = String(i + 1).padStart(2, '0');
+  };
+  slideTimer = window.setInterval(() => !document.hidden && show(i + 1), 6000);
+}
+
 function intro() {
-  const hero = document.querySelector('main > section:first-child');
+  const hero = document.querySelector('main > section[data-hero]');
   if (!hero) return;
-  const items = hero.querySelectorAll('p, h1, .btn, [aria-hidden="true"]');
+  heroSlides(hero);
+
+  // Apparition en décalé, lente et sans à-coup (« expo.out », comme sur Les 3 Valets).
   gsap.fromTo(
-    items,
-    { opacity: 0, y: 36 },
-    { opacity: 1, y: 0, duration: 1.2, ease: EASE, stagger: 0.14, delay: 0.15, clearProps: 'transform' },
+    hero.querySelectorAll('.hero-reveal'),
+    { opacity: 0, y: 40 },
+    { opacity: 1, y: 0, duration: 1.6, ease: 'expo.out', stagger: 0.16, delay: 0.35, clearProps: 'transform' },
   );
-  const bg = hero.querySelector<HTMLElement>('img.absolute');
-  if (bg) {
-    gsap.fromTo(bg, { scale: 1.14 }, { scale: 1, duration: 2.2, ease: 'power2.out' });
-    gsap.to(bg, {
-      yPercent: 14,
+
+  // Parallaxe : la photo glisse plus lentement que le texte.
+  const media = hero.querySelector<HTMLElement>('[data-hero-media]');
+  if (media) {
+    gsap.to(media, {
+      yPercent: 12,
       ease: 'none',
       scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
     });
   }
+
+}
+
+// Bouton « Défiler » de l'ouverture : actif aussi pour les visiteurs sans animations.
+function heroCue() {
+  const hero = document.querySelector('main > section[data-hero]');
+  hero?.querySelector('[data-hero-next]')?.addEventListener('click', () => {
+    const next = hero.nextElementSibling as HTMLElement | null;
+    if (!next) return;
+    if (lenis) lenis.scrollTo(next, { duration: 1.4 });
+    else next.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+  });
 }
 
 function reveals() {
@@ -82,7 +124,7 @@ function reveals() {
 function images() {
   const hero = document.querySelector('main > section:first-child');
   document.querySelectorAll<HTMLImageElement>('main img').forEach((img) => {
-    if (hero?.contains(img)) return;
+    if (hero?.contains(img) || img.closest('[data-marquee]')) return;
     const wrap = img.parentElement!;
     // Le zoom d'entrée (115 %) ne doit pas déborder de la carte ni élargir la page.
     if (!img.closest('.overflow-hidden')) {
@@ -112,7 +154,6 @@ function marquee() {
   if (!list || list.dataset.ready) return;
   list.dataset.ready = '1';
   list.innerHTML += list.innerHTML;
-  list.classList.remove('flex-wrap', 'justify-center');
   const tween = gsap.to(list, { xPercent: -50, duration: 40, ease: 'none', repeat: -1 });
   list.addEventListener('mouseenter', () => gsap.to(tween, { timeScale: 0.2, duration: 0.6 }));
   list.addEventListener('mouseleave', () => gsap.to(tween, { timeScale: 1, duration: 0.6 }));
@@ -141,6 +182,8 @@ function stats() {
 
 export function initMotion() {
   document.documentElement.classList.add('motion-ready');
+  headerState();
+  heroCue();
   if (reduced) {
     document.documentElement.classList.remove('js-motion');
     return;
@@ -157,6 +200,7 @@ export function initMotion() {
 }
 
 export function cleanupMotion() {
+  window.clearInterval(slideTimer);
   ScrollTrigger.getAll().forEach((t) => t.kill());
   gsap.killTweensOf('*');
 }

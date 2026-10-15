@@ -2,7 +2,7 @@
 // Conclusion « Parlons du seuil… » : encre par défaut, ivoire sur la page services (comme dans Framer).
 const { theme = 'encre' } = Astro.props;
 ---
-<section class:list={[theme === 'ivoire' ? 's-ivoire' : 's-encre', 'px-6 py-28 text-center']}>
+<section class:list={[theme === 'ivoire' ? 's-ivoire' : 's-encre', 'px-6 py-32 text-center md:py-44']}>
   <h2 class="heading mx-auto max-w-2xl">Parlons du seuil de votre établissement.</h2>
   <div class="mt-10"><a href="/demander-un-devis" class="btn">Demander un devis</a></div>
 </section>

@@ -1,0 +1,49 @@
+---
+// Ouverture plein écran de chaque page : photo(s) pleine largeur sous un voile translucide, texte centré.
+// Plusieurs images = fondu enchaîné lent (voir scripts/motion.ts). Une seule = image fixe avec léger zoom.
+interface Slide { src: string; position?: string }
+interface Action { href: string; label: string }
+interface Props {
+  slides: Slide[];
+  label: string;
+  title: string;
+  quote?: string;
+  cta?: Action;
+  /** full : tout l'écran · tall : 72 % de l'écran (page formulaire, pour garder le formulaire proche) */
+  size?: 'full' | 'tall';
+}
+const { slides, label, title, quote, cta, size = 'full' } = Astro.props;
+const multiple = slides.length > 1;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+<section data-hero class:list={['relative isolate flex items-center justify-center overflow-hidden text-center', size === 'full' ? 'min-h-[100svh]' : 'min-h-[72svh]']}>
+  <div data-hero-media class="absolute inset-0 -z-20 bg-nuit-deep">
+    {slides.map((s, i) => (
+      <div class="hero-slide" data-active={i === 0 ? '' : undefined}>
+        <img src={s.src} alt="" width="1920" height="1080" loading="eager" fetchpriority={i === 0 ? 'high' : 'low'} decoding="async" class="size-full object-cover" style={`object-position:${s.position ?? 'center'}`} />
+      </div>
+    ))}
+  </div>
+  <div class="hero-veil absolute inset-0 -z-10" aria-hidden="true"></div>
+
+  <div class="relative mx-auto w-full max-w-5xl px-6 pb-32 pt-36 md:pb-36">
+    <p class="label hero-reveal hero-label mb-8 md:mb-10">{label}</p>
+    <h1 class="display hero-reveal hero-title mx-auto max-w-4xl">{title}</h1>
+    <div class="hero-reveal my-10 flex items-center justify-center gap-4 md:my-14" aria-hidden="true">
+      <span class="h-px w-24 bg-or/50"></span><span class="size-2 rotate-45 bg-or"></span><span class="h-px w-24 bg-or/50"></span>
+    </div>
+    {quote && <p class="hero-reveal mx-auto max-w-xl font-serif text-xl italic text-ivoire/90 md:text-2xl">{quote}</p>}
+    {cta && <div class="hero-reveal mt-12 md:mt-14"><a href={cta.href} class="btn">{cta.label}</a></div>}
+  </div>
+
+  <div class="absolute inset-x-0 bottom-7 z-10 grid grid-cols-3 items-end px-6 md:bottom-10 md:px-12">
+    <p class="label hero-reveal justify-self-start !text-ivoire/70" aria-hidden={multiple ? undefined : 'true'}>
+      {multiple ? <><span data-hero-index>{pad(1)}</span> <span class="opacity-50">/ {pad(slides.length)}</span></> : 'Paris'}
+    </p>
+    <button type="button" data-hero-next class="hero-reveal hero-cue justify-self-center" aria-label="Découvrir la suite de la page">
+      <span class="label !text-ivoire/70">Défiler</span>
+      <span class="hero-cue__line" aria-hidden="true"></span>
+    </button>
+    <p class="label hero-reveal justify-self-end !text-ivoire/70" aria-hidden="true">MMXVI</p>
+  </div>
+</section>

@@ -1,11 +1,42 @@
 ---
-const { names = ["Madame Rêve","Baronne","Girafe","Too","Mun","Molitor","Polo de Paris","Maison Revka","Café de l'Homme","Thoumieux","Maxim's"], title = "Ils nous font confiance" } = Astro.props;
+// Défilé des maisons partenaires. Un logo est utilisé s'il est déposé dans public/logos/<identifiant>.(svg|png|webp|jpg) ;
+// sinon le nom s'affiche en capitales. Voir public/logos/LISEZ-MOI.md pour la liste des identifiants.
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+interface Partner { name: string; slug: string }
+const all: Partner[] = [
+  { name: 'Madame Rêve', slug: 'madame-reve' },
+  { name: 'Baronne', slug: 'baronne' },
+  { name: 'Girafe', slug: 'girafe' },
+  { name: 'Too', slug: 'too' },
+  { name: 'Mun', slug: 'mun' },
+  { name: 'Molitor', slug: 'molitor' },
+  { name: 'Polo de Paris', slug: 'polo-de-paris' },
+  { name: 'Maison Revka', slug: 'maison-revka' },
+  { name: 'Café de l’Homme', slug: 'cafe-de-l-homme' },
+  { name: 'Thoumieux', slug: 'thoumieux' },
+  { name: 'Maxim’s', slug: 'maxims' },
+];
+const { only, title = 'Ils nous font confiance' } = Astro.props as { only?: string[]; title?: string };
+const dir = join(process.cwd(), 'public', 'logos');
+const exts = ['svg', 'png', 'webp', 'jpg'];
+const partners = (only ? all.filter((p) => only.includes(p.slug)) : all).map((p) => {
+  const ext = exts.find((e) => existsSync(join(dir, `${p.slug}.${e}`)));
+  return { ...p, logo: ext ? `/logos/${p.slug}.${ext}` : null };
+});
 ---
-<section id="les-maisons" class="s-encre px-6 py-24 text-center scroll-mt-20">
-  <p class="label mb-12">{title}</p>
-  <div class="overflow-hidden">
-    <ul data-marquee class="flex w-max gap-x-16 pr-16 font-serif text-2xl uppercase tracking-widest text-ivoire-muted whitespace-nowrap">
-      {names.map((n: string) => <li>{n}</li>)}
+<section id="les-maisons" class="s-encre scroll-mt-20 px-6 py-28 text-center md:py-40">
+  <p class="label mb-14 md:mb-20">{title}</p>
+  <div class="partners-track overflow-hidden" role="list" aria-label="Maisons partenaires">
+    <ul data-marquee class="flex w-max items-center gap-x-20 pr-20 md:gap-x-28 md:pr-28">
+      {partners.map((p) => (
+        <li class="partner shrink-0" role="listitem">
+          {p.logo
+            ? <img src={p.logo} alt={p.name} loading="lazy" class="partner__logo" />
+            : <span class="partner__name">{p.name}</span>}
+        </li>
+      ))}
     </ul>
   </div>
 </section>

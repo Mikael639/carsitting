@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
 import Stats from '../components/Stats.astro';
 import Field from '../components/form/Field.astro';
 import Submit from '../components/form/Submit.astro';
@@ -14,14 +15,13 @@ const valeurs = [
   title="Qui sommes-nous — CarSitting"
   description="Depuis 2016, CarSitting veille sur le seuil des maisons d’exception parisiennes : des équipes sélectionnées, formées et discrètes, au service de votre établissement."
 >
-  <section class="relative isolate px-6 py-32 text-center overflow-hidden">
-    <img src="/images/paris-nuit.jpg" alt="" width="1920" height="1080" fetchpriority="high" class="absolute inset-0 -z-20 size-full object-cover" />
-    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-nuit-deep/75 to-nuit"></div>
-    <p class="label mb-6">CarSitting · Paris</p>
-    <h1 class="display mx-auto max-w-4xl">Depuis MMXVI, nous veillons sur le seuil des maisons d’exception parisiennes.</h1>
-  </section>
+  <Hero
+    slides={[{ src: '/images/paris-nuit.jpg', position: 'center 55%' }]}
+    label="CarSitting · Paris"
+    title="Depuis MMXVI, nous veillons sur le seuil des maisons d’exception parisiennes."
+  />
 
-  <section class="s-ivoire px-6 py-24">
+  <section class="s-ivoire px-6 py-28 md:py-40">
     <div class="mx-auto max-w-3xl space-y-6">
       <p class="label">Notre conviction</p>
       <blockquote class="heading font-normal italic">« Le voiturier est le seuil vivant de l’établissement. »</blockquote>
@@ -30,7 +30,7 @@ const valeurs = [
     </div>
   </section>
 
-  <section class="s-ivoire px-6 py-24">
+  <section class="s-ivoire px-6 py-28 md:py-40">
     <div class="mx-auto max-w-6xl">
       <p class="label mb-4">Nos valeurs</p>
       <h2 class="heading">Les exigences qui nous tiennent</h2>
@@ -40,7 +40,7 @@ const valeurs = [
     </div>
   </section>
 
-  <section class="s-nuit px-6 py-24">
+  <section class="s-nuit px-6 py-28 md:py-40">
     <div class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[4fr_5fr] lg:gap-16">
       <div>
         <p class="label mb-4">Nos équipes</p>
@@ -55,7 +55,7 @@ const valeurs = [
 
   <Stats />
 
-  <section id="contact" class="s-nuit scroll-mt-24 px-5 py-24 sm:px-6 md:py-36">
+  <section id="contact" class="s-nuit scroll-mt-24 px-5 py-24 sm:px-6 md:py-40">
     <div class="mx-auto grid max-w-6xl items-start gap-14 lg:grid-cols-2 lg:gap-[72px]">
       <div class="space-y-7">
         <span class="grid size-16 place-items-center rounded-full border border-or/55 font-serif text-[30px] text-or" aria-hidden="true">CS</span>

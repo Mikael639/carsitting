@@ -50,12 +50,46 @@ body { @apply bg-nuit text-ivoire font-sans font-light; font-size: 16px; line-he
 .s-or .label { color: var(--color-nuit); }
 
 /* Mouvement : éléments masqués tant que le script n'a pas pris la main (JS actif, pas de reduced-motion). */
-html.js-motion main section :is(h1, h2, h3, p, blockquote, article, li, form, .btn, [data-stat]) { opacity: 0; }
+html.js-motion main section :is(h1, h2, h3, p, blockquote, article, li, form, .btn, [data-stat]), html.js-motion .hero-reveal { opacity: 0; }
 
 /* Les cartes (article) et les formulaires se révèlent d'un bloc : leur contenu reste visible
    (sinon un parcours affiché après coup resterait invisible). */
 html.js-motion main section :is(article, form) :is(h1, h2, h3, p, blockquote, li, .btn, [data-stat]),
-html.js-motion main section [data-marquee] li { opacity: 1; }
+html.js-motion main section [data-marquee] li, html.js-motion [data-hero] .hero-reveal .btn { opacity: 1; }
+
+/* ——— Ouverture plein écran (inspirée de Les 3 Valets, avec plus d'air) ———
+   Voile translucide : la photo reste bien visible, le texte reste lisible. */
+.hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.6s cubic-bezier(.22, 1, .36, 1); }
+.hero-slide[data-active] { opacity: 1; }
+.hero-slide img { transform: scale(1); }
+.hero-slide[data-active] img { animation: hero-zoom 10s cubic-bezier(.22, 1, .36, 1) forwards; }
+@keyframes hero-zoom { from { transform: scale(1.08); } to { transform: scale(1); } }
+.hero-veil { background:
+  linear-gradient(180deg, rgb(18 25 48 / .62) 0%, rgb(18 25 48 / .22) 26%, rgb(18 25 48 / .30) 62%, rgb(18 25 48 / .88) 100%),
+  radial-gradient(ellipse 62% 50% at 50% 46%, rgb(18 25 48 / .42), transparent 100%); }
+[data-hero] .btn { color: var(--color-ivoire); background-color: rgb(18 25 48 / .35); backdrop-filter: blur(6px); }
+.hero-title { text-shadow: 0 2px 36px rgb(18 25 48 / .55); }
+.hero-label { color: var(--color-ivoire) !important; text-shadow: 0 1px 14px rgb(18 25 48 / .7); }
+[data-hero] .font-serif.italic { text-shadow: 0 1px 18px rgb(18 25 48 / .6); }
+.hero-cue { display: flex; flex-direction: column; align-items: center; gap: 12px; background: none; border: 0; padding: 8px 12px; cursor: pointer; }
+.hero-cue__line { display: block; width: 1px; height: 44px; background: linear-gradient(to bottom, var(--color-or), transparent); transform-origin: top; animation: hero-cue 2.4s cubic-bezier(.44, 0, .56, 1) infinite; }
+@keyframes hero-cue { 0% { transform: scaleY(0); } 55% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+.hero-cue:focus-visible { @apply outline-2 outline-offset-4 outline-or; }
+@media (prefers-reduced-motion: reduce) { .hero-slide img, .hero-cue__line { animation: none !important; } .hero-slide { transition: none; } }
+
+/* En-tête : transparent sur l'ouverture, bleu nuit translucide dès qu'on défile. */
+header.site-header { background-color: transparent; border-color: transparent; transition: background-color .5s, border-color .5s, backdrop-filter .5s; }
+/* Bouton du haut lisible même sur une zone claire de la photo. */
+header.site-header:not(.is-solid) .btn { background-color: rgb(18 25 48 / .45); backdrop-filter: blur(6px); }
+header.site-header.is-solid { background-color: rgb(18 25 48 / .9); border-color: var(--color-or-faint); backdrop-filter: blur(12px); }
+
+/* ——— Défilé des maisons : logos monochromes ivoire, fondus sur les bords ——— */
+.partners-track { -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.partner { display: flex; height: 56px; align-items: center; opacity: .7; transition: opacity .5s; }
+.partner:hover { opacity: 1; }
+.partner__logo { height: 100%; width: auto; max-width: 220px; object-fit: contain; filter: brightness(0) invert(1) !important; }
+.partner__name { font-family: var(--font-serif); font-size: 26px; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; color: var(--color-ivoire); }
+@media (max-width: 639px) { .partner { height: 44px; } .partner__name { font-size: 22px; } }
 
 /* ——— Menu mobile ——— */
 @layer components {

@@ -47,6 +47,12 @@ Définie dans `src/styles/global.css` (`@theme`) :
 
 Toutes les règles (sceau, photos, ton de voix) sont dans [BRAND.md](BRAND.md).
 
+## Ouverture des pages et défilé des maisons
+
+- **Ouverture plein écran** (`src/components/Hero.astro`) : photo pleine largeur sous un voile translucide (la photo reste visible, le texte lisible), texte qui apparaît en décalé, parallaxe, indicateur « Défiler ». L'accueil enchaîne 4 photos en fondu toutes les 6 s ; les autres pages en ont une. Inspiré de Les 3 Valets, avec plus d'espace (Madame Rêve). L'en-tête est transparent sur l'ouverture puis devient bleu nuit dès qu'on défile.
+- **Photos de l'ouverture** : prévoir du 1920 px de large minimum, sinon elles paraissent floues en plein écran. Les listes sont dans chaque page (`slides`).
+- **Défilé des logos** (`src/components/Partners.astro`) : déposer un fichier par maison dans `public/logos/` (liste des noms dans `public/logos/LISEZ-MOI.md`). Les logos passent en ivoire uni ; tant qu'un logo manque, le nom de la maison s'affiche à sa place.
+
 ## Responsive et mobile
 
 Testé de 320 à 1280 px sur les 4 pages : aucun défilement horizontal.

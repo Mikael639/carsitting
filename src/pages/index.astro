@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
 import Ornament from '../components/Ornament.astro';
 import Partners from '../components/Partners.astro';
 import Stats from '../components/Stats.astro';
@@ -20,19 +21,20 @@ const etapes = [
   title="CarSitting — Voituriers premium à Paris"
   description="Le standing de votre maison, jusqu’au trottoir. CarSitting assure l’accueil voiturier d’hôtels, restaurants et événements privés à Paris, avec discrétion et exactitude."
 >
-  <section class="relative isolate min-h-[85vh] grid place-items-center text-center px-6 py-24 overflow-hidden">
-    <img src="/images/voiturier-smoking.jpg" alt="" width="1000" height="525" fetchpriority="high" class="absolute inset-0 -z-20 size-full object-cover" />
-    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-nuit-deep/80 via-nuit/75 to-nuit"></div>
-    <div class="max-w-4xl">
-      <p class="label mb-8">Voituriers premium · Paris</p>
-      <h1 class="display">Le standing de votre maison, jusqu’au trottoir.</h1>
-      <Ornament />
-      <p class="mx-auto max-w-xl text-ivoire-muted">La première présence que vos hôtes rencontrent. La dernière impression qu’ils emportent.</p>
-      <div class="mt-10"><a href="/demander-un-devis" class="btn">Demander un devis</a></div>
-    </div>
-  </section>
+  <Hero
+    slides={[
+      { src: '/images/paris-nuit.jpg', position: 'center 55%' },
+      { src: '/images/voiturier-demeure.jpg', position: '35% 25%' },
+      { src: '/images/hotel.jpg', position: 'center 60%' },
+      { src: '/images/services-evenement.jpg', position: 'center 35%' },
+    ]}
+    label="Voituriers premium · Paris"
+    title="Le standing de votre maison, jusqu’au trottoir."
+    quote="La première présence que vos hôtes rencontrent. La dernière impression qu’ils emportent."
+    cta={{ href: '/demander-un-devis', label: 'Demander un devis' }}
+  />
 
-  <section class="s-ivoire px-6 py-28 text-center">
+  <section class="s-ivoire px-6 py-28 text-center md:py-40">
     <blockquote class="heading mx-auto max-w-3xl font-normal italic">« Le voiturier n’est pas un service périphérique. Il est le seuil vivant de votre maison. »</blockquote>
     <Ornament />
     <p class="mx-auto max-w-2xl text-ivoire-muted">CarSitting accompagne les maisons qui savent que l’accueil commence avant la porte. Une arrivée fluide, une clé remise avec exactitude, une silhouette tenue à la bonne distance : chaque geste prolonge votre standing. Première impression à l’arrivée, dernière impression au départ.</p>
@@ -47,7 +49,7 @@ const etapes = [
     </figure>
   </section>
 
-  <section class="s-ivoire px-6 py-24">
+  <section class="s-ivoire px-6 py-28 md:py-40">
     <div class="mx-auto max-w-6xl">
       <p class="label mb-4">Le service</p>
       <h2 class="heading max-w-2xl">Une présence calibrée pour les maisons d’exigence.</h2>
@@ -59,7 +61,7 @@ const etapes = [
 
   <Partners title="ILS NOUS FONT CONFIANCE" />
 
-  <section class="s-ivoire px-6 py-24">
+  <section class="s-ivoire px-6 py-28 md:py-40">
     <div class="mx-auto max-w-6xl">
       <p class="label mb-4">L’approche</p>
       <h2 class="heading max-w-2xl">La chorégraphie du service, tenue dans le détail.</h2>

@@ -2,7 +2,7 @@
 import { navLinks } from '../data/nav';
 const p = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<header class="sticky top-0 z-50 border-b border-or-faint bg-nuit/90 backdrop-blur">
+<header class="site-header fixed inset-x-0 top-0 z-50 border-b">
   <nav class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-4 text-sm sm:px-6 sm:py-5" aria-label="Navigation principale">
     <a href="/" class="flex shrink-0 items-center gap-3 whitespace-nowrap" aria-label="Car Sitting — Service voiturier, accueil">
       <span class="grid size-10 place-items-center rounded-md bg-or font-serif text-lg font-bold text-nuit">CS</span>

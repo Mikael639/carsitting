@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import Ornament from '../components/Ornament.astro';
+import Hero from '../components/Hero.astro';
 import Partners from '../components/Partners.astro';
 import Cta from '../components/Cta.astro';
 const prestations = [
@@ -15,21 +15,21 @@ const reperes = ["Tenue irréprochable","Équipes sélectionnées et formées","
   title="Nos services — CarSitting"
   description="Un service voiturier décliné pour chaque maison : hôtels, restaurants et événements privés. À l’année, ponctuel ou événementiel, avec le même niveau d’exigence."
 >
-  <section class="px-6 py-28 text-center bg-gradient-to-b from-nuit-deep to-encre">
-    <p class="label mb-6">Nos services</p>
-    <h1 class="display mx-auto max-w-4xl">Un service, décliné pour chaque maison.</h1>
-    <Ornament />
-    <p class="mx-auto max-w-xl text-ivoire-muted">Le même standard d’excellence, adapté à la nature de votre établissement.</p>
-    <div class="mt-10"><a href="/demander-un-devis" class="btn">Demander un devis</a></div>
-  </section>
+  <Hero
+    slides={[{ src: '/images/services-evenement.jpg', position: 'center 35%' }]}
+    label="Nos services"
+    title="Un service, décliné pour chaque maison."
+    quote="Le même standard d’excellence, adapté à la nature de votre établissement."
+    cta={{ href: '/demander-un-devis', label: 'Demander un devis' }}
+  />
 
-  <section class="s-ivoire px-6 py-24 text-center">
+  <section class="s-ivoire px-6 py-28 md:py-40 text-center">
     <p class="label mb-4">Notre philosophie</p>
     <h2 class="heading mx-auto max-w-2xl">Un seul niveau d’exigence, quelle que soit la prestation.</h2>
     <p class="mx-auto mt-6 max-w-2xl text-ivoire-muted">De l’arrivée d’un hôte à la fin d’une soirée, chaque geste est tenu avec la même précision. Votre maison reste au premier plan.</p>
   </section>
 
-  <section class="s-ivoire px-6 py-24">
+  <section class="s-ivoire px-6 py-28 md:py-40">
     <div class="mx-auto max-w-5xl space-y-16">
       {prestations.map(([n,t,d,src,alt]) => (
         <article class="grid gap-6 md:grid-cols-[6rem_1fr_1fr] border-t border-or pt-8 items-center">
@@ -41,7 +41,7 @@ const reperes = ["Tenue irréprochable","Équipes sélectionnées et formées","
     </div>
   </section>
 
-  <section class="s-nuit px-6 py-24">
+  <section class="s-nuit px-6 py-28 md:py-40">
     <div class="mx-auto max-w-5xl">
       <h2 class="heading mb-12">Modalités d’intervention</h2>
       <div class="grid gap-10 md:grid-cols-3">
@@ -50,7 +50,7 @@ const reperes = ["Tenue irréprochable","Équipes sélectionnées et formées","
     </div>
   </section>
 
-  <section class="s-ivoire px-6 py-24">
+  <section class="s-ivoire px-6 py-28 md:py-40">
     <div class="mx-auto max-w-5xl">
       <h2 class="heading mb-12">Ce qui nous distingue</h2>
       <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -60,6 +60,6 @@ const reperes = ["Tenue irréprochable","Équipes sélectionnées et formées","
     </div>
   </section>
 
-  <Partners title="Ils nous font déjà confiance" names={["Madame Rêve","Baronne","Girafe","Too","Mun","Molitor","Polo de Paris","Maison Revka"]} />
+  <Partners title="Ils nous font déjà confiance" only={['madame-reve','baronne','girafe','too','mun','molitor','polo-de-paris','maison-revka']} />
   <Cta theme="ivoire" />
 </Base>

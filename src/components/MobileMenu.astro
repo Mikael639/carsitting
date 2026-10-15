@@ -3,7 +3,7 @@ import { navLinks } from '../data/nav';
 const p = Astro.url.pathname.replace(/\/$/, '') || '/';
 const links = [{ href: '/', label: 'Accueil' }, ...navLinks, { href: '/demander-un-devis', label: 'Demander un devis' }];
 ---
-<!-- Hors de <header> : le backdrop-filter du header piégerait ce panneau « fixed » dans sa hauteur. -->
+{/* Hors de <header> : le backdrop-filter du header piégerait ce panneau « fixed » dans sa hauteur. */}
 <div id="mobile-menu" class="mobile-menu flex lg:hidden" inert role="dialog" aria-modal="true" aria-label="Menu">
   <nav class="mobile-menu__nav" aria-label="Menu principal">
     <p class="label mb-8">Menu</p>

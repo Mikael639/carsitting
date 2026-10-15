@@ -1,13 +1,16 @@
 ---
-// Repères chiffrés. Fond bleu nuit et chiffres or : la charte proscrit l'or en aplat.
+// Repères chiffrés. Jamais d'or en aplat (charte) : fond bleu nuit ou ivoire selon la section voisine,
+// pour garder l'alternance des fonds.
+const { theme = 'nuit' } = Astro.props as { theme?: 'nuit' | 'ivoire' };
 const stats = [["MMXVI", "Maison fondée"], ["12 000+", "Prestations réalisées"], ["40+", "Établissements servis"]];
+const light = theme === 'ivoire';
 ---
-<section class="s-nuit px-6 py-28 md:py-40">
+<section class:list={[light ? 's-ivoire border-t border-encre/10' : 's-nuit', 'px-6 py-28 md:py-40']}>
   <div class="mx-auto grid max-w-6xl text-center md:grid-cols-3">
     {stats.map(([v, l], i) => (
       <div class:list={['px-6 py-10 md:py-4', i > 0 && 'border-t border-or/25 md:border-l md:border-t-0']}>
-        <p data-stat class="font-serif text-6xl font-light text-or md:text-7xl">{v}</p>
-        <p class="label mt-5 !text-ivoire/70">{l}</p>
+        <p data-stat class:list={['font-serif text-6xl font-light md:text-7xl', light ? 'text-nuit' : 'text-or']}>{v}</p>
+        <p class:list={['label mt-5', !light && '!text-ivoire/70']}>{l}</p>
       </div>
     ))}
   </div>

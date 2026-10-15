@@ -9,7 +9,6 @@ const prestations = [
   ["III","Événements privés","Via votre établissement, un dispositif sur-mesure : équipe dimensionnée, arrivées multiples orchestrées, un protocole invisible pour vos invités.","/images/services-evenement.jpg","Voituriers accueillant une invitée lors d’une soirée privée"],
 ];
 const formules = [["À l’année","Une présence intégrée au rythme de votre maison."],["Ponctuel","Une équipe préparée pour vos séquences choisies."],["Événementiel","Un protocole calibré pour vos temps forts."]];
-const reperes = ["Tenue irréprochable","Équipes sélectionnées et formées","Discrétion absolue","Entière confiance"];
 ---
 <Base
   title="Nos services — CarSitting"
@@ -66,19 +65,7 @@ const reperes = ["Tenue irréprochable","Équipes sélectionnées et formées","
 
   <section class="s-ivoire px-6 py-32 md:py-48">
     <div class="mx-auto max-w-7xl">
-      <div class="grid gap-8 md:grid-cols-12">
-        <p class="label md:col-span-4 md:pt-4">Nos repères</p>
-        <h2 class="heading md:col-span-8">Ce qui nous distingue</h2>
-      </div>
-      <ul class="mt-20 grid gap-x-10 border-t border-encre/10 sm:grid-cols-2 md:mt-24 lg:grid-cols-4">
-        {reperes.map((r, i) => (
-          <li class="flex items-baseline gap-4 border-b border-encre/10 py-8 lg:border-b-0">
-            <span class="font-serif text-xl italic text-or">{['I', 'II', 'III', 'IV'][i]}</span>
-            <span class="label !text-nuit">{r}</span>
-          </li>
-        ))}
-      </ul>
-      <blockquote class="quote-xl mx-auto mt-28 max-w-4xl text-center md:mt-40">« Une présence qui règle le rythme sans jamais le prendre. »</blockquote>
+      <blockquote class="quote-xl mx-auto max-w-4xl text-center">« Une présence qui règle le rythme sans jamais le prendre. »</blockquote>
     </div>
   </section>
 

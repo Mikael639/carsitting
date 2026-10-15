@@ -103,28 +103,37 @@ function heroCue() {
 
 function reveals() {
   const hero = document.querySelector('main > section:first-child');
-  const targets = [...document.querySelectorAll<HTMLElement>(
-    'main section h1, main section h2, main section h3, main section p, main section blockquote, main section article, main section li, main section form, main section .btn, main section [data-stat]',
+  const all = [...document.querySelectorAll<HTMLElement>(
+    'main section h1, main section h2, main section h3, main section p, main section blockquote, main section article, main section li, main section form, main section .btn, main section [data-stat], main section figure',
   )].filter((el) => {
     if (hero?.contains(el) || el.closest('[data-marquee]')) return false;
     // Cartes et formulaires : révélés d'un bloc, sans animer leurs enfants.
-    const block = el.parentElement?.closest('article, form');
-    return !block;
+    return !el.parentElement?.closest('article, form, figure');
+  });
+  // Grands titres et citations : ils montent derrière un masque (plus éditorial qu'un simple fondu).
+  const titles = all.filter((el) => el.matches('.heading, .display, .quote-xl'));
+  const rest = all.filter((el) => !titles.includes(el));
+
+  gsap.set(titles, { opacity: 1, clipPath: 'inset(0 0 100% 0)', y: 48 });
+  ScrollTrigger.batch(titles, {
+    start: 'top 90%',
+    once: true,
+    onEnter: (batch) => gsap.to(batch, { clipPath: 'inset(-10% 0 -20% 0)', y: 0, duration: 1.5, ease: 'expo.out', stagger: 0.12, overwrite: true, clearProps: 'clipPath,transform' }),
   });
 
-  ScrollTrigger.batch(targets, {
+  gsap.set(rest, { opacity: 0, y: 32 });
+  ScrollTrigger.batch(rest, {
     start: 'top 88%',
     once: true,
     onEnter: (batch) =>
-      gsap.to(batch, { opacity: 1, y: 0, duration: 1, ease: EASE, stagger: 0.12, overwrite: true, clearProps: 'transform' }),
+      gsap.to(batch, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.1, overwrite: true, clearProps: 'transform' }),
   });
-  gsap.set(targets, { opacity: 0, y: 32 });
 }
 
 function images() {
   const hero = document.querySelector('main > section:first-child');
   document.querySelectorAll<HTMLImageElement>('main img').forEach((img) => {
-    if (hero?.contains(img) || img.closest('[data-marquee]')) return;
+    if (hero?.contains(img) || img.closest('[data-marquee], [data-cta-media]')) return;
     const wrap = img.parentElement!;
     // Le zoom d'entrée (115 %) ne doit pas déborder de la carte ni élargir la page.
     if (!img.closest('.overflow-hidden')) {
@@ -143,9 +152,18 @@ function images() {
         duration: 1.4,
         ease: 'power3.inOut',
         scrollTrigger: { trigger: wrap, start: 'top 85%', once: true },
-        clearProps: 'clipPath',
+        clearProps: 'clipPath,transform',
       },
     );
+  });
+}
+
+function ctaParallax() {
+  document.querySelectorAll<HTMLElement>('[data-cta-media]').forEach((m) => {
+    gsap.fromTo(m.querySelector('img'), { yPercent: -8, scale: 1.12 }, {
+      yPercent: 8, scale: 1.12, ease: 'none',
+      scrollTrigger: { trigger: m.parentElement, start: 'top bottom', end: 'bottom top', scrub: true },
+    });
   });
 }
 
@@ -195,6 +213,7 @@ export function initMotion() {
   reveals();
   images();
   marquee();
+  ctaParallax();
   stats();
   ScrollTrigger.refresh();
 }

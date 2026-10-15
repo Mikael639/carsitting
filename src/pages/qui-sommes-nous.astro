@@ -21,31 +21,44 @@ const valeurs = [
     title="Depuis MMXVI, nous veillons sur le seuil des maisons d’exception parisiennes."
   />
 
-  <section class="s-ivoire px-6 py-28 md:py-40">
-    <div class="mx-auto max-w-3xl space-y-6">
-      <p class="label">Notre conviction</p>
-      <blockquote class="heading font-normal italic">« Le voiturier est le seuil vivant de l’établissement. »</blockquote>
-      <p class="text-ivoire-muted">Nous avons fondé CarSitting avec une idée simple : l’accueil ne commence pas au comptoir, mais à l’instant où une voiture s’arrête devant une maison. Depuis 2016, nous composons ce premier geste avec la précision d’un rituel — discret pour l’hôte, parfaitement lisible pour la maison.</p>
-      <p class="text-ivoire-muted">Nous ne déposons pas seulement des clés. Nous assurons la continuité d’un lieu, de sa promesse et de son standing. Chaque arrivée est préparée, chaque départ est accompagné, chaque détail tient sa place.</p>
+  <!-- Récit : la conviction en grand à gauche, l'histoire à droite. -->
+  <section class="s-ivoire px-6 py-32 md:py-48">
+    <div class="mx-auto grid max-w-7xl gap-14 md:grid-cols-12 md:gap-10">
+      <div class="md:col-span-6">
+        <p class="label mb-10">Notre conviction</p>
+        <blockquote class="quote-xl">« Le voiturier est le seuil vivant de l’établissement. »</blockquote>
+      </div>
+      <div class="space-y-6 md:col-span-5 md:col-start-8 md:pt-24">
+        <p class="lede text-ivoire-muted">Nous avons fondé CarSitting avec une idée simple : l’accueil ne commence pas au comptoir, mais à l’instant où une voiture s’arrête devant une maison. Depuis 2016, nous composons ce premier geste avec la précision d’un rituel — discret pour l’hôte, parfaitement lisible pour la maison.</p>
+        <p class="text-ivoire-muted">Nous ne déposons pas seulement des clés. Nous assurons la continuité d’un lieu, de sa promesse et de son standing. Chaque arrivée est préparée, chaque départ est accompagné, chaque détail tient sa place.</p>
+      </div>
     </div>
   </section>
 
-  <section class="s-ivoire px-6 py-28 md:py-40">
-    <div class="mx-auto max-w-6xl">
-      <p class="label mb-4">Nos valeurs</p>
-      <h2 class="heading">Les exigences qui nous tiennent</h2>
-      <div class="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-        {valeurs.map(([n,t,d]) => <article><p class="font-serif text-or text-3xl">{n}</p><h3 class="font-serif text-2xl my-2">{t}</h3><p class="text-ivoire-muted">{d}</p></article>)}
+  <section class="s-ivoire border-t border-encre/10 px-6 py-32 md:py-48">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-8 md:grid-cols-12">
+        <p class="label md:col-span-4 md:pt-4">Nos valeurs</p>
+        <h2 class="heading md:col-span-8">Les exigences qui nous tiennent</h2>
+      </div>
+      <div class="mt-20 grid gap-12 sm:grid-cols-2 md:mt-28 lg:grid-cols-4 lg:gap-0">
+        {valeurs.map(([n, t, d]) => (
+          <article class="border-l border-or/35 pl-6 lg:px-8">
+            <p class="font-serif text-5xl font-light italic text-or">{n}</p>
+            <h3 class="mt-6 font-serif text-[26px] font-normal leading-tight text-nuit">{t}</h3>
+            <p class="mt-4 text-ivoire-muted">{d}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
   <section class="s-nuit px-6 py-28 md:py-40">
-    <div class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[4fr_5fr] lg:gap-16">
+    <div class="mx-auto grid max-w-7xl items-center gap-14 md:grid-cols-[4fr_5fr] lg:gap-20">
       <div>
-        <p class="label mb-4">Nos équipes</p>
-        <h2 class="heading mb-6">Le standard humain d’une maison.</h2>
-        <p class="text-ivoire-muted">Nous sélectionnons les tempéraments autant que les parcours. Formation, tenue, posture et attention au détail : nos voituriers portent la maison avec calme, avant même d’en prononcer le nom.</p>
+        <p class="label mb-6">Nos équipes</p>
+        <h2 class="heading mb-8">Le standard humain d’une maison.</h2>
+        <p class="lede text-ivoire-muted">Nous sélectionnons les tempéraments autant que les parcours. Formation, tenue, posture et attention au détail : nos voituriers portent la maison avec calme, avant même d’en prononcer le nom.</p>
       </div>
       <div class="overflow-hidden">
         <img src="/images/voiturier-smoking.jpg" alt="Voiturier en smoking, portière ouverte sur une rue pavée" width="1000" height="525" loading="lazy" class="aspect-[1000/525] w-full object-cover" />

@@ -22,9 +22,26 @@ body { @apply bg-nuit text-ivoire font-sans font-light; font-size: 16px; line-he
 .display { @apply font-serif font-normal text-ivoire; font-size: 42px; line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; }
 @media (min-width: 810px) { .display { font-size: 56px; line-height: 1; } }
 @media (min-width: 1200px) { .display { font-size: 76px; line-height: .98; } }
-.heading { @apply font-serif font-bold text-ivoire; font-size: 34px; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
-@media (min-width: 810px) { .heading { font-size: 42px; } }
-@media (min-width: 1200px) { .heading { font-size: 41px; line-height: 1.05; } }
+.heading { @apply font-serif font-medium text-ivoire; font-size: 36px; line-height: 1.06; letter-spacing: -0.02em; text-wrap: balance; }
+@media (min-width: 810px) { .heading { font-size: 46px; } }
+@media (min-width: 1200px) { .heading { font-size: 54px; line-height: 1.02; } }
+/* Paragraphe d'introduction : mesure courte, un peu plus grand. */
+.lede { max-width: 38rem; font-size: 1.12em; line-height: 1.7; }
+/* Citation de manifeste : grande italique fine. */
+.quote-xl { @apply font-serif font-light italic; font-size: 34px; line-height: 1.18; letter-spacing: -0.015em; text-wrap: balance; }
+@media (min-width: 810px) { .quote-xl { font-size: 48px; } }
+@media (min-width: 1200px) { .quote-xl { font-size: 62px; line-height: 1.1; } }
+::selection { background: var(--color-or); color: var(--color-nuit-deep); }
+
+/* Grain photographique très léger sur tout le site : matière, profondeur. */
+body::after { content: ""; position: fixed; inset: -50%; z-index: 70; pointer-events: none; opacity: .055; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* Curseur : anneau or qui suit la souris et s'ouvre sur les éléments cliquables (souris uniquement). */
+.cursor { position: fixed; left: 0; top: 0; z-index: 80; width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1px solid rgb(169 139 84 / .7); border-radius: 999px; pointer-events: none; opacity: 0; transition: width .45s cubic-bezier(.22,1,.36,1), height .45s cubic-bezier(.22,1,.36,1), margin .45s cubic-bezier(.22,1,.36,1), opacity .3s, background-color .45s; }
+.cursor.is-on { opacity: 1; }
+.cursor.is-link { width: 64px; height: 64px; margin: -32px 0 0 -32px; background-color: rgb(169 139 84 / .12); }
+@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
 .label { @apply font-sans font-normal uppercase text-or; font-size: 12px; letter-spacing: .22em; line-height: 1.1; }
 .nav-link { @apply relative whitespace-nowrap uppercase text-ivoire-muted transition-colors duration-500 hover:text-ivoire; font-size: 12px; letter-spacing: .22em; line-height: 1.1; }
 .nav-link[aria-current="page"] { @apply text-or; }
@@ -34,6 +51,21 @@ body { @apply bg-nuit text-ivoire font-sans font-light; font-size: 16px; line-he
 @layer components {
   .btn { @apply inline-block border border-or text-or uppercase px-8 py-4 transition-colors duration-500 hover:border-ivoire hover:text-ivoire; font-size: 12px; letter-spacing: .22em; }
 }
+
+/* Lien éditorial : petites capitales et filet qui s'allonge au survol. */
+.link-arrow { @apply inline-flex items-center gap-4 font-sans font-normal uppercase text-nuit; font-size: 12px; letter-spacing: .22em; }
+.link-arrow::before { content: ""; display: block; height: 1px; width: 32px; background: var(--color-or); transition: width .6s cubic-bezier(.22,1,.36,1); }
+.link-arrow:hover::before, .link-arrow:focus-visible::before { width: 64px; }
+.s-nuit .link-arrow, .s-encre .link-arrow { @apply text-ivoire; }
+
+/* Pied de page */
+.footer-link { @apply inline-block py-1 transition-colors duration-500 hover:text-ivoire; }
+.footer-wordmark { font-family: var(--font-serif); font-weight: 300; font-size: clamp(64px, 15.5vw, 236px); line-height: 1.02; letter-spacing: -0.04em; white-space: nowrap; text-align: center; color: transparent; -webkit-text-stroke: 1px rgb(169 139 84 / .35); }
+
+/* Cartes : l'image s'approche lentement au survol. */
+.card-media img { transition: transform 1.6s cubic-bezier(.22,1,.36,1); }
+.card:hover .card-media img, .card:focus-within .card-media img { transform: scale(1.05); }
+.card a:focus-visible { @apply outline-2 outline-offset-8 outline-or; }
 
 /* ——— Fonds de section (rythme du site Framer) ———
    s-nuit : ouvertures, équipes, modalités, formulaire partenaire
@@ -50,11 +82,11 @@ body { @apply bg-nuit text-ivoire font-sans font-light; font-size: 16px; line-he
 .s-or .label { color: var(--color-nuit); }
 
 /* Mouvement : éléments masqués tant que le script n'a pas pris la main (JS actif, pas de reduced-motion). */
-html.js-motion main section :is(h1, h2, h3, p, blockquote, article, li, form, .btn, [data-stat]), html.js-motion .hero-reveal { opacity: 0; }
+html.js-motion main section :is(h1, h2, h3, p, blockquote, article, li, form, figure, .btn, [data-stat]), html.js-motion .hero-reveal { opacity: 0; }
 
 /* Les cartes (article) et les formulaires se révèlent d'un bloc : leur contenu reste visible
    (sinon un parcours affiché après coup resterait invisible). */
-html.js-motion main section :is(article, form) :is(h1, h2, h3, p, blockquote, li, .btn, [data-stat]),
+html.js-motion main section :is(article, form, figure) :is(h1, h2, h3, p, blockquote, li, .btn, [data-stat]),
 html.js-motion main section [data-marquee] li, html.js-motion [data-hero] .hero-reveal .btn { opacity: 1; }
 
 /* ——— Ouverture plein écran (inspirée de Les 3 Valets, avec plus d'air) ———
@@ -67,7 +99,7 @@ html.js-motion main section [data-marquee] li, html.js-motion [data-hero] .hero-
 .hero-veil { background:
   linear-gradient(180deg, rgb(18 25 48 / .62) 0%, rgb(18 25 48 / .22) 26%, rgb(18 25 48 / .30) 62%, rgb(18 25 48 / .88) 100%),
   radial-gradient(ellipse 62% 50% at 50% 46%, rgb(18 25 48 / .42), transparent 100%); }
-[data-hero] .btn { color: var(--color-ivoire); background-color: rgb(18 25 48 / .35); backdrop-filter: blur(6px); }
+[data-hero] .btn, section:has(> [data-cta-media]) .btn { color: var(--color-ivoire); background-color: rgb(18 25 48 / .35); backdrop-filter: blur(6px); }
 .hero-title { text-shadow: 0 2px 36px rgb(18 25 48 / .55); }
 .hero-label { color: var(--color-ivoire) !important; text-shadow: 0 1px 14px rgb(18 25 48 / .7); }
 [data-hero] .font-serif.italic { text-shadow: 0 1px 18px rgb(18 25 48 / .6); }

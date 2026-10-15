@@ -1,8 +1,23 @@
 ---
-// Conclusion « Parlons du seuil… » : encre par défaut, ivoire sur la page services (comme dans Framer).
-const { theme = 'encre' } = Astro.props;
+// Conclusion « Parlons du seuil… ».
+// Avec `image` : photo pleine largeur sous voile bleu nuit. Sans : fond encre, ou ivoire avec theme="ivoire".
+const { theme = 'encre', image } = Astro.props as { theme?: 'encre' | 'ivoire'; image?: string };
 ---
-<section class:list={[theme === 'ivoire' ? 's-ivoire' : 's-encre', 'px-6 py-32 text-center md:py-44']}>
-  <h2 class="heading mx-auto max-w-2xl">Parlons du seuil de votre établissement.</h2>
-  <div class="mt-10"><a href="/demander-un-devis" class="btn">Demander un devis</a></div>
+<section class:list={[
+  'relative isolate overflow-hidden px-6 text-center',
+  image ? 'py-40 md:py-56' : 'py-32 md:py-44',
+  image ? 's-encre' : theme === 'ivoire' ? 's-ivoire' : 's-encre',
+]}>
+  {image && (
+    <>
+      <div class="absolute inset-0 -z-20 overflow-hidden" data-cta-media>
+        <img src={image} alt="" loading="lazy" class="size-full object-cover" />
+      </div>
+      <div class="absolute inset-0 -z-10 bg-nuit-deep/70" aria-hidden="true"></div>
+    </>
+  )}
+  <p class="label mb-10">Demander un devis</p>
+  <h2 class="display mx-auto max-w-4xl">Parlons du seuil de votre établissement.</h2>
+  <div class="mt-14"><a href="/demander-un-devis" class="btn">Demander une proposition</a></div>
+  <p class="mx-auto mt-8 max-w-md text-sm text-ivoire-muted">Réponse sous 48 h · Échange confidentiel · Sans engagement</p>
 </section>

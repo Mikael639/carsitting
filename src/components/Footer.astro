@@ -1,7 +1,43 @@
 ---
+import { navLinks } from '../data/nav';
+const year = new Date().getFullYear();
 ---
-<footer class="s-encre px-6 py-16 md:py-20 text-center text-sm text-ivoire-muted space-y-4">
-  <p class="font-serif text-2xl italic text-ivoire">La juste impression, à chaque fois.</p>
-  <p>Paris · <a class="inline-block py-2 transition-colors duration-500 hover:text-ivoire" href="mailto:contact@carsitting.fr">contact@carsitting.fr</a> · +33 1 00 00 00 00</p>
-  <p class="label !text-ivoire-muted">CarSitting · Service voiturier · Mentions · Instagram · LinkedIn</p>
+<footer class="s-encre overflow-hidden px-6 pb-10 pt-24 text-ivoire-muted md:pt-32">
+  <div class="mx-auto max-w-7xl">
+    <div class="grid gap-16 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <span class="grid size-12 place-items-center rounded-md bg-or font-serif text-xl font-semibold text-nuit" aria-hidden="true">CS</span>
+        <p class="mt-8 max-w-sm font-serif text-3xl font-light italic leading-snug text-ivoire">La juste impression, à chaque fois.</p>
+      </div>
+      <nav class="md:col-span-3" aria-label="Pied de page">
+        <p class="label mb-6">La maison</p>
+        <ul class="space-y-3 text-[15px]">
+          <li><a href="/" class="footer-link">Accueil</a></li>
+          {navLinks.map(({ href, label }) => <li><a href={href} class="footer-link first-letter:uppercase">{label}</a></li>)}
+          <li><a href="/demander-un-devis" class="footer-link">Demander un devis</a></li>
+        </ul>
+      </nav>
+      <div class="md:col-span-4">
+        <p class="label mb-6">Contact</p>
+        <ul class="space-y-3 text-[15px]">
+          <li>Paris</li>
+          <li><a href="mailto:contact@carsitting.fr" class="footer-link">contact@carsitting.fr</a></li>
+          <li>+33 1 00 00 00 00</li>
+        </ul>
+        <p class="label mb-6 mt-10">Suivre</p>
+        <ul class="flex gap-8 text-[15px]">
+          <li><span class="footer-link">Instagram</span></li>
+          <li><span class="footer-link">LinkedIn</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Signature : le nom de la maison, très grand, en filigrane. -->
+    <p class="footer-wordmark mt-24 select-none md:mt-32" aria-hidden="true">Car Sitting</p>
+
+    <div class="mt-8 flex flex-col gap-3 border-t border-or/20 pt-8 text-xs tracking-wide text-ivoire/45 md:flex-row md:justify-between">
+      <p>© {year} CarSitting · Service voiturier · Paris</p>
+      <p>Mentions légales</p>
+    </div>
+  </div>
 </footer>

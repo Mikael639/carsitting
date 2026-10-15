@@ -62,6 +62,15 @@ Testé de 320 à 1280 px sur les 4 pages : aucun défilement horizontal.
 - **Formulaires** : champs à 16 px sur téléphone (évite le zoom automatique d'iOS Safari), hauteur de 48 px minimum.
 - **Pièges CSS** : les classes maison qui fixent un `display` (`.btn`, `.menu-toggle`) sont dans `@layer components`, sinon elles écrasent `hidden` et les variantes responsive de Tailwind.
 
+## Finitions premium
+
+- **Typographie** : Cormorant Garamond en graisses fines (300 à 500) et en italique pour les citations (`.quote-xl`), jamais de gras appuyé, conformément à la charte.
+- **Mise en page éditoriale** : grilles asymétriques, cartes en quinconce, prestations alternées, filets or fins entre les colonnes, grands espaces.
+- **Grain photographique** très léger sur tout le site (`body::after`), curseur en anneau or sur ordinateur (`src/scripts/cursor.ts`, désactivé au tactile et en mode animations réduites).
+- **Titres** révélés derrière un masque au défilement ; images qui s'approchent au survol des cartes.
+- **Conclusion** sur photo avec parallaxe, **pied de page** avec grande signature « Car Sitting » en filigrane.
+- Les chiffres clés sont sur bleu nuit (la charte proscrit l'or en aplat).
+
 ## Animations
 
 Gérées par `src/scripts/motion.ts` : défilement fluide, apparition des blocs au scroll, parallaxe de l'ouverture, dévoilement des images, compteurs, défilement des partenaires, en-tête qui se cache en descendant. Les transitions entre pages utilisent le routeur client d'Astro. Tout est désactivé pour les visiteurs ayant demandé moins d'animations (`prefers-reduced-motion`).

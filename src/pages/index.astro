@@ -6,15 +6,15 @@ import Partners from '../components/Partners.astro';
 import Stats from '../components/Stats.astro';
 import Cta from '../components/Cta.astro';
 const maisons = [
-  ["Hôtels","Une arrivée sans rupture, au rythme de votre réception.","/images/hotel.jpg","Voiturier accueillant une cliente devant un hôtel"],
-  ["Restaurants","Une dépose précise, une circulation discrète, aucun frottement visible.","/images/restaurant.jpg","Salle de restaurant parisien"],
-  ["Événements privés","Un protocole lisible pour vos invités, invisible pour votre déroulé.","/images/evenement.jpg","Voiturier ouvrant la portière lors d’un événement privé"],
+  ["I", "Hôtels", "Une arrivée sans rupture, au rythme de votre réception.", "/images/hotel.jpg", "Voiturier accueillant une cliente devant un hôtel", "center 55%"],
+  ["II", "Restaurants", "Une dépose précise, une circulation discrète, aucun frottement visible.", "/images/restaurant.jpg", "Salle de restaurant parisien", "center"],
+  ["III", "Événements privés", "Un protocole lisible pour vos invités, invisible pour votre déroulé.", "/images/evenement.jpg", "Voiturier ouvrant la portière lors d’un événement privé", "60% center"],
 ];
 const etapes = [
-  ["I","Discrétion","Être présent sans s’imposer. Accompagner sans capter l’attention."],
-  ["II","Tenue irréprochable","Silhouette, langage, posture : le même soin que celui attendu en salle."],
-  ["III","Ponctualité","Une équipe dimensionnée, un flux anticipé, une attente jamais laissée au hasard."],
-  ["IV","Confiance","Les clés, les véhicules, les noms : tout est traité avec une rigueur silencieuse."],
+  ["I", "Discrétion", "Être présent sans s’imposer. Accompagner sans capter l’attention."],
+  ["II", "Tenue irréprochable", "Silhouette, langage, posture : le même soin que celui attendu en salle."],
+  ["III", "Ponctualité", "Une équipe dimensionnée, un flux anticipé, une attente jamais laissée au hasard."],
+  ["IV", "Confiance", "Les clés, les véhicules, les noms : tout est traité avec une rigueur silencieuse."],
 ];
 ---
 <Base
@@ -24,9 +24,8 @@ const etapes = [
   <Hero
     slides={[
       { src: '/images/paris-nuit.jpg', position: 'center 55%' },
-      { src: '/images/voiturier-demeure.jpg', position: '35% 25%' },
-      { src: '/images/hotel.jpg', position: 'center 60%' },
       { src: '/images/services-evenement.jpg', position: 'center 35%' },
+      { src: '/images/hotel.jpg', position: 'center 60%' },
     ]}
     label="Voituriers premium · Paris"
     title="Le standing de votre maison, jusqu’au trottoir."
@@ -34,43 +33,79 @@ const etapes = [
     cta={{ href: '/demander-un-devis', label: 'Demander un devis' }}
   />
 
-  <section class="s-ivoire px-6 py-28 text-center md:py-40">
-    <blockquote class="heading mx-auto max-w-3xl font-normal italic">« Le voiturier n’est pas un service périphérique. Il est le seuil vivant de votre maison. »</blockquote>
+  <!-- Manifeste : une seule phrase, beaucoup d'air. -->
+  <section class="s-ivoire px-6 pb-20 pt-32 text-center md:pb-28 md:pt-48">
+    <p class="label mb-10 md:mb-14">Manifeste</p>
+    <blockquote class="quote-xl mx-auto max-w-5xl">« Le voiturier n’est pas un service périphérique. Il est le seuil vivant de votre maison. »</blockquote>
     <Ornament />
-    <p class="mx-auto max-w-2xl text-ivoire-muted">CarSitting accompagne les maisons qui savent que l’accueil commence avant la porte. Une arrivée fluide, une clé remise avec exactitude, une silhouette tenue à la bonne distance : chaque geste prolonge votre standing. Première impression à l’arrivée, dernière impression au départ.</p>
   </section>
 
-  <section class="s-ivoire px-5 pb-8 pt-4 sm:px-6 md:pb-12" aria-label="Le geste">
-    <figure class="mx-auto max-w-6xl">
-      <div class="overflow-hidden">
-        <img src="/images/voiturier-demeure.jpg" alt="Voiturier ouvrant la portière d’une berline devant une demeure" width="1536" height="1024" loading="lazy" class="aspect-[4/3] w-full object-cover object-[35%_20%] sm:aspect-[16/9]" />
-      </div>
-      <figcaption class="label mt-5 text-center !text-or">Le geste · Paris</figcaption>
-    </figure>
-  </section>
-
-  <section class="s-ivoire px-6 py-28 md:py-40">
-    <div class="mx-auto max-w-6xl">
-      <p class="label mb-4">Le service</p>
-      <h2 class="heading max-w-2xl">Une présence calibrée pour les maisons d’exigence.</h2>
-      <div class="mt-14 grid gap-10 md:grid-cols-3">
-        {maisons.map(([t,d,src,alt]) => <article class="border-t border-or pt-6"><img src={src} alt={alt} loading="lazy" class="mb-6 aspect-[4/3] w-full object-cover" /><h3 class="font-serif text-3xl mb-3">{t}</h3><p class="text-ivoire-muted">{d}</p></article>)}
+  <!-- Le geste : image éditoriale et texte en décalé. -->
+  <section class="s-ivoire px-6 pb-32 md:pb-48" aria-label="Le geste">
+    <div class="mx-auto grid max-w-7xl items-end gap-12 md:grid-cols-12 md:gap-10">
+      <figure class="md:col-span-7">
+        <div class="overflow-hidden">
+          <img src="/images/voiturier-demeure.jpg" alt="Voiturier ouvrant la portière d’une berline devant une demeure" width="1536" height="1024" loading="lazy" class="aspect-[4/5] w-full object-cover object-[35%_20%] md:aspect-[5/6]" />
+        </div>
+        <figcaption class="label mt-5 !text-encre/50">Le geste · Paris</figcaption>
+      </figure>
+      <div class="md:col-span-5 md:pb-16 md:pl-6 lg:pl-12">
+        <p class="label mb-6">L’accueil commence avant la porte</p>
+        <h2 class="heading">Première impression à l’arrivée, dernière impression au départ.</h2>
+        <p class="lede mt-8 text-ivoire-muted">CarSitting accompagne les maisons qui savent que l’accueil commence avant la porte. Une arrivée fluide, une clé remise avec exactitude, une silhouette tenue à la bonne distance : chaque geste prolonge votre standing.</p>
+        <a href="/qui-sommes-nous" class="link-arrow mt-10">La maison CarSitting</a>
       </div>
     </div>
   </section>
 
-  <Partners title="ILS NOUS FONT CONFIANCE" />
+  <!-- Le service : trois cartes portrait, celle du milieu décalée. -->
+  <section class="s-ivoire border-t border-encre/10 px-6 py-32 md:py-48">
+    <div class="mx-auto max-w-7xl">
+      <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="label mb-6">Le service</p>
+          <h2 class="heading max-w-2xl">Une présence calibrée pour les maisons d’exigence.</h2>
+        </div>
+        <a href="/nos-services" class="link-arrow shrink-0">Nos services</a>
+      </div>
+      <div class="mt-20 grid gap-16 md:mt-24 md:grid-cols-3 md:gap-8 lg:gap-12">
+        {maisons.map(([n, t, d, src, alt, pos], i) => (
+          <article class:list={['card', i === 1 && 'md:mt-28']}>
+            <a href="/nos-services" class="block" aria-label={`${t} — nos services`}>
+              <div class="card-media overflow-hidden">
+                <img src={src} alt={alt} loading="lazy" class="aspect-[4/5] w-full object-cover" style={`object-position:${pos}`} />
+              </div>
+              <p class="mt-7 font-serif text-3xl font-light italic text-or">{n}</p>
+              <h3 class="mt-3 font-serif text-[32px] font-normal leading-tight text-nuit">{t}</h3>
+              <p class="mt-3 max-w-xs text-ivoire-muted">{d}</p>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <section class="s-ivoire px-6 py-28 md:py-40">
-    <div class="mx-auto max-w-6xl">
-      <p class="label mb-4">L’approche</p>
-      <h2 class="heading max-w-2xl">La chorégraphie du service, tenue dans le détail.</h2>
-      <div class="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-        {etapes.map(([n,t,d]) => <article><p class="font-serif text-or text-3xl">{n}</p><h3 class="font-serif text-2xl my-2">{t}</h3><p class="text-ivoire-muted">{d}</p></article>)}
+  <Partners title="Ils nous font confiance" />
+
+  <!-- L'approche : quatre engagements séparés par de fins filets or. -->
+  <section class="s-ivoire px-6 py-32 md:py-48">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-8 md:grid-cols-12">
+        <p class="label md:col-span-4 md:pt-4">L’approche</p>
+        <h2 class="heading md:col-span-8">La chorégraphie du service, tenue dans le détail.</h2>
+      </div>
+      <div class="mt-20 grid gap-12 sm:grid-cols-2 md:mt-28 lg:grid-cols-4 lg:gap-0">
+        {etapes.map(([n, t, d]) => (
+          <article class="border-l border-or/35 pl-6 lg:px-8">
+            <p class="font-serif text-5xl font-light italic text-or">{n}</p>
+            <h3 class="mt-6 font-serif text-[26px] font-normal leading-tight text-nuit">{t}</h3>
+            <p class="mt-4 text-ivoire-muted">{d}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
   <Stats />
-  <Cta />
+  <Cta image="/images/voiturier-smoking.jpg" />
 </Base>

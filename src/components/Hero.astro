@@ -12,6 +12,8 @@ interface Props {
   /** full : tout l'écran · tall : 72 % de l'écran (page formulaire, pour garder le formulaire proche) */
   size?: 'full' | 'tall';
 }
+import { getLang, t } from '../i18n';
+const ui = t(getLang(Astro.url));
 const { slides, label, title, quote, cta, size = 'full' } = Astro.props;
 const multiple = slides.length > 1;
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -40,8 +42,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <p class="label hero-reveal justify-self-start !text-ivoire/70" aria-hidden={multiple ? undefined : 'true'}>
       {multiple ? <><span data-hero-index>{pad(1)}</span> <span class="opacity-50">/ {pad(slides.length)}</span></> : 'Paris'}
     </p>
-    <button type="button" data-hero-next class="hero-reveal hero-cue justify-self-center" aria-label="Découvrir la suite de la page">
-      <span class="label !text-ivoire/70">Défiler</span>
+    <button type="button" data-hero-next class="hero-reveal hero-cue justify-self-center" aria-label={ui.scrollLabel}>
+      <span class="label !text-ivoire/70">{ui.scroll}</span>
       <span class="hero-cue__line" aria-hidden="true"></span>
     </button>
     <p class="label hero-reveal justify-self-end !text-ivoire/70" aria-hidden="true">MMXVI</p>

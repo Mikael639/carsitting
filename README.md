@@ -19,10 +19,18 @@ npm run preview   # prévisualise le build
 
 | Route | Fichier | Contenu |
 |---|---|---|
-| `/` | `src/pages/index.astro` | Ouverture, manifeste, photo, le service (hôtels, restaurants, événements), partenaires, approche, repères chiffrés |
-| `/qui-sommes-nous` | `src/pages/qui-sommes-nous.astro` | La maison, conviction, valeurs, équipes, repères, formulaire partenaire |
-| `/nos-services` | `src/pages/nos-services.astro` | Prestations, modalités d'intervention, ce qui nous distingue, partenaires |
-| `/demander-un-devis` | `src/pages/demander-un-devis.astro` | Parcours de devis (solution ponctuelle ou service régulier) |
+| `/` · `/en/` | `src/views/Home.astro` | Ouverture, manifeste, photo, le service (hôtels, restaurants, événements), partenaires, approche, repères chiffrés |
+| `/qui-sommes-nous` · `/en/about` | `src/views/About.astro` | La maison, conviction, valeurs, équipes, repères, formulaire partenaire |
+| `/nos-services` · `/en/services` | `src/views/Services.astro` | Prestations, modalités d'intervention, ce qui nous distingue, partenaires |
+| `/demander-un-devis` · `/en/request-a-quote` | `src/views/Quote.astro` | Parcours de devis (solution ponctuelle ou service régulier) |
+
+## Français / anglais
+
+- Le français est la langue principale (adresses sans préfixe), l'anglais vit sous `/en/`. Chaque page a une seule mise en page dans `src/views/`, avec ses textes dans les deux langues (objet `copy` en haut du fichier) ; `src/pages/` et `src/pages/en/` ne font que l'afficher.
+- Les textes communs (menu, pied de page, conclusion, chiffres) et la correspondance des adresses sont dans `src/i18n.ts`. Les messages des formulaires sont dans `src/scripts/forms.ts` (`MSG`).
+- Sélecteur FR / EN dans l'en-tête (à partir de 640 px) et dans le menu mobile : il mène à la même page dans l'autre langue. Balises `hreflang` pour Google, `og:locale` pour les aperçus de partage.
+- **Les demandes de devis arrivent toujours en français** : seuls les libellés affichés changent ; une demande venue de la version anglaise porte « EN » dans l'objet et la ligne « Langue du visiteur ».
+- La traduction anglaise est une première proposition, à faire relire par Jerry (notamment la signature « The right impression, every time. »).
 
 ## Structure
 

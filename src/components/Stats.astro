@@ -2,7 +2,8 @@
 // Repères chiffrés. Jamais d'or en aplat (charte) : fond bleu nuit ou ivoire selon la section voisine,
 // pour garder l'alternance des fonds.
 const { theme = 'nuit' } = Astro.props as { theme?: 'nuit' | 'ivoire' };
-const stats = [["MMXVI", "Maison fondée"], ["12 000+", "Prestations réalisées"], ["40+", "Établissements servis"]];
+import { getLang, t } from '../i18n';
+const stats = t(getLang(Astro.url)).stats;
 const light = theme === 'ivoire';
 ---
 <section class:list={[light ? 's-ivoire border-t border-encre/10' : 's-nuit', 'px-6 py-28 md:py-40']}>

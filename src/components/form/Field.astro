@@ -7,7 +7,8 @@ interface Props {
   type?: 'text' | 'email' | 'tel' | 'date' | 'time' | 'number' | 'select' | 'textarea';
   required?: boolean;
   placeholder?: string;
-  options?: string[];
+  /** Une chaîne, ou { value, label } quand le libellé affiché diffère de la valeur envoyée (version anglaise). */
+  options?: (string | { value: string; label: string })[];
   rows?: number;
   autocomplete?: string;
   min?: number | string;
@@ -16,6 +17,8 @@ interface Props {
   inputmode?: 'numeric' | 'tel' | 'email' | 'text';
   class?: string;
 }
+import { getLang, t } from '../../i18n';
+const ui = t(getLang(Astro.url));
 const { label, name, type = 'text', required = false, placeholder, options = [], rows = 4, autocomplete, min, max, pattern, inputmode, class: cls = '' } = Astro.props;
 const id = 'f-' + name.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 const errId = `${id}-err`;
@@ -25,8 +28,8 @@ const common = { id, name, required, 'aria-describedby': errId, autocomplete };
   <label for={id} class="f-label">{label}{required && <span aria-hidden="true"> *</span>}</label>
   {type === 'select' ? (
     <select class="f-input f-select" {...common}>
-      <option value="" disabled selected>Sélectionnez</option>
-      {options.map((o) => <option value={o}>{o}</option>)}
+      <option value="" disabled selected>{ui.select}</option>
+      {options.map((o) => typeof o === 'string' ? <option value={o}>{o}</option> : <option value={o.value}>{o.label}</option>)}
     </select>
   ) : type === 'textarea' ? (
     <textarea class="f-input" rows={rows} placeholder={placeholder} data-lenis-prevent {...common}></textarea>

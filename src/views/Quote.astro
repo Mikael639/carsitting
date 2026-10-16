@@ -1,0 +1,155 @@
+---
+// Demander un devis / Request a quote — mise en page unique, textes en français et en anglais.
+// Les noms et valeurs des champs restent en français dans les deux langues : la demande reçue par
+// CarSitting est toujours lisible en français (seuls les libellés affichés au visiteur changent).
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Field from '../components/form/Field.astro';
+import Submit from '../components/form/Submit.astro';
+import { getLang, t } from '../i18n';
+
+const lang = getLang(Astro.url);
+const ui = t(lang);
+const en = lang === 'en';
+
+/** Options : valeur envoyée en français, libellé affiché dans la langue de la page. */
+const opts = (pairs: [string, string][]) => pairs.map(([value, label]) => (en ? { value, label } : value));
+const profils = opts([['Professionnel', 'Professional'], ['Particulier', 'Private client']]);
+const evenements = opts([
+  ['Mariage', 'Wedding'], ['Vernissage', 'Art opening'], ['Anniversaire', 'Birthday'], ['Inauguration', 'Launch or opening'],
+  ['Bar/Bat mitzvah', 'Bar/Bat mitzvah'], ['Dîner privé', 'Private dinner'], ['Soirée d’entreprise', 'Corporate evening'], ['Autre', 'Other'],
+]);
+const etablissements = opts([['Hôtel', 'Hotel'], ['Restaurant', 'Restaurant'], ['Commerce', 'Retail'], ['Club', 'Club']]);
+const priseEnCharge = opts([['Offerte par l’établissement', 'Offered by the establishment'], ['Tarifée au client — 20 € par véhicule', 'Charged to the guest — €20 per vehicle']]);
+
+const c = {
+  fr: {
+    title: 'Demander un devis — CarSitting',
+    description: 'Décrivez votre événement ou votre établissement : CarSitting vous répond sous 48 heures ouvrées avec une proposition précise, sans engagement.',
+    heroTitle: 'Parlons du seuil de votre établissement.',
+    heroQuote: 'Quelques indications suffisent pour préparer une proposition précise, à votre mesure.',
+    question: 'Quel accompagnement souhaitez-vous envisager ?',
+    hint: 'Vous pouvez modifier votre choix à tout moment.',
+    oneOff: ['Solution ponctuelle', 'Pour un événement précis.'],
+    regular: ['Service régulier / accompagnement continu', 'Pour une présence dans la durée.'],
+    event: 'Votre événement', venue: 'Votre établissement', details: 'Vos coordonnées',
+    profile: 'Professionnel ou particulier', eventType: 'Type d’événement', date: 'Date de l’événement', start: 'Début souhaité', end: 'Fin prévue',
+    eventAddress: 'Adresse de l’événement', fullAddress: 'Adresse complète', guests: 'Nombre d’invités', vehicles: 'Véhicules attendus', valets: 'Voituriers souhaités',
+    notes: 'Notes ou précisions utiles', notesPh: 'Quelques lignes sur votre demande',
+    venueType: 'Type d’établissement', handling: 'Prise en charge des véhicules', hours: 'Jours et horaires d’ouverture', hoursPh: 'Ex. mardi à samedi, de 18 h à 1 h',
+    serviceAddress: 'Adresse de la prestation', sameBilling: 'Adresse de facturation identique à l’adresse de prestation', billing: 'Adresse de facturation',
+    name: 'Nom et prénom', email: 'Email', emailPh: 'vous@maison.fr', phone: 'Téléphone', phonePh: '06 12 34 56 78',
+    required: 'Les champs marqués d’un astérisque (*) sont obligatoires.',
+  },
+  en: {
+    title: 'Request a quote — CarSitting',
+    description: 'Tell us about your event or establishment: CarSitting replies within two working days with a precise, no-obligation proposal.',
+    heroTitle: 'Let us talk about the threshold of your establishment.',
+    heroQuote: 'A few details are enough for us to prepare a precise proposal, tailored to you.',
+    question: 'What kind of service do you have in mind?',
+    hint: 'You can change your choice at any time.',
+    oneOff: ['One-off service', 'For a specific event.'],
+    regular: ['Regular service / ongoing support', 'For a lasting presence.'],
+    event: 'Your event', venue: 'Your establishment', details: 'Your details',
+    profile: 'Professional or private client', eventType: 'Type of event', date: 'Event date', start: 'Desired start', end: 'Planned end',
+    eventAddress: 'Event address', fullAddress: 'Full address', guests: 'Number of guests', vehicles: 'Expected vehicles', valets: 'Valets required',
+    notes: 'Notes or useful details', notesPh: 'A few lines about your request',
+    venueType: 'Type of establishment', handling: 'Vehicle handling', hours: 'Opening days and hours', hoursPh: 'E.g. Tuesday to Saturday, 6 pm to 1 am',
+    serviceAddress: 'Service address', sameBilling: 'Billing address same as service address', billing: 'Billing address',
+    name: 'Full name', email: 'Email', emailPh: 'you@house.com', phone: 'Phone', phonePh: '+33 6 12 34 56 78',
+    required: 'Fields marked with an asterisk (*) are required.',
+  },
+}[lang];
+---
+<Base title={c.title} description={c.description}>
+  <Hero
+    size="tall"
+    slides={[{ src: '/images/restaurant.jpg', position: 'center 40%' }]}
+    label="Car Sitting · Paris"
+    title={c.heroTitle}
+    quote={c.heroQuote}
+  />
+
+  <section class="s-ivoire px-5 py-24 sm:px-6 md:py-36">
+    <div class="mx-auto max-w-3xl">
+      <form data-form data-subject="Demande de devis" class="form-light space-y-12" aria-describedby="devis-mentions">
+        <fieldset>
+          <legend class="w-full text-center font-serif text-3xl text-nuit md:text-4xl">{c.question}</legend>
+          <p class="mt-3 text-center text-sm text-encre/60">{c.hint}</p>
+          <div class="mt-8 grid gap-5 sm:grid-cols-2">
+            <label class="f-choice">
+              <input type="radio" name="Parcours" value="Solution ponctuelle" class="sr-only" checked />
+              <span class="block font-serif text-[28px] leading-tight text-encre">{c.oneOff[0]}</span>
+              <span class="mt-2 block text-[15px] text-encre/70">{c.oneOff[1]}</span>
+            </label>
+            <label class="f-choice">
+              <input type="radio" name="Parcours" value="Service régulier" class="sr-only" />
+              <span class="block font-serif text-[28px] leading-tight text-encre">{c.regular[0]}</span>
+              <span class="mt-2 block text-[15px] text-encre/70">{c.regular[1]}</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset data-branch="Solution ponctuelle" class="space-y-6">
+          <legend class="f-section">{c.event}</legend>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <Field label={c.profile} name="Profil" type="select" options={profils} required />
+            <Field label={c.eventType} name="Type d’événement" type="select" options={evenements} required />
+          </div>
+          <div class="grid gap-6 sm:grid-cols-3">
+            <Field label={c.date} name="Date de l’événement" type="date" required />
+            <Field label={c.start} name="Début souhaité" type="time" required />
+            <Field label={c.end} name="Fin prévue" type="time" required />
+          </div>
+          <Field label={c.eventAddress} name="Adresse de l’événement" placeholder={c.fullAddress} autocomplete="street-address" required />
+          <div class="grid gap-6 sm:grid-cols-3">
+            <Field label={c.guests} name="Nombre d’invités" type="number" min={1} inputmode="numeric" required />
+            <Field label={c.vehicles} name="Véhicules attendus" type="number" min={1} inputmode="numeric" required />
+            <Field label={c.valets} name="Voituriers souhaités" type="number" min={1} inputmode="numeric" required />
+          </div>
+          <Field label={c.notes} name="Notes" type="textarea" placeholder={c.notesPh} />
+        </fieldset>
+
+        <fieldset data-branch="Service régulier" class="space-y-6" disabled hidden>
+          <legend class="f-section">{c.venue}</legend>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <Field label={c.venueType} name="Type d’établissement" type="select" options={etablissements} required />
+            <Field label={c.handling} name="Prise en charge des véhicules" type="select" options={priseEnCharge} required />
+          </div>
+          <Field label={c.hours} name="Jours et horaires" type="textarea" rows={3} placeholder={c.hoursPh} required />
+          <Field label={c.serviceAddress} name="Adresse de la prestation" placeholder={c.fullAddress} autocomplete="street-address" required />
+          <label class="f-check">
+            <input type="checkbox" name="Adresse de facturation identique" data-billing-same checked />
+            <span>{c.sameBilling}</span>
+          </label>
+          <fieldset data-billing-other disabled hidden>
+            <Field label={c.billing} name="Adresse de facturation" placeholder={c.fullAddress} autocomplete="billing street-address" required />
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="space-y-6">
+          <legend class="f-section">{c.details}</legend>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <Field label={c.name} name="Nom et prénom" autocomplete="name" required />
+            <Field label={c.email} name="Email" type="email" autocomplete="email" inputmode="email" placeholder={c.emailPh} required />
+          </div>
+          <Field label={c.phone} name="Téléphone" type="tel" autocomplete="tel" inputmode="tel" placeholder={c.phonePh} required />
+        </fieldset>
+
+        <div class="hidden" aria-hidden="true"><label>{ui.honeypot} <input name="_gotcha" tabindex="-1" autocomplete="off" /></label></div>
+
+        <div class="text-center">
+          <Submit label={ui.ctaButton} />
+          <p data-status role="status" class="f-status mx-auto mt-5 max-w-lg"></p>
+          <p id="devis-mentions" class="mt-4 text-sm text-encre/60">{ui.ctaNote}</p>
+          <p class="mt-2 text-xs text-encre/50">{c.required}</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    import { initForms } from '../scripts/forms';
+    document.addEventListener('astro:page-load', initForms);
+  </script>
+</Base>

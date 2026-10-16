@@ -1,0 +1,169 @@
+---
+// Accueil — mise en page unique, textes en français et en anglais.
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Ornament from '../components/Ornament.astro';
+import Partners from '../components/Partners.astro';
+import Cta from '../components/Cta.astro';
+import { getLang, path, t } from '../i18n';
+
+const lang = getLang(Astro.url);
+const ui = t(lang);
+const copy = {
+  fr: {
+    title: 'CarSitting — Voituriers premium à Paris',
+    description: 'Le standing de votre maison, jusqu’au trottoir. CarSitting assure l’accueil voiturier d’hôtels, restaurants et événements privés à Paris, avec discrétion et exactitude.',
+    heroLabel: 'Voituriers premium · Paris',
+    heroTitle: 'Le standing de votre maison, jusqu’au trottoir.',
+    heroQuote: 'La première présence que vos hôtes rencontrent. La dernière impression qu’ils emportent.',
+    manifestoLabel: 'Manifeste',
+    manifesto: '« Le voiturier n’est pas un service périphérique. Il est le seuil vivant de votre maison. »',
+    gestureAria: 'Le geste',
+    gestureAlt: 'Voiturier ouvrant la portière d’une berline devant une demeure',
+    gestureCaption: 'Le geste · Paris',
+    gestureLabel: 'L’accueil commence avant la porte',
+    gestureTitle: 'Première impression à l’arrivée, dernière impression au départ.',
+    gestureText: 'CarSitting accompagne les maisons qui savent que l’accueil commence avant la porte. Une arrivée fluide, une clé remise avec exactitude, une silhouette tenue à la bonne distance : chaque geste prolonge votre standing.',
+    gestureLink: 'La maison CarSitting',
+    serviceLabel: 'Le service',
+    serviceTitle: 'Une présence calibrée pour les maisons d’exigence.',
+    serviceLink: 'Nos services',
+    cards: [
+      ['I', 'Hôtels', 'Une arrivée sans rupture, au rythme de votre réception.', 'Voiturier accueillant une cliente devant un hôtel'],
+      ['II', 'Restaurants', 'Une dépose précise, une circulation discrète, aucun frottement visible.', 'Salle de restaurant parisien'],
+      ['III', 'Événements privés', 'Un protocole lisible pour vos invités, invisible pour votre déroulé.', 'Voiturier ouvrant la portière lors d’un événement privé'],
+    ],
+    partners: 'Ils nous font confiance',
+    approachLabel: 'L’approche',
+    approachTitle: 'La chorégraphie du service, tenue dans le détail.',
+    steps: [
+      ['I', 'Discrétion', 'Être présent sans s’imposer. Accompagner sans capter l’attention.'],
+      ['II', 'Tenue irréprochable', 'Silhouette, langage, posture : le même soin que celui attendu en salle.'],
+      ['III', 'Ponctualité', 'Une équipe dimensionnée, un flux anticipé, une attente jamais laissée au hasard.'],
+      ['IV', 'Confiance', 'Les clés, les véhicules, les noms : tout est traité avec une rigueur silencieuse.'],
+    ],
+  },
+  en: {
+    title: 'CarSitting — Premium valet service in Paris',
+    description: 'Your house’s standing, all the way to the kerb. CarSitting provides valet service for hotels, restaurants and private events in Paris, with discretion and precision.',
+    heroLabel: 'Premium valets · Paris',
+    heroTitle: 'Your house’s standing, all the way to the kerb.',
+    heroQuote: 'The first presence your guests encounter. The last impression they take away.',
+    manifestoLabel: 'Manifesto',
+    manifesto: '“Valet service is not a peripheral service. It is the living threshold of your house.”',
+    gestureAria: 'The gesture',
+    gestureAlt: 'Valet opening the door of a saloon car in front of a mansion',
+    gestureCaption: 'The gesture · Paris',
+    gestureLabel: 'Hospitality begins before the door',
+    gestureTitle: 'A first impression on arrival, a last impression on departure.',
+    gestureText: 'CarSitting works with houses that know hospitality begins before the door. A seamless arrival, a key handed over with precision, a presence held at just the right distance: every gesture extends your standing.',
+    gestureLink: 'The CarSitting house',
+    serviceLabel: 'The service',
+    serviceTitle: 'A presence tailored to the most demanding houses.',
+    serviceLink: 'Our services',
+    cards: [
+      ['I', 'Hotels', 'A seamless arrival, in step with your front desk.', 'Valet welcoming a guest in front of a hotel'],
+      ['II', 'Restaurants', 'Precise drop-offs, discreet flow, no visible friction.', 'Parisian restaurant dining room'],
+      ['III', 'Private events', 'A protocol clear to your guests, invisible to your schedule.', 'Valet opening a car door at a private event'],
+    ],
+    partners: 'They trust us',
+    approachLabel: 'Our approach',
+    approachTitle: 'The choreography of service, held in every detail.',
+    steps: [
+      ['I', 'Discretion', 'Present without intruding. Attentive without drawing attention.'],
+      ['II', 'Impeccable attire', 'Silhouette, language, posture: the same care expected in the dining room.'],
+      ['III', 'Punctuality', 'A team sized to the occasion, anticipated flows, waiting never left to chance.'],
+      ['IV', 'Trust', 'Keys, vehicles, names: everything is handled with quiet rigour.'],
+    ],
+  },
+}[lang];
+const cardMedia = [['/images/hotel.jpg', 'center 55%'], ['/images/restaurant.jpg', 'center'], ['/images/evenement.jpg', '60% center']];
+---
+<Base title={copy.title} description={copy.description}>
+  <Hero
+    slides={[
+      { src: '/images/paris-nuit.jpg', position: 'center 55%' },
+      { src: '/images/services-evenement.jpg', position: 'center 35%' },
+      { src: '/images/hotel.jpg', position: 'center 60%' },
+    ]}
+    label={copy.heroLabel}
+    title={copy.heroTitle}
+    quote={copy.heroQuote}
+    cta={{ href: path('quote', lang), label: ui.quote }}
+  />
+
+  {/* Manifeste : une seule phrase, beaucoup d'air. */}
+  <section class="s-ivoire px-6 pb-20 pt-32 text-center md:pb-28 md:pt-48">
+    <p class="label mb-10 md:mb-14">{copy.manifestoLabel}</p>
+    <blockquote class="quote-xl mx-auto max-w-5xl">{copy.manifesto}</blockquote>
+    <Ornament />
+  </section>
+
+  {/* Le geste : image éditoriale et texte en décalé. */}
+  <section class="s-ivoire px-6 pb-32 md:pb-48" aria-label={copy.gestureAria}>
+    <div class="mx-auto grid max-w-7xl items-end gap-12 md:grid-cols-12 md:gap-10">
+      <figure class="md:col-span-7">
+        <div class="overflow-hidden">
+          <img src="/images/voiturier-demeure.jpg" alt={copy.gestureAlt} width="1536" height="1024" loading="lazy" class="aspect-[4/5] w-full object-cover object-[35%_20%] md:aspect-[5/6]" />
+        </div>
+        <figcaption class="label mt-5 !text-encre/50">{copy.gestureCaption}</figcaption>
+      </figure>
+      <div class="md:col-span-5 md:pb-16 md:pl-6 lg:pl-12">
+        <p class="label mb-6">{copy.gestureLabel}</p>
+        <h2 class="heading">{copy.gestureTitle}</h2>
+        <p class="lede mt-8 text-ivoire-muted">{copy.gestureText}</p>
+        <a href={path('about', lang)} class="link-arrow mt-10">{copy.gestureLink}</a>
+      </div>
+    </div>
+  </section>
+
+  {/* Le service : trois cartes portrait, celle du milieu décalée. */}
+  <section class="s-ivoire border-t border-encre/10 px-6 py-32 md:py-48">
+    <div class="mx-auto max-w-7xl">
+      <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="label mb-6">{copy.serviceLabel}</p>
+          <h2 class="heading max-w-2xl">{copy.serviceTitle}</h2>
+        </div>
+        <a href={path('services', lang)} class="link-arrow shrink-0">{copy.serviceLink}</a>
+      </div>
+      <div class="mt-20 grid gap-16 md:mt-24 md:grid-cols-3 md:gap-8 lg:gap-12">
+        {copy.cards.map(([n, title, text, alt], i) => (
+          <article class:list={['card', i === 1 && 'md:mt-28']}>
+            <a href={path('services', lang)} class="block" aria-label={`${title} — ${copy.serviceLink.toLowerCase()}`}>
+              <div class="card-media overflow-hidden">
+                <img src={cardMedia[i][0]} alt={alt} loading="lazy" class="aspect-[4/5] w-full object-cover" style={`object-position:${cardMedia[i][1]}`} />
+              </div>
+              <p class="mt-7 font-serif text-3xl font-light italic text-or">{n}</p>
+              <h3 class="mt-3 font-serif text-[32px] font-normal leading-tight text-nuit">{title}</h3>
+              <p class="mt-3 max-w-xs text-ivoire-muted">{text}</p>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Partners title={copy.partners} />
+
+  {/* L'approche : quatre engagements séparés par de fins filets or. */}
+  <section class="s-ivoire px-6 py-32 md:py-48">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-8 md:grid-cols-12">
+        <p class="label md:col-span-4 md:pt-4">{copy.approachLabel}</p>
+        <h2 class="heading md:col-span-8">{copy.approachTitle}</h2>
+      </div>
+      <div class="mt-20 grid gap-12 sm:grid-cols-2 md:mt-28 lg:grid-cols-4 lg:gap-0">
+        {copy.steps.map(([n, title, text]) => (
+          <article class="border-l border-or/35 pl-6 lg:px-8">
+            <p class="font-serif text-5xl font-light italic text-or">{n}</p>
+            <h3 class="mt-6 font-serif text-[26px] font-normal leading-tight text-nuit">{title}</h3>
+            <p class="mt-4 text-ivoire-muted">{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Cta image="/images/voiturier-smoking.jpg" />
+</Base>

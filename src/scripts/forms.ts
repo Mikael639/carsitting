@@ -6,6 +6,33 @@
 const ENDPOINT = import.meta.env.PUBLIC_FORM_ENDPOINT as string | undefined;
 const CONTACT = 'contact@carsitting.fr';
 
+// Messages affichés au visiteur, dans la langue de la page. Les demandes reçues restent en français.
+const MSG = {
+  fr: {
+    required: 'Ce champ est requis.', choose: 'Veuillez choisir une option.',
+    email: 'Indiquez une adresse email valide (ex. vous@maison.fr).', tel: 'Indiquez un numéro de téléphone valide (10 chiffres minimum).',
+    dateMin: (d: string) => `Choisissez une date à partir du ${d}.`, min: (n: string) => `La valeur doit être au moins ${n}.`,
+    max: (n: string) => `La valeur doit être au plus ${n}.`, integer: 'Indiquez un nombre entier.',
+    pending: 'Envoi en cours…', sent: 'Demande transmise',
+    fix: (n: number) => `Merci de compléter ${n > 1 ? `les ${n} champs signalés` : 'le champ signalé'}.`,
+    thanks: 'Merci, votre demande a bien été transmise.', thanksLong: 'Merci, votre demande a bien été transmise. Nous vous répondons sous 48 heures ouvrées.',
+    failed: `L'envoi n'a pas abouti. Réessayez dans un instant ou écrivez-nous à ${CONTACT}.`,
+    mailto: `Votre messagerie s'ouvre avec la demande pré-remplie : il ne reste qu'à l'envoyer. Si rien ne s'ouvre, écrivez-nous à ${CONTACT}.`,
+  },
+  en: {
+    required: 'This field is required.', choose: 'Please choose an option.',
+    email: 'Please enter a valid email address (e.g. you@house.com).', tel: 'Please enter a valid phone number (at least 10 digits).',
+    dateMin: (d: string) => `Please choose a date from ${d}.`, min: (n: string) => `The value must be at least ${n}.`,
+    max: (n: string) => `The value must be at most ${n}.`, integer: 'Please enter a whole number.',
+    pending: 'Sending…', sent: 'Request sent',
+    fix: (n: number) => `Please complete ${n > 1 ? `the ${n} highlighted fields` : 'the highlighted field'}.`,
+    thanks: 'Thank you, your request has been sent.', thanksLong: 'Thank you, your request has been sent. We will reply within two working days.',
+    failed: `Your request could not be sent. Please try again shortly or write to us at ${CONTACT}.`,
+    mailto: `Your email app is opening with the request pre-filled: just send it. If nothing opens, write to us at ${CONTACT}.`,
+  },
+};
+const msg = () => MSG[document.documentElement.lang === 'en' ? 'en' : 'fr'];
+
 type Control = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 // Téléphone : chiffres, espaces, points, tirets, parenthèses et « + » ; 10 à 15 chiffres.
@@ -23,13 +50,14 @@ const frDate = (iso: string) => {
 
 function messageFor(el: Control): string {
   const v = el.validity;
-  if (v.valueMissing) return el instanceof HTMLSelectElement ? 'Veuillez choisir une option.' : 'Ce champ est requis.';
-  if (v.typeMismatch && el.type === 'email') return 'Indiquez une adresse email valide (ex. vous@maison.fr).';
-  if (v.customError && el.type === 'tel') return 'Indiquez un numéro de téléphone valide (10 chiffres minimum).';
-  if (v.rangeUnderflow && el.type === 'date') return `Choisissez une date à partir du ${frDate((el as HTMLInputElement).min)}.`;
-  if (v.rangeUnderflow) return `La valeur doit être au moins ${(el as HTMLInputElement).min}.`;
-  if (v.rangeOverflow) return `La valeur doit être au plus ${(el as HTMLInputElement).max}.`;
-  if (v.stepMismatch || v.badInput) return 'Indiquez un nombre entier.';
+  const m = msg();
+  if (v.valueMissing) return el instanceof HTMLSelectElement ? m.choose : m.required;
+  if (v.typeMismatch && el.type === 'email') return m.email;
+  if (v.customError && el.type === 'tel') return m.tel;
+  if (v.rangeUnderflow && el.type === 'date') return m.dateMin(frDate((el as HTMLInputElement).min));
+  if (v.rangeUnderflow) return m.min((el as HTMLInputElement).min);
+  if (v.rangeOverflow) return m.max((el as HTMLInputElement).max);
+  if (v.stepMismatch || v.badInput) return m.integer;
   return el.validationMessage;
 }
 
@@ -95,7 +123,7 @@ function setState(form: HTMLFormElement, state: 'idle' | 'pending' | 'success' |
   if (btn && text) {
     btn.disabled = state === 'pending' || state === 'success';
     btn.setAttribute('aria-busy', String(state === 'pending'));
-    text.textContent = state === 'pending' ? 'Envoi en cours…' : state === 'success' ? 'Demande transmise' : btn.dataset.label || '';
+    text.textContent = state === 'pending' ? msg().pending : state === 'success' ? msg().sent : btn.dataset.label || '';
   }
   if (status) status.textContent = message;
 }
@@ -105,17 +133,20 @@ async function submit(form: HTMLFormElement) {
   const invalid = fields.filter((el) => showError(el));
   if (invalid.length) {
     invalid[0].focus({ preventScroll: false });
-    setState(form, 'error', `Merci de compléter ${invalid.length > 1 ? `les ${invalid.length} champs signalés` : 'le champ signalé'}.`);
+    setState(form, 'error', msg().fix(invalid.length));
     return;
   }
   // Pot de miel anti-spam : un robot remplit ce champ invisible.
   if ((form.querySelector<HTMLInputElement>('[name="_gotcha"]')?.value || '').trim()) {
-    setState(form, 'success', 'Merci, votre demande a bien été transmise.');
+    setState(form, 'success', msg().thanks);
     return;
   }
 
   const data = payload(form);
-  const subject = [form.dataset.subject, data['Parcours'], data['Nom et prénom'] || data['Établissement']].filter(Boolean).join(' — ');
+  // Demande envoyée depuis la version anglaise : on le signale pour répondre dans la bonne langue.
+  const english = document.documentElement.lang === 'en';
+  if (english) data['Langue du visiteur'] = 'Anglais — répondre en anglais';
+  const subject = [form.dataset.subject, english && 'EN', data['Parcours'], data['Nom et prénom'] || data['Établissement']].filter(Boolean).join(' — ');
   setState(form, 'pending');
 
   if (ENDPOINT) {
@@ -126,18 +157,18 @@ async function submit(form: HTMLFormElement) {
         body: JSON.stringify({ _subject: subject, ...data }),
       });
       if (!res.ok) throw new Error(String(res.status));
-      setState(form, 'success', 'Merci, votre demande a bien été transmise. Nous vous répondons sous 48 heures ouvrées.');
+      setState(form, 'success', msg().thanksLong);
       form.reset();
       form.querySelectorAll<HTMLInputElement>('input[name="Parcours"]')[0]?.dispatchEvent(new Event('change'));
     } catch {
-      setState(form, 'error', `L'envoi n'a pas abouti. Réessayez dans un instant ou écrivez-nous à ${CONTACT}.`);
+      setState(form, 'error', msg().failed);
     }
     return;
   }
 
   const body = Object.entries(data).map(([k, v]) => `${k} : ${v}`).join('\n');
   window.location.href = `mailto:${CONTACT}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  setState(form, 'idle', `Votre messagerie s'ouvre avec la demande pré-remplie : il ne reste qu'à l'envoyer. Si rien ne s'ouvre, écrivez-nous à ${CONTACT}.`);
+  setState(form, 'idle', msg().mailto);
 }
 
 export function initForms() {

@@ -1,22 +1,35 @@
 ---
-import { navLinks } from '../data/nav';
-const p = Astro.url.pathname.replace(/\/$/, '') || '/';
-const links = [{ href: '/', label: 'Accueil' }, ...navLinks, { href: '/demander-un-devis', label: 'Demander un devis' }];
+import { getLang, t, path, norm, alternates } from '../i18n';
+const lang = getLang(Astro.url);
+const ui = t(lang);
+const p = norm(Astro.url.pathname);
+const alt = alternates(Astro.url);
+const other = lang === 'fr' ? 'en' : 'fr';
+const links = [
+  { href: path('home', lang), label: ui.home },
+  ...ui.nav.map(({ key, label }) => ({ href: path(key, lang), label })),
+  { href: path('quote', lang), label: ui.quote },
+];
 ---
 {/* Hors de <header> : le backdrop-filter du header piégerait ce panneau « fixed » dans sa hauteur. */}
-<div id="mobile-menu" class="mobile-menu flex lg:hidden" inert role="dialog" aria-modal="true" aria-label="Menu">
-  <nav class="mobile-menu__nav" aria-label="Menu principal">
-    <p class="label mb-8">Menu</p>
+<div id="mobile-menu" class="mobile-menu flex lg:hidden" inert role="dialog" aria-modal="true" aria-label={ui.menu}>
+  <nav class="mobile-menu__nav" aria-label={ui.menuNav}>
+    <p class="label mb-8">{ui.menu}</p>
     <ul>
       {links.map(({ href, label }, i) => (
         <li style={`--i:${i}`}>
-          <a href={href} class="mobile-menu__link" aria-current={p === href ? 'page' : undefined}>{label}</a>
+          <a href={href} class="mobile-menu__link first-letter:uppercase" aria-current={p === norm(href) ? 'page' : undefined}>{label}</a>
         </li>
       ))}
     </ul>
+    <div class="lang-switch mt-10 !text-[13px]" role="group" aria-label={ui.language}>
+      <span class="lang-switch__current" aria-current="true">{lang === 'fr' ? 'Français' : 'English'}</span>
+      <span aria-hidden="true">/</span>
+      <a href={alt[other]} hreflang={other} lang={other}>{other === 'fr' ? 'Français' : 'English'}</a>
+    </div>
     <p class="mobile-menu__foot">
       <a href="mailto:contact@carsitting.fr" class="inline-block py-2">contact@carsitting.fr</a><br />
-      Paris · La juste impression, à chaque fois.
+      Paris · {ui.signature}
     </p>
   </nav>
 </div>

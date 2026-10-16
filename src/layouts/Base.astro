@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileMenu from '../components/MobileMenu.astro';
 import '../styles/global.css';
+import { getLang, alternates, t } from '../i18n';
 interface Props {
   title: string;
   description?: string;
@@ -13,17 +14,25 @@ interface Props {
   /** Pour garder une page hors des moteurs de recherche. */
   noindex?: boolean;
 }
+const lang = getLang(Astro.url);
+const defaults = {
+  fr: { description: "CarSitting, voituriers premium à Paris : une présence discrète et irréprochable pour hôtels, restaurants et événements privés.", imageAlt: 'CarSitting — service voiturier à Paris' },
+  en: { description: 'CarSitting, premium valets in Paris: a discreet, impeccable presence for hotels, restaurants and private events.', imageAlt: 'CarSitting — valet service in Paris' },
+}[lang];
 const {
   title,
-  description = "CarSitting, voituriers premium à Paris : une présence discrète et irréprochable pour hôtels, restaurants et événements privés.",
+  description = defaults.description,
   image = '/og-image.jpg',
-  imageAlt = 'CarSitting — service voiturier à Paris',
+  imageAlt = defaults.imageAlt,
   noindex = false,
 } = Astro.props;
 
 // URL absolue : indispensable pour les aperçus (Facebook, LinkedIn, WhatsApp, X…).
 const site = Astro.site ?? new URL('https://carsitting.fr');
 const canonical = new URL(Astro.url.pathname, site).href;
+// Équivalents de la page dans les deux langues (Google, sélecteur de langue).
+const alt = alternates(Astro.url);
+const altUrl = { fr: new URL(alt.fr, site).href, en: new URL(alt.en, site).href };
 const imageUrl = new URL(image, site).href;
 
 const organization = {
@@ -36,17 +45,21 @@ const organization = {
   image: imageUrl,
   areaServed: 'Paris',
   email: 'contact@carsitting.fr',
-  slogan: 'La juste impression, à chaque fois.',
+  slogan: t(lang).signature,
+  inLanguage: lang === 'fr' ? 'fr-FR' : 'en-GB',
 };
 ---
 <!doctype html>
-<html lang="fr">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="fr" href={altUrl.fr} />
+    <link rel="alternate" hreflang="en" href={altUrl.en} />
+    <link rel="alternate" hreflang="x-default" href={altUrl.fr} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
     <meta name="theme-color" content="#1B2340" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -55,7 +68,8 @@ const organization = {
     <!-- Open Graph : Facebook, LinkedIn, WhatsApp, iMessage, Slack, Discord… -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="CarSitting" />
-    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_GB'} />
+    <meta property="og:locale:alternate" content={lang === 'fr' ? 'en_GB' : 'fr_FR'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -83,7 +97,7 @@ const organization = {
     <ClientRouter fallback="swap" />
   </head>
   <body>
-    <Header transition:persist />
+    <Header transition:persist={`header-${lang}`} />
     <MobileMenu />
     <div class="cursor" id="cursor" aria-hidden="true" transition:persist></div>
     <main transition:animate="none"><slot /></main>

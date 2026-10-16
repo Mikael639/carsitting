@@ -179,9 +179,10 @@ function marquee() {
 
 function stats() {
   document.querySelectorAll<HTMLElement>('[data-stat]').forEach((el) => {
-    const m = el.textContent?.match(/^(\d[\d\s]*)(\+?)$/);
+    const m = el.textContent?.match(/^(\d[\d\s,  ]*)(\+?)$/);
     if (!m) return;
-    const end = parseInt(m[1].replace(/\s/g, ''), 10);
+    const end = parseInt(m[1].replace(/[\s,  ]/g, ''), 10);
+    const locale = document.documentElement.lang === 'en' ? 'en-GB' : 'fr-FR';
     const obj = { v: 0 };
     ScrollTrigger.create({
       trigger: el,
@@ -192,7 +193,7 @@ function stats() {
           v: end,
           duration: 2,
           ease: 'power2.out',
-          onUpdate: () => (el.textContent = Math.round(obj.v).toLocaleString('fr-FR') + m[2]),
+          onUpdate: () => (el.textContent = Math.round(obj.v).toLocaleString(locale) + m[2]),
         }),
     });
   });

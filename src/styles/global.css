@@ -123,6 +123,13 @@ header.site-header.is-solid { background-color: rgb(18 25 48 / .9); border-color
 .partner__name { font-family: var(--font-serif); font-size: 26px; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; color: var(--color-ivoire); }
 @media (max-width: 639px) { .partner { height: calc(50px * var(--s, 1)); } .partner__name { font-size: 22px; } }
 
+/* Sélecteur de langue FR / EN */
+.lang-switch { @apply items-center gap-2 font-sans uppercase text-ivoire/40; font-size: 11px; letter-spacing: .2em; }
+.lang-switch__current { @apply text-or; }
+.lang-switch a { @apply py-2 text-ivoire/70 transition-colors duration-500 hover:text-ivoire; }
+.lang-switch a:focus-visible { @apply outline-2 outline-offset-4 outline-or; }
+.mobile-menu .lang-switch { @apply flex; letter-spacing: .14em; }
+
 /* ——— Menu mobile ——— */
 @layer components {
   .menu-toggle { @apply relative grid size-11 shrink-0 cursor-pointer place-items-center border-0 bg-transparent p-0; }

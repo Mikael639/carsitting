@@ -1,0 +1,160 @@
+---
+// Qui sommes-nous / About us — mise en page unique, textes en français et en anglais.
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import Field from '../components/form/Field.astro';
+import Submit from '../components/form/Submit.astro';
+import { getLang, path, t } from '../i18n';
+
+const lang = getLang(Astro.url);
+const ui = t(lang);
+const copy = {
+  fr: {
+    title: 'Qui sommes-nous — CarSitting',
+    description: 'Depuis 2016, CarSitting veille sur le seuil des maisons d’exception parisiennes : des équipes sélectionnées, formées et discrètes, au service de votre établissement.',
+    heroTitle: 'Depuis MMXVI, nous veillons sur le seuil des maisons d’exception parisiennes.',
+    convictionLabel: 'Notre conviction',
+    conviction: 'Nous avons fondé CarSitting avec une idée simple : l’accueil ne commence pas au comptoir, mais à l’instant où une voiture s’arrête devant une maison.',
+    story1: 'Depuis 2016, nous composons ce premier geste avec la précision d’un rituel — discret pour l’hôte, parfaitement lisible pour la maison.',
+    story2: 'Nous ne déposons pas seulement des clés. Nous assurons la continuité d’un lieu, de sa promesse et de son standing. Chaque arrivée est préparée, chaque départ est accompagné, chaque détail tient sa place.',
+    valuesLabel: 'Nos valeurs',
+    valuesTitle: 'Les exigences qui nous tiennent',
+    values: [
+      ['I', 'Discrétion', 'Présents sans jamais occuper la scène.'],
+      ['II', 'Irréprochabilité', 'Une tenue, un geste et un mot à la juste mesure.'],
+      ['III', 'Confiance', 'Clés, véhicules et confidences confiés à des mains sûres.'],
+      ['IV', 'Élégance', 'La sobriété d’un service parfaitement chorégraphié.'],
+    ],
+    teamsLabel: 'Nos équipes',
+    teamsTitle: 'Le standard humain d’une maison.',
+    teamsText: 'Nous sélectionnons les tempéraments autant que les parcours. Formation, tenue, posture et attention au détail : nos voituriers portent la maison avec calme, avant même d’en prononcer le nom.',
+    teamsAlt: 'Voiturier en smoking, portière ouverte sur une rue pavée',
+    partnerLabel: 'Partenariat',
+    partnerTitle: 'Devenir partenaire',
+    partnerText: 'Décrivez votre établissement, vos flux et vos temps forts. Nous vous répondrons avec une proposition claire, calibrée pour votre maison.',
+    fields: {
+      establishment: ['Établissement', 'Nom de la maison'],
+      role: ['Fonction', 'Direction, réception, événementiel'],
+      email: ['Email', 'vous@maison.fr'],
+      message: ['Message', 'Quelques lignes sur vos besoins'],
+    },
+    formNote: 'Réponse sous quarante-huit heures ouvrées. Échange confidentiel.',
+  },
+  en: {
+    title: 'About us — CarSitting',
+    description: 'Since 2016, CarSitting has watched over the threshold of Paris’s finest houses: selected, trained and discreet teams at the service of your establishment.',
+    heroTitle: 'Since MMXVI, we have watched over the threshold of Paris’s most exceptional houses.',
+    convictionLabel: 'Our conviction',
+    conviction: 'We founded CarSitting on a simple idea: hospitality does not begin at the front desk, but the moment a car pulls up in front of a house.',
+    story1: 'Since 2016, we have composed this first gesture with the precision of a ritual — discreet for the guest, perfectly legible for the house.',
+    story2: 'We do more than hand over keys. We ensure the continuity of a place, its promise and its standing. Every arrival is prepared, every departure accompanied, every detail in its place.',
+    valuesLabel: 'Our values',
+    valuesTitle: 'The standards we hold ourselves to',
+    values: [
+      ['I', 'Discretion', 'Present, never taking centre stage.'],
+      ['II', 'Impeccability', 'Attire, gesture and words in just measure.'],
+      ['III', 'Trust', 'Keys, vehicles and confidences entrusted to safe hands.'],
+      ['IV', 'Elegance', 'The restraint of a perfectly choreographed service.'],
+    ],
+    teamsLabel: 'Our teams',
+    teamsTitle: 'The human standard of a house.',
+    teamsText: 'We select temperaments as much as track records. Training, attire, posture and attention to detail: our valets carry the house with calm, before they even speak its name.',
+    teamsAlt: 'Valet in a dinner jacket, car door open on a cobbled street',
+    partnerLabel: 'Partnership',
+    partnerTitle: 'Become a partner',
+    partnerText: 'Tell us about your establishment, your flows and your key moments. We will reply with a clear proposal, tailored to your house.',
+    fields: {
+      establishment: ['Establishment', 'Name of the house'],
+      role: ['Role', 'Management, front desk, events'],
+      email: ['Email', 'you@house.com'],
+      message: ['Message', 'A few lines about your needs'],
+    },
+    formNote: 'Reply within two working days. Confidential exchange.',
+  },
+}[lang];
+const f = copy.fields;
+---
+<Base title={copy.title} description={copy.description}>
+  <Hero
+    slides={[{ src: '/images/paris-nuit.jpg', position: 'center 55%' }]}
+    label="CarSitting · Paris"
+    title={copy.heroTitle}
+  />
+
+  {/* Récit : la conviction en grand à gauche, l'histoire à droite. */}
+  <section class="s-ivoire px-6 py-32 md:py-48">
+    <div class="mx-auto grid max-w-7xl gap-14 md:grid-cols-12 md:gap-10">
+      <div class="md:col-span-6">
+        <p class="label mb-10">{copy.convictionLabel}</p>
+        <p class="font-serif text-[28px] font-light leading-snug text-nuit md:text-[38px] md:leading-[1.25]">{copy.conviction}</p>
+      </div>
+      <div class="space-y-6 md:col-span-5 md:col-start-8 md:pt-24">
+        <p class="lede text-ivoire-muted">{copy.story1}</p>
+        <p class="text-ivoire-muted">{copy.story2}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-ivoire border-t border-encre/10 px-6 py-32 md:py-48">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-8 md:grid-cols-12">
+        <p class="label md:col-span-4 md:pt-4">{copy.valuesLabel}</p>
+        <h2 class="heading md:col-span-8">{copy.valuesTitle}</h2>
+      </div>
+      <div class="mt-20 grid gap-12 sm:grid-cols-2 md:mt-28 lg:grid-cols-4 lg:gap-0">
+        {copy.values.map(([n, title, text]) => (
+          <article class="border-l border-or/35 pl-6 lg:px-8">
+            <p class="font-serif text-5xl font-light italic text-or">{n}</p>
+            <h3 class="mt-6 font-serif text-[26px] font-normal leading-tight text-nuit">{title}</h3>
+            <p class="mt-4 text-ivoire-muted">{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="s-nuit px-6 py-28 md:py-40">
+    <div class="mx-auto grid max-w-7xl items-center gap-14 md:grid-cols-[4fr_5fr] lg:gap-20">
+      <div>
+        <p class="label mb-6">{copy.teamsLabel}</p>
+        <h2 class="heading mb-8">{copy.teamsTitle}</h2>
+        <p class="lede text-ivoire-muted">{copy.teamsText}</p>
+      </div>
+      <div class="overflow-hidden">
+        <img src="/images/voiturier-smoking.jpg" alt={copy.teamsAlt} width="1000" height="525" loading="lazy" class="aspect-[1000/525] w-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <Stats theme="ivoire" />
+
+  <section id="contact" class="s-nuit scroll-mt-24 px-5 py-24 sm:px-6 md:py-40">
+    <div class="mx-auto grid max-w-6xl items-start gap-14 lg:grid-cols-2 lg:gap-[72px]">
+      <div class="space-y-7">
+        <span class="grid size-16 place-items-center rounded-full border border-or/55 font-serif text-[30px] text-or" aria-hidden="true">CS</span>
+        <p class="label">{copy.partnerLabel}</p>
+        <h2 class="font-serif text-[40px] leading-[1.04] tracking-[-0.02em] text-ivoire md:text-[54px]">{copy.partnerTitle}</h2>
+        <p class="text-[18px] text-ivoire/75">{copy.partnerText}</p>
+        <a href={path('quote', lang)} class="inline-block rounded-full border border-or/60 px-[18px] py-3 text-[12px] uppercase tracking-[0.14em] text-ivoire transition-colors duration-500 hover:border-ivoire">{ui.quote}</a>
+      </div>
+
+      {/* Les noms de champs (name) restent en français : les demandes arrivent toujours en français. */}
+      <form data-form data-subject="Devenir partenaire" class="form-dark space-y-[18px] border border-or/28 bg-ivoire/[0.055] p-6 sm:p-[34px]">
+        <Field label={f.establishment[0]} name="Établissement" placeholder={f.establishment[1]} autocomplete="organization" />
+        <Field label={f.role[0]} name="Fonction" placeholder={f.role[1]} autocomplete="organization-title" />
+        <Field label={f.email[0]} name="Email" type="email" placeholder={f.email[1]} autocomplete="email" inputmode="email" required />
+        <Field label={f.message[0]} name="Message" type="textarea" placeholder={f.message[1]} class="f-noresize" />
+        <div class="hidden" aria-hidden="true"><label>{ui.honeypot} <input name="_gotcha" tabindex="-1" autocomplete="off" /></label></div>
+        <Submit label={ui.ctaButton} class="w-full" />
+        <p data-status role="status" class="f-status"></p>
+        <p class="text-[13px] leading-normal tracking-[0.04em] text-ivoire/52">{copy.formNote}</p>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    import { initForms } from '../scripts/forms';
+    document.addEventListener('astro:page-load', initForms);
+  </script>
+</Base>

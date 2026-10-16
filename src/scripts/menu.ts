@@ -10,7 +10,7 @@ function setOpen(open: boolean, { restoreFocus = true } = {}) {
   menu.toggleAttribute('data-open', open);
   menu.inert = !open; // retire le panneau fermé de l'ordre de tabulation et des lecteurs d'écran
   toggle.setAttribute('aria-expanded', String(open));
-  toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+  toggle.setAttribute('aria-label', (open ? toggle.dataset.labelClose : toggle.dataset.labelOpen) || '');
   setScrollLock(open);
   if (open) menu.querySelector<HTMLElement>('a')?.focus({ preventScroll: true });
   else if (was && restoreFocus) toggle.focus({ preventScroll: true });
@@ -19,10 +19,18 @@ function setOpen(open: boolean, { restoreFocus = true } = {}) {
 // L'en-tête est conservé entre les pages (transition:persist) : sa page courante se met à jour ici.
 function markCurrent() {
   const path = location.pathname.replace(/\/$/, '') || '/';
-  document.querySelectorAll<HTMLAnchorElement>('header a[href], #mobile-menu a[href]').forEach((a) => {
-    const href = a.getAttribute('href') || '';
+  document.querySelectorAll<HTMLAnchorElement>('header a[href]:not([hreflang]), #mobile-menu a[href]:not([hreflang])').forEach((a) => {
+    const href = (a.getAttribute('href') || '').replace(/\/$/, '') || '/';
     if (href === path) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
+  });
+}
+
+// L'en-tête persistant garde son lien de langue : on le pointe vers l'équivalent de la nouvelle page.
+function syncLangSwitch() {
+  document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]').forEach((a) => {
+    const alt = document.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${a.dataset.langSwitch}"]`);
+    if (alt) a.href = new URL(alt.href).pathname + new URL(alt.href).hash;
   });
 }
 
@@ -45,7 +53,7 @@ export function initMenu() {
   });
   // Après navigation : nouveau panneau (fermé), liens à jour. Passage en grand écran : on referme.
   document.addEventListener('astro:after-swap', () => { setScrollLock(false); setOpen(false, { restoreFocus: false }); });
-  document.addEventListener('astro:page-load', markCurrent);
+  document.addEventListener('astro:page-load', () => { markCurrent(); syncLangSwitch(); });
   matchMedia('(min-width: 1024px)').addEventListener('change', (e) => e.matches && setOpen(false, { restoreFocus: false }));
   markCurrent();
 }

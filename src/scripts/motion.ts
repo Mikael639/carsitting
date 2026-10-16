@@ -10,7 +10,7 @@ let lenis: Lenis | null = null;
 
 function smoothScroll() {
   if (reduced || lenis) return;
-  lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 3) });
+  lenis = new Lenis({ duration: 0.8, easing: (t) => 1 - Math.pow(1 - t, 3) });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis?.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
@@ -82,7 +82,7 @@ function intro() {
   const media = hero.querySelector<HTMLElement>('[data-hero-media]');
   if (media) {
     gsap.to(media, {
-      yPercent: 12,
+      yPercent: 6,
       ease: 'none',
       scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
     });
@@ -116,17 +116,17 @@ function reveals() {
 
   gsap.set(titles, { opacity: 1, clipPath: 'inset(0 0 100% 0)', y: 48 });
   ScrollTrigger.batch(titles, {
-    start: 'top 90%',
+    start: 'top 94%',
     once: true,
-    onEnter: (batch) => gsap.to(batch, { clipPath: 'inset(-10% 0 -20% 0)', y: 0, duration: 1.5, ease: 'expo.out', stagger: 0.12, overwrite: true, clearProps: 'clipPath,transform' }),
+    onEnter: (batch) => gsap.to(batch, { clipPath: 'inset(-10% 0 -20% 0)', y: 0, duration: 1, ease: 'expo.out', stagger: 0.12, overwrite: true, clearProps: 'clipPath,transform' }),
   });
 
-  gsap.set(rest, { opacity: 0, y: 32 });
+  gsap.set(rest, { opacity: 0, y: 20 });
   ScrollTrigger.batch(rest, {
-    start: 'top 88%',
+    start: 'top 94%',
     once: true,
     onEnter: (batch) =>
-      gsap.to(batch, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.1, overwrite: true, clearProps: 'transform' }),
+      gsap.to(batch, { opacity: 1, y: 0, duration: 0.7, ease: EASE, stagger: 0.06, overwrite: true, clearProps: 'transform' }),
   });
 }
 
@@ -135,7 +135,7 @@ function images() {
   document.querySelectorAll<HTMLImageElement>('main img').forEach((img) => {
     if (hero?.contains(img) || img.closest('[data-marquee], [data-cta-media]')) return;
     const wrap = img.parentElement!;
-    // Le zoom d'entrée (115 %) ne doit pas déborder de la carte ni élargir la page.
+    // Le zoom d'entrée (106 %) ne doit pas déborder de la carte ni élargir la page.
     if (!img.closest('.overflow-hidden')) {
       const frame = document.createElement('div');
       frame.className = 'overflow-hidden ' + [...img.classList].filter((c) => c.startsWith('mb-')).join(' ');
@@ -145,13 +145,13 @@ function images() {
     }
     gsap.fromTo(
       img,
-      { clipPath: 'inset(0 0 100% 0)', scale: 1.15 },
+      { clipPath: 'inset(0 0 100% 0)', scale: 1.06 },
       {
         clipPath: 'inset(0 0 0% 0)',
         scale: 1,
-        duration: 1.4,
-        ease: 'power3.inOut',
-        scrollTrigger: { trigger: wrap, start: 'top 85%', once: true },
+        duration: 0.75,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: wrap, start: 'top bottom', once: true },
         clearProps: 'clipPath,transform',
       },
     );
@@ -160,8 +160,8 @@ function images() {
 
 function ctaParallax() {
   document.querySelectorAll<HTMLElement>('[data-cta-media]').forEach((m) => {
-    gsap.fromTo(m.querySelector('img'), { yPercent: -8, scale: 1.12 }, {
-      yPercent: 8, scale: 1.12, ease: 'none',
+    gsap.fromTo(m.querySelector('img'), { yPercent: -4, scale: 1.08 }, {
+      yPercent: 4, scale: 1.08, ease: 'none',
       scrollTrigger: { trigger: m.parentElement, start: 'top bottom', end: 'bottom top', scrub: true },
     });
   });

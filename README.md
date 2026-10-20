@@ -59,7 +59,7 @@ Toutes les règles (sceau, photos, ton de voix) sont dans [BRAND.md](BRAND.md).
 
 - **Ouverture plein écran** (`src/components/Hero.astro`) : photo pleine largeur sous un voile translucide (la photo reste visible, le texte lisible), texte qui apparaît en décalé, parallaxe, indicateur « Défiler ». L'accueil enchaîne 4 photos en fondu toutes les 6 s ; les autres pages en ont une. Inspiré de Les 3 Valets, avec plus d'espace (Madame Rêve). L'en-tête est transparent sur l'ouverture puis devient bleu nuit dès qu'on défile.
 - **Photos de l'ouverture** : prévoir du 1920 px de large minimum, sinon elles paraissent floues en plein écran. Les listes sont dans chaque page (`slides`).
-- **Défilé des logos** (`src/components/Partners.astro`) : les 11 logos des maisons sont dans `public/logos/` (récupérés sur leurs sites officiels, provisoires : voir `public/logos/SOURCES.md`). Ils passent en ivoire uni. Pour en remplacer un, déposer un fichier du même nom (liste dans `LISEZ-MOI.md`) ; tant qu'un logo manque, le nom de la maison s'affiche à sa place.
+- **Défilé des logos** (`src/components/Partners.astro`) : les 12 logos (11 maisons et le groupe Paris Society) sont dans `public/logos/` (récupérés sur leurs sites officiels, provisoires : voir `public/logos/SOURCES.md`). Ils passent en ivoire uni. Pour en remplacer un, déposer un fichier du même nom (liste dans `LISEZ-MOI.md`) ; tant qu'un logo manque, le nom de la maison s'affiche à sa place.
 
 ## Responsive et mobile
 

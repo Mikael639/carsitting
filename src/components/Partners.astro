@@ -4,8 +4,10 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
-interface Partner { name: string; slug: string; scale: number }
+// scale : hauteur relative (formes carrées plus hautes) · wide : logotype très allongé, autorisé plus large.
+interface Partner { name: string; slug: string; scale: number; wide?: boolean }
 const all: Partner[] = [
+  { name: 'Paris Society', slug: 'paris-society', scale: 0.62, wide: true },
   { name: 'Madame Rêve', slug: 'madame-reve', scale: 1.5 },
   { name: 'Baronne', slug: 'baronne', scale: 0.8 },
   { name: 'Girafe', slug: 'girafe', scale: 0.9 },
@@ -28,12 +30,12 @@ const partners = (only ? all.filter((p) => only.includes(p.slug)) : all).map((p)
   return { ...p, logo: ext ? `/logos/${p.slug}.${ext}` : null };
 });
 ---
-<section id="les-maisons" class="s-encre scroll-mt-20 px-6 py-28 text-center md:py-40">
-  <p class="label mb-14 md:mb-20">{title}</p>
+<section id="les-maisons" class="s-encre scroll-mt-20 px-6 py-16 text-center md:py-20">
+  <h2 class="partners-title mb-10 md:mb-12">{title}</h2>
   <div class="partners-track overflow-hidden" role="list" aria-label={ui.partnersLabel}>
-    <ul data-marquee class="flex w-max items-center gap-x-20 pr-20 md:gap-x-28 md:pr-28">
+    <ul data-marquee class="flex w-max items-center gap-x-12 pr-12 md:gap-x-16 md:pr-16">
       {partners.map((p) => (
-        <li class="partner shrink-0" role="listitem" style={`--s:${p.scale}`}>
+        <li class:list={['partner shrink-0', p.wide && 'partner--wide']} role="listitem" style={`--s:${p.scale}`}>
           {p.logo
             ? <img src={p.logo} alt={p.name} loading="lazy" class="partner__logo" />
             : <span class="partner__name">{p.name}</span>}

@@ -5,6 +5,7 @@ Récupérés le 15 octobre 2026 sur les sites officiels des maisons, à titre pr
 
 | Fichier | Maison | Source |
 |---|---|---|
+| `paris-society.svg` | Paris Society (groupe) | paris-society.com — `/app/app-uploads/2026/07/paris-society-group-logo.svg` (ajouté le 20 octobre 2026) |
 | `girafe.svg` | Girafe | girafe-restaurant.com — `/app/app-uploads/2025/01/logo.svg` |
 | `baronne.svg` | Baronne | baronne-restaurant.com — `/app/app-uploads/2026/07/logo-baronne-white.svg` |
 | `mun.svg` | Mūn | restaurant-mun.com — `/app/app-uploads/2023/10/Mun-logo-white.svg` |

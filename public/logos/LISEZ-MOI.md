@@ -1,10 +1,11 @@
 # Logos des maisons partenaires
 
-Les 11 logos sont déjà en place (provisoires, voir `SOURCES.md` pour leur origine et la réserve sur les droits). Pour en remplacer un par la version officielle d'une maison, déposez ici un fichier, nommé exactement comme ci-dessous. Format accepté : `.svg` (idéal), `.png`, `.webp` ou `.jpg`.
+Les 12 logos sont déjà en place (provisoires, voir `SOURCES.md` pour leur origine et la réserve sur les droits). Pour en remplacer un par la version officielle d'une maison, déposez ici un fichier, nommé exactement comme ci-dessous. Format accepté : `.svg` (idéal), `.png`, `.webp` ou `.jpg`.
 Tant qu'un logo manque, le nom de la maison s'affiche à sa place dans le défilé : rien ne casse.
 
 | Maison | Nom du fichier |
 |---|---|
+| Paris Society | `paris-society` |
 | Madame Rêve | `madame-reve` |
 | Baronne | `baronne` |
 | Girafe | `girafe` |

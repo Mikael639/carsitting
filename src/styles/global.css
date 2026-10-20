@@ -116,8 +116,14 @@ header.site-header:not(.is-solid) .btn { background-color: rgb(18 25 48 / .45); 
 header.site-header.is-solid { background-color: rgb(18 25 48 / .9); border-color: var(--color-or-faint); backdrop-filter: blur(12px); }
 
 /* ——— Défilé des maisons : logos monochromes ivoire, fondus sur les bords ——— */
-.partners-track { -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-.partner { display: flex; height: calc(66px * var(--s, 1)); align-items: center; opacity: .7; transition: opacity .5s; }
+.partners-track { -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
+/* Titre du bandeau : bien visible (demande de Jerry), capitales espacées entre deux filets or. */
+.partners-title { display: flex; align-items: center; justify-content: center; gap: 12px; white-space: nowrap; font-family: var(--font-sans); font-weight: 500; font-size: 13px; letter-spacing: .2em; line-height: 1.3; text-transform: uppercase; color: var(--color-ivoire); }
+.partners-title::before, .partners-title::after { content: ""; flex: 0 0 auto; width: 22px; height: 1px; background: var(--color-or); }
+@media (min-width: 768px) { .partners-title { font-size: 18px; gap: 28px; letter-spacing: .3em; } .partners-title::before, .partners-title::after { width: 64px; } }
+.partner { display: flex; height: calc(66px * var(--s, 1)); align-items: center; opacity: .85; transition: opacity .5s; }
+.partner--wide .partner__logo { max-width: 340px; }
+@media (max-width: 639px) { .partner--wide .partner__logo { max-width: 230px; } }
 .partner:hover { opacity: 1; }
 .partner__logo { height: 100%; width: auto; max-width: 260px; object-fit: contain; filter: brightness(0) invert(1) !important; }
 .partner__name { font-family: var(--font-serif); font-size: 26px; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; color: var(--color-ivoire); }

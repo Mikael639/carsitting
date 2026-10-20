@@ -105,7 +105,7 @@ Gérées dans `src/layouts/Base.astro` : chaque page passe son `title` et sa `de
 
 - **Aperçus de partage** : Open Graph (Facebook, LinkedIn, WhatsApp, iMessage, Slack) et X / Twitter (`summary_large_image`), avec l'image `public/og-image.jpg` (1200×630).
 - **Référencement** : lien canonique, `robots`, `sitemap-index.xml` généré au build (`@astrojs/sitemap`), `public/robots.txt`, données structurées JSON-LD (`LocalBusiness`).
-- **Navigateur** : favicon SVG (`public/favicon.svg`), couleur de thème bleu nuit.
+- **Navigateur** : favicon et icône tactile (monogramme sur carré bleu nuit, `public/brand/`), couleur de thème bleu nuit.
 - **URL publique** : lue dans la variable `SITE_URL` (par défaut `https://carsitting.fr`). Les aperçus exigent des URL absolues : définir `SITE_URL` sur Vercel avec le domaine définitif, et mettre à jour la ligne `Sitemap:` de `public/robots.txt`.
 - Une image dédiée à une page : `<Base title="…" image="/mon-image.jpg" imageAlt="…">`. `noindex` garde une page hors des moteurs de recherche.
 

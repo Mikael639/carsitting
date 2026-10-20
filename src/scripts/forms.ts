@@ -48,13 +48,20 @@ const frDate = (iso: string) => {
   return d && m && y ? `${d}/${m}/${y}` : iso;
 };
 
+// Date affichée dans un message : « 15/10/2026 » en français, « 15 October 2026 » en anglais (jj/mm ambigu pour un lecteur américain).
+const shownDate = (iso: string) => {
+  if (document.documentElement.lang !== 'en') return frDate(iso);
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+
 function messageFor(el: Control): string {
   const v = el.validity;
   const m = msg();
   if (v.valueMissing) return el instanceof HTMLSelectElement ? m.choose : m.required;
   if (v.typeMismatch && el.type === 'email') return m.email;
   if (v.customError && el.type === 'tel') return m.tel;
-  if (v.rangeUnderflow && el.type === 'date') return m.dateMin(frDate((el as HTMLInputElement).min));
+  if (v.rangeUnderflow && el.type === 'date') return m.dateMin(shownDate((el as HTMLInputElement).min));
   if (v.rangeUnderflow) return m.min((el as HTMLInputElement).min);
   if (v.rangeOverflow) return m.max((el as HTMLInputElement).max);
   if (v.stepMismatch || v.badInput) return m.integer;

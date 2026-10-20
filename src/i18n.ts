@@ -101,10 +101,10 @@ export const ui = {
     select: 'Select',
     honeypot: 'Leave empty',
     ctaLabel: 'Request a quote',
-    ctaTitle: 'Let us talk about the threshold of your establishment.',
+    ctaTitle: 'Let’s talk about the threshold of your establishment.',
     ctaButton: 'Request a proposal',
-    ctaNote: 'Reply within 48 h · Confidential · No obligation',
-    stats: [['MMXVI', 'House founded'], ['12,000+', 'Services delivered'], ['40+', 'Establishments served']],
+    ctaNote: 'Reply within 48 hours · Confidential exchange · No obligation',
+    stats: [['MMXVI', 'Founded'], ['12,000+', 'Services delivered'], ['40+', 'Establishments served']],
   },
 } as const;
 

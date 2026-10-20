@@ -177,7 +177,7 @@ function marquee() {
   if (!list || list.dataset.ready) return;
   list.dataset.ready = '1';
   list.innerHTML += list.innerHTML;
-  const tween = gsap.to(list, { xPercent: -50, duration: 22, ease: 'none', repeat: -1 });
+  const tween = gsap.to(list, { xPercent: -50, duration: 14, ease: 'none', repeat: -1 });
   list.addEventListener('mouseenter', () => gsap.to(tween, { timeScale: 0.2, duration: 0.6 }));
   list.addEventListener('mouseleave', () => gsap.to(tween, { timeScale: 1, duration: 0.6 }));
 }

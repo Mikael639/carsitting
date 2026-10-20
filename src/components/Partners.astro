@@ -30,8 +30,8 @@ const partners = (only ? all.filter((p) => only.includes(p.slug)) : all).map((p)
   return { ...p, logo: ext ? `/logos/${p.slug}.${ext}` : null };
 });
 ---
-<section id="les-maisons" class="s-encre scroll-mt-20 px-6 py-16 text-center md:py-20">
-  <h2 class="partners-title mb-10 md:mb-12">{title}</h2>
+<section id="les-maisons" class="s-encre scroll-mt-20 px-6 py-12 text-center md:py-14">
+  <h2 class="partners-title mb-8 md:mb-10">{title}</h2>
   <div class="partners-track overflow-hidden" role="list" aria-label={ui.partnersLabel}>
     <ul data-marquee class="flex w-max items-center gap-x-12 pr-12 md:gap-x-16 md:pr-16">
       {partners.map((p) => (

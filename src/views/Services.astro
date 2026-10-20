@@ -61,15 +61,15 @@ const media = ['/images/services-hotel.jpg', '/images/services-restaurant.webp',
     cta={{ href: path('quote', lang), label: ui.quote }}
   />
 
-  <section class="s-ivoire px-6 pb-12 pt-20 text-center md:pb-16 md:pt-28">
+  <section class="s-ivoire px-6 pb-8 pt-14 text-center md:pb-10 md:pt-20">
     <p class="label mb-10">{copy.philosophyLabel}</p>
     <h2 class="quote-xl mx-auto max-w-4xl not-italic">{copy.philosophyTitle}</h2>
     <p class="lede mx-auto mt-10 text-ivoire-muted">{copy.philosophyText}</p>
   </section>
 
   {/* Prestations : grandes images, alternées gauche / droite. */}
-  <section class="s-ivoire px-6 pb-20 md:pb-28">
-    <div class="mx-auto max-w-7xl space-y-16 md:space-y-24">
+  <section class="s-ivoire px-6 pb-14 md:pb-20">
+    <div class="mx-auto max-w-7xl space-y-12 md:space-y-16">
       {copy.services.map(([n, title, text, alt], i) => (
         <article class="card grid items-center gap-10 md:grid-cols-12 md:gap-10">
           <div class:list={['card-media overflow-hidden md:col-span-7', i % 2 === 1 && 'md:order-2 md:col-start-6']}>
@@ -85,13 +85,13 @@ const media = ['/images/services-hotel.jpg', '/images/services-restaurant.webp',
     </div>
   </section>
 
-  <section class="s-nuit px-6 py-20 md:py-28">
+  <section class="s-nuit px-6 py-14 md:py-20">
     <div class="mx-auto max-w-7xl">
       <div class="grid gap-8 md:grid-cols-12">
         <p class="label md:col-span-4 md:pt-4">{copy.formulasLabel}</p>
         <h2 class="heading md:col-span-8">{copy.formulasTitle}</h2>
       </div>
-      <div class="mt-12 grid gap-10 md:mt-16 md:grid-cols-3 md:gap-0">
+      <div class="mt-10 grid gap-8 md:mt-12 md:grid-cols-3 md:gap-0">
         {copy.formulas.map(([title, text]) => (
           <div class="border-l border-or/35 pl-6 md:px-8">
             <p class="label mb-5">{title}</p>
@@ -102,7 +102,7 @@ const media = ['/images/services-hotel.jpg', '/images/services-restaurant.webp',
     </div>
   </section>
 
-  <section class="s-ivoire px-6 py-20 md:py-28">
+  <section class="s-ivoire px-6 py-14 md:py-20">
     <div class="mx-auto max-w-7xl">
       <blockquote class="quote-xl mx-auto max-w-4xl text-center">{copy.quote}</blockquote>
     </div>

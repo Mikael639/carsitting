@@ -4,7 +4,7 @@ const lang = getLang(Astro.url);
 const ui = t(lang);
 const year = new Date().getFullYear();
 ---
-<footer class="s-encre overflow-hidden px-6 pb-10 pt-16 text-ivoire-muted md:pt-20">
+<footer class="s-encre overflow-hidden px-6 pb-10 pt-12 text-ivoire-muted md:pt-16">
   <div class="mx-auto max-w-7xl">
     <div class="grid gap-12 md:grid-cols-12">
       <div class="md:col-span-5">
@@ -35,7 +35,7 @@ const year = new Date().getFullYear();
     </div>
 
     {/* Signature : le nom de la maison, très grand, en filigrane. */}
-    <p class="footer-wordmark mt-14 select-none md:mt-16" aria-hidden="true">Car Sitting</p>
+    <p class="footer-wordmark mt-10 select-none md:mt-12" aria-hidden="true">Car Sitting</p>
 
     <div class="mt-8 flex flex-col gap-3 border-t border-or/20 pt-8 text-xs tracking-wide text-ivoire/45 md:flex-row md:justify-between">
       <p>© {year} CarSitting · {ui.rights}</p>

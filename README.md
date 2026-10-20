@@ -76,6 +76,7 @@ Testé de 320 à 1280 px sur les 4 pages : aucun défilement horizontal.
 - **Mise en page éditoriale** : grilles asymétriques, cartes en quinconce, prestations alternées, filets or fins entre les colonnes, grands espaces.
 - **Grain photographique** très léger sur tout le site (`body::after`), curseur en anneau or sur ordinateur (`src/scripts/cursor.ts`, désactivé au tactile et en mode animations réduites).
 - **Titres** révélés derrière un masque au défilement ; images qui s'approchent au survol des cartes.
+- **Sur téléphone et tablette** (moins de 1024 px ou écran tactile), les photos s'affichent immédiatement, sans dévoilement ni fondu : on y défile vite au doigt (retour de Jerry).
 - **Conclusion** sur photo avec parallaxe, **pied de page** avec grande signature « Car Sitting » en filigrane.
 - Les chiffres clés sont sur bleu nuit (la charte proscrit l'or en aplat).
 

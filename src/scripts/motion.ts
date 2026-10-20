@@ -6,6 +6,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 const EASE = 'power3.out';
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Téléphones et tablettes : on défile vite au doigt, les photos doivent être là tout de suite
+// (retour de Jerry). Aucun dévoilement ni fondu sur les photos ; les textes gardent leur apparition.
+const touch = () => window.matchMedia('(max-width: 1023px), (hover: none)').matches;
 let lenis: Lenis | null = null;
 
 function smoothScroll() {
@@ -112,7 +115,9 @@ function reveals() {
   });
   // Grands titres et citations : ils montent derrière un masque (plus éditorial qu'un simple fondu).
   const titles = all.filter((el) => el.matches('.heading, .display, .quote-xl'));
-  const rest = all.filter((el) => !titles.includes(el));
+  // Sur téléphone, les blocs qui portent une photo (cartes, figures) s'affichent sans fondu.
+  const rest = all.filter((el) => !titles.includes(el) && !(touch() && el.querySelector('img')));
+  if (touch()) gsap.set(all.filter((el) => !titles.includes(el) && el.querySelector('img')), { opacity: 1, y: 0 });
 
   gsap.set(titles, { opacity: 1, clipPath: 'inset(0 0 100% 0)', y: 48 });
   ScrollTrigger.batch(titles, {
@@ -133,7 +138,7 @@ function reveals() {
 function images() {
   const hero = document.querySelector('main > section:first-child');
   document.querySelectorAll<HTMLImageElement>('main img').forEach((img) => {
-    if (hero?.contains(img) || img.closest('[data-marquee], [data-cta-media]')) return;
+    if (hero?.contains(img) || img.closest('[data-marquee], [data-cta-media]') || touch()) return;
     const wrap = img.parentElement!;
     // Le zoom d'entrée (106 %) ne doit pas déborder de la carte ni élargir la page.
     if (!img.closest('.overflow-hidden')) {

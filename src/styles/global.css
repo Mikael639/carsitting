@@ -60,7 +60,6 @@ body::after { content: ""; position: fixed; inset: -50%; z-index: 70; pointer-ev
 
 /* Pied de page */
 .footer-link { @apply inline-block py-1 transition-colors duration-500 hover:text-ivoire; }
-.footer-wordmark { font-family: var(--font-serif); font-weight: 300; font-size: clamp(64px, 15.5vw, 236px); line-height: 1.02; letter-spacing: -0.04em; white-space: nowrap; text-align: center; color: transparent; -webkit-text-stroke: 1px rgb(169 139 84 / .35); }
 
 /* Cartes : l'image s'approche lentement au survol. */
 .card-media img { transition: transform 1.6s cubic-bezier(.22,1,.36,1); }

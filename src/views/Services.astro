@@ -72,10 +72,10 @@ const media = ['/images/services-hotel.jpg', '/images/services-restaurant.webp',
     <div class="mx-auto max-w-7xl space-y-12 md:space-y-16">
       {copy.services.map(([n, title, text, alt], i) => (
         <article class="card grid items-center gap-10 md:grid-cols-12 md:gap-10">
-          <div class:list={['card-media overflow-hidden md:col-span-7', i % 2 === 1 && 'md:order-2 md:col-start-6']}>
+          <div class:list={['card-media order-2 overflow-hidden md:col-span-7', i % 2 === 1 ? 'md:order-2 md:col-start-6' : 'md:order-1']}>
             <img src={media[i]} alt={alt} loading="lazy" class="aspect-[4/3] w-full object-cover md:aspect-[5/4]" />
           </div>
-          <div class:list={['md:col-span-4', i % 2 === 1 ? 'md:order-1 md:col-start-1' : 'md:col-start-9']}>
+          <div class:list={['order-1 md:col-span-4', i % 2 === 1 ? 'md:order-1 md:col-start-1' : 'md:order-2 md:col-start-9']}>
             <p class="font-serif text-6xl font-light italic text-or">{n}</p>
             <h3 class="mt-6 font-serif text-4xl font-normal leading-tight text-nuit">{title}</h3>
             <p class="mt-5 text-ivoire-muted">{text}</p>

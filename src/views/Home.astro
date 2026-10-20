@@ -130,11 +130,11 @@ const cardMedia = [['/images/hotel.jpg', 'center 55%'], ['/images/restaurant.jpg
       <div class="mt-10 grid gap-10 md:mt-12 md:grid-cols-3 md:gap-8 lg:gap-12">
         {copy.cards.map(([n, title, text, alt], i) => (
           <article class="card">
-            <a href={path('services', lang)} class="block" aria-label={`${title} — ${copy.serviceLink.toLowerCase()}`}>
-              <div class="card-media overflow-hidden">
+            <a href={path('services', lang)} class="flex flex-col" aria-label={`${title} — ${copy.serviceLink.toLowerCase()}`}>
+              <div class="card-media order-last mt-7 overflow-hidden md:order-none md:mt-0">
                 <img src={cardMedia[i][0]} alt={alt} loading="lazy" class="aspect-[4/5] w-full object-cover" style={`object-position:${cardMedia[i][1]}`} />
               </div>
-              <p class="mt-7 font-serif text-3xl font-light italic text-or">{n}</p>
+              <p class="font-serif text-3xl font-light italic text-or md:mt-7">{n}</p>
               <h3 class="mt-3 font-serif text-[32px] font-normal leading-tight text-nuit">{title}</h3>
               <p class="mt-3 max-w-xs text-ivoire-muted">{text}</p>
             </a>

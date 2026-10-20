@@ -6,6 +6,8 @@
   --color-ivoire: rgb(245, 241, 233);
   --color-or: rgb(169, 139, 84);
   --color-encre: rgb(26, 26, 26);
+  /* Hors charte, réservée au bouton « Demander un devis » (choix de Mika, à valider par Jerry). */
+  --color-bordeaux: rgb(110, 31, 43);
   --color-ivoire-muted: rgba(245, 241, 233, 0.72);
   --color-or-faint: rgba(169, 139, 84, 0.32);
   --font-serif: "Cormorant Garamond", serif;
@@ -49,13 +51,11 @@ body::after { content: ""; position: fixed; inset: -50%; z-index: 70; pointer-ev
 /* Charte : l'or patiné n'est jamais en aplat (sauf le sceau) — le bouton passe en ivoire au survol. */
 /* Dans @layer components : sinon `display` écraserait les utilitaires (hidden, sm:inline-block…). */
 @layer components {
-  /* Bouton principal des pages (« Demander un devis ») : double filet or, façon cadre (choix de Mika).
-     Le second filet s'écarte au survol. Texte or sur fond sombre, bleu nuit sur ivoire. */
-  .btn-primary { @apply inline-flex items-center justify-center whitespace-nowrap border border-or px-8 py-4 font-sans font-normal uppercase text-or transition-[outline-offset,background-color,color] duration-500; font-size: 12px; letter-spacing: .22em; outline: 1px solid rgb(169 139 84 / .45); outline-offset: 4px; }
-  .btn-primary:hover { outline-offset: 7px; background-color: rgb(169 139 84 / .1); color: var(--color-ivoire); }
+  /* Bouton principal des pages (« Demander un devis ») : bordeaux, double filet or façon cadre.
+     Le bordeaux est hors charte, réservé à ce seul bouton pour qu'il se distingue (choix de Mika, à valider par Jerry). */
+  .btn-primary { @apply inline-flex items-center justify-center whitespace-nowrap border border-or bg-bordeaux px-8 py-4 font-sans font-medium uppercase text-ivoire transition-[outline-offset,background-color] duration-500; font-size: 12px; letter-spacing: .22em; outline: 1px solid rgb(169 139 84 / .6); outline-offset: 4px; }
+  .btn-primary:hover { outline-offset: 7px; background-color: rgb(128 38 52); }
   .btn-primary:focus-visible { outline-color: var(--color-or); outline-offset: 7px; }
-  .s-ivoire .btn-primary { @apply text-nuit; }
-  .s-ivoire .btn-primary:hover { color: var(--color-nuit); background-color: rgb(169 139 84 / .12); }
   @media (prefers-reduced-motion: reduce) { .btn-primary { transition: none; } }
   .btn { @apply inline-block border border-or text-or uppercase px-8 py-4 transition-colors duration-500 hover:border-ivoire hover:text-ivoire; font-size: 12px; letter-spacing: .22em; }
 }
@@ -106,8 +106,6 @@ html.js-motion main section [data-marquee] li, html.js-motion [data-hero] .hero-
 .hero-veil { background:
   linear-gradient(180deg, rgb(18 25 48 / .62) 0%, rgb(18 25 48 / .22) 26%, rgb(18 25 48 / .30) 62%, rgb(18 25 48 / .88) 100%),
   radial-gradient(ellipse 62% 50% at 50% 46%, rgb(18 25 48 / .42), transparent 100%); }
-[data-hero] .btn-primary, section:has(> [data-cta-media]) .btn-primary { color: var(--color-or); background-color: rgb(18 25 48 / .35); backdrop-filter: blur(6px); }
-[data-hero] .btn-primary:hover, section:has(> [data-cta-media]) .btn-primary:hover { color: var(--color-ivoire); background-color: rgb(18 25 48 / .5); }
 .hero-title { text-shadow: 0 2px 36px rgb(18 25 48 / .55); }
 .hero-label { color: var(--color-ivoire) !important; text-shadow: 0 1px 14px rgb(18 25 48 / .7); }
 [data-hero] .font-serif.italic { text-shadow: 0 1px 18px rgb(18 25 48 / .6); }

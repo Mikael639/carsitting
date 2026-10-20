@@ -5,6 +5,7 @@ Source : « CarSitting identité visuelle.pptx » (choix de Jerry). Tokens dans 
 - **Palette** : Bleu nuit `#1B2340` (dominante), Ivoire `#F5F1E9` (jamais de blanc pur), Or patiné `#A98B54` (jamais en aplat, sauf le sceau), Encre `#1A1A1A`.
 - **Fonds de section** (rythme Framer) : bleu nuit pour les ouvertures, équipes, modalités et formulaires ; ivoire pour les sections de lecture ; encre pour partenaires, conclusions et pied de page ; or pour le bandeau des repères. Classes `s-nuit`, `s-ivoire`, `s-encre`, `s-or`.
 - **Libellés or sur ivoire** : conservés par choix de charte, malgré un contraste de 2,86:1 (sous le seuil WCAG de 4,5:1 pour le petit texte).
+- **Exception — bordeaux** `#6E1F2B` : cinquième teinte, hors charte, réservée au bouton « Demander un devis » des pages (fond bordeaux, texte ivoire, double filet or). Choix de Mika, **à valider par Jerry**. Nulle part ailleurs sur le site.
 - **Typographie** : Cormorant Garamond (titres, signatures, verbatims) ; Jost (labels, corps). Labels en capitales espacées. Contraste par la taille, la casse et l'espacement, jamais par l'accumulation de graisses.
 - **Sceau « CS »** : ne jamais déformer, recolorer hors palette, ombrer, contourer, appliquer un dégradé.
 - **Système graphique** : filet ouvragé en séparateur, capitales espacées, chiffres romains pour les dates et listes, marges généreuses.

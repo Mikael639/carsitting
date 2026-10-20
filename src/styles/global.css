@@ -49,18 +49,14 @@ body::after { content: ""; position: fixed; inset: -50%; z-index: 70; pointer-ev
 /* Charte : l'or patiné n'est jamais en aplat (sauf le sceau) — le bouton passe en ivoire au survol. */
 /* Dans @layer components : sinon `display` écraserait les utilitaires (hidden, sm:inline-block…). */
 @layer components {
-  /* Bouton principal des pages (« Demander un devis ») : laiton patiné, à la demande de Mika.
-     Léger dégradé plutôt qu'un aplat d'or (charte : « or patiné, jamais en aplat »), reflet au survol. */
-  .btn-primary { @apply relative inline-flex items-center justify-center gap-3 overflow-hidden whitespace-nowrap rounded-full px-9 py-4 font-sans font-medium uppercase transition-[transform,box-shadow] duration-500; font-size: 12px; letter-spacing: .24em; color: var(--color-nuit-deep);
-    background: linear-gradient(135deg, #c4a670 0%, #a98b54 48%, #8c713f 100%);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / .3), 0 8px 24px -14px rgb(169 139 84 / .55); }
-  .btn-primary::before { content: ""; position: absolute; inset: 0 auto 0 -60%; width: 45%; background: linear-gradient(100deg, transparent, rgb(255 255 255 / .38), transparent); transform: skewX(-18deg); transition: left .9s cubic-bezier(.22,1,.36,1); }
-  .btn-primary::after { content: ""; display: block; height: 1px; width: 18px; background: currentColor; transition: width .5s cubic-bezier(.22,1,.36,1); }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgb(255 255 255 / .34), 0 12px 28px -12px rgb(169 139 84 / .7); }
-  .btn-primary:hover::before { left: 115%; }
-  .btn-primary:hover::after, .btn-primary:focus-visible::after { width: 30px; }
-  .btn-primary:focus-visible { @apply outline-2 outline-offset-4 outline-or; }
-  @media (prefers-reduced-motion: reduce) { .btn-primary, .btn-primary::before { transition: none; } .btn-primary:hover { transform: none; } }
+  /* Bouton principal des pages (« Demander un devis ») : double filet or, façon cadre (choix de Mika).
+     Le second filet s'écarte au survol. Texte or sur fond sombre, bleu nuit sur ivoire. */
+  .btn-primary { @apply inline-flex items-center justify-center whitespace-nowrap border border-or px-8 py-4 font-sans font-normal uppercase text-or transition-[outline-offset,background-color,color] duration-500; font-size: 12px; letter-spacing: .22em; outline: 1px solid rgb(169 139 84 / .45); outline-offset: 4px; }
+  .btn-primary:hover { outline-offset: 7px; background-color: rgb(169 139 84 / .1); color: var(--color-ivoire); }
+  .btn-primary:focus-visible { outline-color: var(--color-or); outline-offset: 7px; }
+  .s-ivoire .btn-primary { @apply text-nuit; }
+  .s-ivoire .btn-primary:hover { color: var(--color-nuit); background-color: rgb(169 139 84 / .12); }
+  @media (prefers-reduced-motion: reduce) { .btn-primary { transition: none; } }
   .btn { @apply inline-block border border-or text-or uppercase px-8 py-4 transition-colors duration-500 hover:border-ivoire hover:text-ivoire; font-size: 12px; letter-spacing: .22em; }
 }
 
@@ -110,7 +106,8 @@ html.js-motion main section [data-marquee] li, html.js-motion [data-hero] .hero-
 .hero-veil { background:
   linear-gradient(180deg, rgb(18 25 48 / .62) 0%, rgb(18 25 48 / .22) 26%, rgb(18 25 48 / .30) 62%, rgb(18 25 48 / .88) 100%),
   radial-gradient(ellipse 62% 50% at 50% 46%, rgb(18 25 48 / .42), transparent 100%); }
-[data-hero] .btn, section:has(> [data-cta-media]) .btn { color: var(--color-ivoire); background-color: rgb(18 25 48 / .35); backdrop-filter: blur(6px); }
+[data-hero] .btn-primary, section:has(> [data-cta-media]) .btn-primary { color: var(--color-or); background-color: rgb(18 25 48 / .35); backdrop-filter: blur(6px); }
+[data-hero] .btn-primary:hover, section:has(> [data-cta-media]) .btn-primary:hover { color: var(--color-ivoire); background-color: rgb(18 25 48 / .5); }
 .hero-title { text-shadow: 0 2px 36px rgb(18 25 48 / .55); }
 .hero-label { color: var(--color-ivoire) !important; text-shadow: 0 1px 14px rgb(18 25 48 / .7); }
 [data-hero] .font-serif.italic { text-shadow: 0 1px 18px rgb(18 25 48 / .6); }

@@ -21,6 +21,6 @@ const { theme = 'encre', image } = Astro.props as { theme?: 'encre' | 'ivoire'; 
   )}
   <p class="label mb-10">{ui.ctaLabel}</p>
   <h2 class="display mx-auto max-w-4xl">{ui.ctaTitle}</h2>
-  <div class="mt-14"><a href={path('quote', lang)} class="btn">{ui.ctaButton}</a></div>
+  <div class="mt-14"><a href={path('quote', lang)} class="btn-primary">{ui.ctaButton}</a></div>
   <p class="mx-auto mt-8 max-w-md text-sm text-ivoire-muted">{ui.ctaNote}</p>
 </section>

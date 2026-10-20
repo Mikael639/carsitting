@@ -35,7 +35,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
       <span class="h-px w-24 bg-or/50"></span><span class="size-2 rotate-45 bg-or"></span><span class="h-px w-24 bg-or/50"></span>
     </div>
     {quote && <p class="hero-reveal mx-auto max-w-xl font-serif text-xl italic text-ivoire/90 md:text-2xl">{quote}</p>}
-    {cta && <div class="hero-reveal mt-12 md:mt-14"><a href={cta.href} class="btn">{cta.label}</a></div>}
+    {cta && <div class="hero-reveal mt-12 md:mt-14"><a href={cta.href} class="btn-primary">{cta.label}</a></div>}
   </div>
 
   <div class="absolute inset-x-0 bottom-7 z-10 grid grid-cols-3 items-end px-6 md:bottom-10 md:px-12">

@@ -16,7 +16,7 @@ const other = lang === 'fr' ? 'en' : 'fr';
         const href = path(key, lang);
         return <a href={href} class="nav-link hidden lg:inline" aria-current={p === norm(href) ? 'page' : undefined}>{label}</a>;
       })}
-      <a href={path('quote', lang)} class="btn hidden whitespace-nowrap !px-5 !py-3 sm:inline-block" aria-current={p === norm(path('quote', lang)) ? 'page' : undefined}>{ui.quoteCta}</a>
+      <a href={path('quote', lang)} class="btn-primary hidden !px-5 !py-2.5 !text-[11px] !tracking-[0.2em] sm:inline-flex" aria-current={p === norm(path('quote', lang)) ? 'page' : undefined}>{ui.quoteCta}</a>
       <div class="lang-switch hidden sm:flex" role="group" aria-label={ui.language}>
         <span class="lang-switch__current" aria-current="true">{lang.toUpperCase()}</span>
         <span aria-hidden="true">/</span>

@@ -93,14 +93,14 @@ const cardMedia = [['/images/hotel.jpg', 'center 55%'], ['/images/restaurant.jpg
   />
 
   {/* Manifeste : une seule phrase, beaucoup d'air. */}
-  <section class="s-ivoire px-6 pb-20 pt-32 text-center md:pb-28 md:pt-48">
-    <p class="label mb-10 md:mb-14">{copy.manifestoLabel}</p>
+  <section class="s-ivoire px-6 pb-12 pt-20 text-center md:pb-16 md:pt-28">
+    <p class="label mb-8 md:mb-10">{copy.manifestoLabel}</p>
     <blockquote class="quote-xl mx-auto max-w-5xl">{copy.manifesto}</blockquote>
     <Ornament />
   </section>
 
   {/* Le geste : image éditoriale et texte en décalé. */}
-  <section class="s-ivoire px-6 pb-32 md:pb-48" aria-label={copy.gestureAria}>
+  <section class="s-ivoire px-6 pb-20 md:pb-28" aria-label={copy.gestureAria}>
     <div class="mx-auto grid max-w-7xl items-end gap-12 md:grid-cols-12 md:gap-10">
       <figure class="md:col-span-7">
         <div class="overflow-hidden">
@@ -118,7 +118,7 @@ const cardMedia = [['/images/hotel.jpg', 'center 55%'], ['/images/restaurant.jpg
   </section>
 
   {/* Le service : trois cartes portrait, celle du milieu décalée. */}
-  <section class="s-ivoire border-t border-encre/10 px-6 py-32 md:py-48">
+  <section class="s-ivoire border-t border-encre/10 px-6 py-20 md:py-28">
     <div class="mx-auto max-w-7xl">
       <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
         <div>
@@ -127,9 +127,9 @@ const cardMedia = [['/images/hotel.jpg', 'center 55%'], ['/images/restaurant.jpg
         </div>
         <a href={path('services', lang)} class="link-arrow shrink-0">{copy.serviceLink}</a>
       </div>
-      <div class="mt-20 grid gap-16 md:mt-24 md:grid-cols-3 md:gap-8 lg:gap-12">
+      <div class="mt-12 grid gap-12 md:mt-14 md:grid-cols-3 md:gap-8 lg:gap-12">
         {copy.cards.map(([n, title, text, alt], i) => (
-          <article class:list={['card', i === 1 && 'md:mt-28']}>
+          <article class="card">
             <a href={path('services', lang)} class="block" aria-label={`${title} — ${copy.serviceLink.toLowerCase()}`}>
               <div class="card-media overflow-hidden">
                 <img src={cardMedia[i][0]} alt={alt} loading="lazy" class="aspect-[4/5] w-full object-cover" style={`object-position:${cardMedia[i][1]}`} />
@@ -147,13 +147,13 @@ const cardMedia = [['/images/hotel.jpg', 'center 55%'], ['/images/restaurant.jpg
   <Partners title={copy.partners} />
 
   {/* L'approche : quatre engagements séparés par de fins filets or. */}
-  <section class="s-ivoire px-6 py-32 md:py-48">
+  <section class="s-ivoire px-6 py-20 md:py-28">
     <div class="mx-auto max-w-7xl">
       <div class="grid gap-8 md:grid-cols-12">
         <p class="label md:col-span-4 md:pt-4">{copy.approachLabel}</p>
         <h2 class="heading md:col-span-8">{copy.approachTitle}</h2>
       </div>
-      <div class="mt-20 grid gap-12 sm:grid-cols-2 md:mt-28 lg:grid-cols-4 lg:gap-0">
+      <div class="mt-12 grid gap-10 sm:grid-cols-2 md:mt-16 lg:grid-cols-4 lg:gap-0">
         {copy.steps.map(([n, title, text]) => (
           <article class="border-l border-or/35 pl-6 lg:px-8">
             <p class="font-serif text-5xl font-light italic text-or">{n}</p>

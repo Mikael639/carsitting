@@ -83,7 +83,7 @@ const f = copy.fields;
   />
 
   {/* Récit : la conviction en grand à gauche, l'histoire à droite. */}
-  <section class="s-ivoire px-6 py-32 md:py-48">
+  <section class="s-ivoire px-6 py-20 md:py-28">
     <div class="mx-auto grid max-w-7xl gap-14 md:grid-cols-12 md:gap-10">
       <div class="md:col-span-6">
         <p class="label mb-10">{copy.convictionLabel}</p>
@@ -96,13 +96,13 @@ const f = copy.fields;
     </div>
   </section>
 
-  <section class="s-ivoire border-t border-encre/10 px-6 py-32 md:py-48">
+  <section class="s-ivoire border-t border-encre/10 px-6 py-20 md:py-28">
     <div class="mx-auto max-w-7xl">
       <div class="grid gap-8 md:grid-cols-12">
         <p class="label md:col-span-4 md:pt-4">{copy.valuesLabel}</p>
         <h2 class="heading md:col-span-8">{copy.valuesTitle}</h2>
       </div>
-      <div class="mt-20 grid gap-12 sm:grid-cols-2 md:mt-28 lg:grid-cols-4 lg:gap-0">
+      <div class="mt-12 grid gap-10 sm:grid-cols-2 md:mt-16 lg:grid-cols-4 lg:gap-0">
         {copy.values.map(([n, title, text]) => (
           <article class="border-l border-or/35 pl-6 lg:px-8">
             <p class="font-serif text-5xl font-light italic text-or">{n}</p>
@@ -114,7 +114,7 @@ const f = copy.fields;
     </div>
   </section>
 
-  <section class="s-nuit px-6 py-28 md:py-40">
+  <section class="s-nuit px-6 py-20 md:py-28">
     <div class="mx-auto grid max-w-7xl items-center gap-14 md:grid-cols-[4fr_5fr] lg:gap-20">
       <div>
         <p class="label mb-6">{copy.teamsLabel}</p>
@@ -129,7 +129,7 @@ const f = copy.fields;
 
   <Stats theme="ivoire" />
 
-  <section id="contact" class="s-nuit scroll-mt-24 px-5 py-24 sm:px-6 md:py-40">
+  <section id="contact" class="s-nuit scroll-mt-24 px-5 py-20 sm:px-6 md:py-28">
     <div class="mx-auto grid max-w-6xl items-start gap-14 lg:grid-cols-2 lg:gap-[72px]">
       <div class="space-y-7">
         <span class="grid size-16 place-items-center rounded-full border border-or/55 font-serif text-[30px] text-or" aria-hidden="true">CS</span>

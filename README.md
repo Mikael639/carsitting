@@ -51,7 +51,7 @@ public/images/              Photos (récupérées du site Framer)
 Définie dans `src/styles/global.css` (`@theme`) :
 
 - **Couleurs** : bleu nuit `#1B2340`, ivoire `#F5F1E9`, or patiné `#A98B54`, encre `#1A1A1A`
-- **Polices** : Cormorant Garamond (titres) et Jost (corps, libellés)
+- **Polices** : Cormorant Garamond (titres) et Jost (corps, libellés), hébergées sur le site via `@fontsource` (aucune requête vers Google)
 - **Fonds de section** : classes `s-nuit`, `s-ivoire`, `s-encre`, `s-or` (rythme repris de Framer)
 
 Toutes les règles (sceau, photos, ton de voix) sont dans [BRAND.md](BRAND.md).

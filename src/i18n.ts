@@ -11,6 +11,7 @@ export const routes = {
   services: { fr: '/nos-services', en: '/en/services' },
   quote: { fr: '/demander-un-devis', en: '/en/request-a-quote' },
   houses: { fr: '/#les-maisons', en: '/en/#les-maisons' },
+  legal: { fr: '/mentions-legales', en: '/en/legal-notice' },
 } as const;
 export type RouteKey = keyof typeof routes;
 

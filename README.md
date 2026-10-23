@@ -22,6 +22,7 @@ npm run preview   # prévisualise le build
 | `/` · `/en/` | `src/views/Home.astro` | Ouverture, manifeste, photo, le service (hôtels, restaurants, événements), partenaires, approche, repères chiffrés |
 | `/qui-sommes-nous` · `/en/about` | `src/views/About.astro` | La maison, conviction, valeurs, équipes, repères, formulaire partenaire |
 | `/nos-services` · `/en/services` | `src/views/Services.astro` | Prestations, modalités d'intervention, ce qui nous distingue, partenaires |
+| `/mentions-legales` · `/en/legal-notice` | `src/views/Legal.astro` | Mentions légales (éditeur, propriété intellectuelle, responsabilité, données personnelles, cookies) |
 | `/demander-un-devis` · `/en/request-a-quote` | `src/views/Quote.astro` | Parcours de devis (solution ponctuelle ou service régulier) |
 
 ## Français / anglais
@@ -122,3 +123,13 @@ Pas encore fait. Le site est statique : il suffit de relier ce dépôt à un pro
 - Renseigner les vraies coordonnées (téléphone, mentions légales, réseaux sociaux) dans `Footer.astro`.
 - Remplacer les photos qui s'éloignent de la charte (lumière basse, gros plans sur le geste), notamment celle de l'hôtel.
 - Obtenir l'accord des maisons pour afficher leurs logos et les remplacer par les versions officielles (kit presse, ou Paris Society pour ses adresses).
+
+## Mentions légales — points à valider
+
+La page reprend le texte du PDF « MENTIONS LEGALES CARSITTING SAS » (2018). Écarts volontaires, à faire valider :
+
+- **Hébergeur** : Vercel Inc. (440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis) à la place de LIGNE WEB SERVICES. À mettre à jour dans `src/views/Legal.astro` si l'hébergement change.
+- **IBAN et BIC** du bandeau du PDF : volontairement non publiés.
+- « loi n° 78-87 » corrigée en « 78-17 » (comme dans la suite du même texte) ; ligne « © Carsitting 2018 » retirée (le pied de page porte l'année).
+- La traduction anglaise est une proposition ; en cas de divergence, la version française prévaut (indiqué sur la page).
+- Le texte date d'avant le RGPD (mai 2018) : il ne mentionne ni base légale, ni durée de conservation, ni droit à la portabilité, ni les formulaires du site. À faire revoir par un juriste.

@@ -1,0 +1,175 @@
+---
+// Mentions légales / Legal notice — mise en page unique, textes en français et en anglais.
+// Source : « MENTIONS LEGALES CARSITTING SAS.pdf » (texte repris à l'identique, mise en forme aux couleurs de la charte).
+// Écarts voulus avec le PDF, tous signalés à Mika : hébergeur (Vercel au lieu de LWS), IBAN/BIC non publiés,
+// « loi n° 78-87 » corrigée en « 78-17 » (comme dans la suite du même texte), ligne « © 2018 » retirée (le pied de page porte déjà l'année).
+import Base from '../layouts/Base.astro';
+import Ornament from '../components/Ornament.astro';
+import { getLang } from '../i18n';
+
+const lang = getLang(Astro.url);
+const cnil = '<a href="https://www.cnil.fr" target="_blank" rel="noopener" class="legal-link">www.cnil.fr</a>';
+
+const copy = {
+  fr: {
+    title: 'Mentions légales — CarSitting',
+    description: 'Mentions légales du site CarSitting : éditeur, hébergeur, propriété intellectuelle, responsabilité, données personnelles et cookies.',
+    label: 'Informations légales',
+    h1: 'Mentions légales',
+    toc: 'Sommaire',
+    factsTitle: 'Éditeur du site',
+    facts: [
+      ['Société', 'CARSITTING SAS — SAS au capital de 3 000 €'],
+      ['Siège social', '14 rue Charles V, 75004 Paris'],
+      ['Immatriculation', 'RCS Paris 812 982 619 · SIRET 812 982 619 00015'],
+      ['TVA intracommunautaire', 'FR 45 812 982 619'],
+      ['Représentée par', 'Nicolas Campagnolle'],
+      ['Contact', 'mail'],
+      ['Hébergeur', 'Vercel Inc. — 440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis'],
+    ],
+    sections: [
+      ['I', 'Propriété du site', [
+        'www.carsitting.fr est la propriété exclusive de CARSITTING SAS (numéro de Siret : 81298261900015) au capital social de 3.000 € représentée par Nicolas Campagnolle.',
+        'Conformément à la loi n°2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique, nous vous informons que le site internet www.carsitting.fr est la propriété de CARSITTING SAS.',
+        'Le site internet www.carsitting.fr est édité par la Société CARSITTING SAS. Le site est hébergé par la société Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis.',
+        'Le site www.carsitting.fr est régi par le droit français ; les visiteurs ayant accès au site de l’étranger doivent s’assurer du respect des lois localement applicables.',
+        'Les mentions légales pouvant être modifiées à tout moment et sans préavis, nous vous invitons à les consulter régulièrement.',
+      ]],
+      ['II', 'Propriété intellectuelle', [
+        'Les marques et logos de la société CARSITTING SAS figurant sur le site sont déposés à l’INPI. Toute reproduction partielle des marques et logos de la société CARSITTING SAS est interdite sans l’accord explicite de cette dernière. L’ensemble du contenu du site (éléments graphiques, textes, images animées ou non, sons, éléments multimédia, logos, marques, structure générale du site, charte graphique, contenu des membres…) sont la propriété de CARSITTING SAS ou propriété de tiers ayant autorisé CARSITTING SAS à les représenter sur le site.',
+        'Toute représentation, qu’elle soit totale ou partielle, du site et/ou de son contenu, par quelques procédés que ce soient, sans autorisation expresse et préalable de la société CARSITTING SAS, est interdite et constituerait une contrefaçon sanctionnée par les articles L. 335-2 et suivants du Code de la propriété intellectuelle. La dénomination, le logo, les slogans sont, sauf indication particulière, des marques déposées de la société CARSITTING SAS.',
+        'Toute reproduction ou utilisation de ces éléments faite sans l’accord préalable et écrit de CARSITTING SAS est susceptible de constituer un acte de contrefaçon, et d’être poursuivi devant les tribunaux compétents. CARSITTING SAS ne saurait être responsable de l’accès par les utilisateurs via les liens hypertextes mis en place dans le cadre du site internet en direction d’autres ressources présentes sur le réseau. Nous remercions les utilisateurs du site de nous faire part d’éventuelles omissions ou erreurs en adressant un message électronique à partir de la rubrique contact.',
+      ]],
+      ['III', 'Exclusion de garantie et de responsabilité', [
+        'L’utilisateur du site web www.carsitting.fr reconnait avoir pris connaissance des présentes conditions d’utilisation du site et s’engage à les respecter.',
+        'CARSITTING SAS ne saurait être tenu pour responsable des dommages directs ou indirects qui pourraient résulter de l’accès au site ou de l’utilisation du site et/ou de ces informations, y compris l’inaccessibilité, les pertes de données, détériorations, destructions ou virus qui pourraient affecter l’équipement informatique de l’utilisateur et/ou de la présence de virus sur son site.',
+        'Bien que CARSITTING SAS s’efforce de fournir un contenu fiable sur www.carsitting.fr, il ne garantit pas que son contenu soit exempt d’inexactitudes ou d’omissions et ne saurait être tenu pour responsable des erreurs ou omissions, d’une absence de disponibilité des informations et des services. CARSITTING SAS se réserve à tout moment et sans préavis le droit d’apporter des améliorations et/ou des modifications au contenu de son site. En conséquence, l’utilisateur reconnait se servir de ses informations sous sa responsabilité exclusive.',
+      ]],
+      ['IV', 'Protection des biens et des personnes – Données personnelles', [
+        'Utilisateur : Internaute se connectant, utilisant le site susnommé : www.carsitting.fr.',
+        'En France, les données personnelles sont notamment protégées par la loi n° 78-17 du 6 janvier 1978, la loi n° 2004-801 du 6 août 2004, l’article L. 226-13 du Code pénal et la Directive Européenne du 24 octobre 1995.',
+        'Sur le site www.carsitting.fr, le propriétaire du site ne collecte des informations personnelles relatives à l’utilisateur que pour le besoin de certains services proposés par le site www.carsitting.fr. L’utilisateur fournit ces informations en toute connaissance de cause, notamment lorsqu’il procède par lui-même à leur saisie. Il est alors précisé à l’utilisateur du site www.carsitting.fr l’obligation ou non de fournir ces informations. Conformément aux dispositions des articles 38 et suivants de la loi 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés, tout utilisateur dispose d’un droit d’accès, de rectification, de suppression et d’opposition aux données personnelles le concernant. Pour l’exercer, adressez votre demande à www.carsitting.fr ou en effectuant sa demande écrite et signée, accompagnée d’une copie du titre d’identité avec signature du titulaire de la pièce, en précisant l’adresse à laquelle la réponse doit être envoyée.',
+        'Aucune information personnelle de l’utilisateur du site www.carsitting.fr n’est publiée à l’insu de l’utilisateur, échangée, transférée, cédée ou vendue sur un support quelconque à des tiers. Seule l’hypothèse du rachat du site www.carsitting.fr au propriétaire du site mettrait la transmission des dites informations à l’éventuel acquéreur qui serait à son tour tenu de la même obligation de conservation et de modification des données vis à vis de l’utilisateur du site www.carsitting.fr.',
+        'Les bases de données sont protégées par les dispositions de la loi du 1er juillet 1998 transposant la directive 96/9 du 11 mars 1996 relative à la protection juridique des bases de données.',
+      ]],
+      ['V', 'Liens hypertextes et cookies', [
+        'Le site www.carsitting.fr contient un certain nombre de liens hypertextes vers d’autres sites (partenaires, informations …) mis en place avec l’autorisation du propriétaire du site. Cependant, le propriétaire du site n’a pas la possibilité de vérifier le contenu des sites ainsi visités et décline donc toute responsabilité de ce fait quant aux risques éventuels de contenus illicites.',
+        'L’utilisateur est informé que lors de ses visites sur le site www.carsitting.fr, un ou des cookies sont susceptible de s’installer automatiquement sur son ordinateur. Un cookie est un fichier de petite taille, qui ne permet pas l’identification de l’utilisateur, mais qui enregistre des informations relatives à la navigation d’un ordinateur sur un site. Les données ainsi obtenues visent à faciliter la navigation ultérieure sur le site, et ont également vocation à permettre diverses mesures de fréquentation.',
+        'Le paramétrage du logiciel de navigation permet d’informer de la présence de cookie et éventuellement, de refuser de la manière décrite à l’adresse suivante : ' + cnil + '. Le refus d’installation d’un cookie peut entraîner l’impossibilité d’accéder à certains services.',
+      ]],
+    ],
+    note: '',
+  },
+  en: {
+    title: 'Legal notice — CarSitting',
+    description: 'Legal notice of the CarSitting website: publisher, hosting, intellectual property, liability, personal data and cookies.',
+    label: 'Legal information',
+    h1: 'Legal notice',
+    toc: 'Contents',
+    factsTitle: 'Site publisher',
+    facts: [
+      ['Company', 'CARSITTING SAS — simplified joint-stock company (SAS) with a share capital of €3,000'],
+      ['Registered office', '14 rue Charles V, 75004 Paris, France'],
+      ['Registration', 'Paris Trade and Companies Register (RCS) 812 982 619 · SIRET 812 982 619 00015'],
+      ['VAT number', 'FR 45 812 982 619'],
+      ['Represented by', 'Nicolas Campagnolle'],
+      ['Contact', 'mail'],
+      ['Host', 'Vercel Inc. — 440 N Barranca Avenue #4133, Covina, CA 91723, United States'],
+    ],
+    sections: [
+      ['I', 'Ownership of the site', [
+        'www.carsitting.fr is the exclusive property of CARSITTING SAS (Siret number: 81298261900015), with a share capital of €3,000, represented by Nicolas Campagnolle.',
+        'In accordance with Law No. 2004-575 of 21 June 2004 on confidence in the digital economy, please note that the website www.carsitting.fr is the property of CARSITTING SAS.',
+        'The website www.carsitting.fr is published by CARSITTING SAS. The site is hosted by Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, United States.',
+        'The website www.carsitting.fr is governed by French law; visitors accessing the site from abroad must ensure compliance with the laws applicable locally.',
+        'As this legal notice may be modified at any time and without notice, we invite you to consult it regularly.',
+      ]],
+      ['II', 'Intellectual property', [
+        'The trademarks and logos of CARSITTING SAS appearing on the site are registered with the INPI (the French intellectual property office). Any partial reproduction of the trademarks and logos of CARSITTING SAS is prohibited without its explicit consent. All of the site’s content (graphic elements, texts, animated or still images, sounds, multimedia elements, logos, trademarks, general structure of the site, graphic identity, members’ content, etc.) is the property of CARSITTING SAS or of third parties who have authorised CARSITTING SAS to present it on the site.',
+        'Any representation, whether total or partial, of the site and/or its content, by any means whatsoever, without the express prior authorisation of CARSITTING SAS, is prohibited and would constitute an infringement punishable under articles L. 335-2 et seq. of the French Intellectual Property Code. The name, the logo and the slogans are, unless otherwise indicated, registered trademarks of CARSITTING SAS.',
+        'Any reproduction or use of these elements without the prior written consent of CARSITTING SAS may constitute an act of infringement and be prosecuted before the competent courts. CARSITTING SAS cannot be held responsible for access by users, via the hyperlinks provided on the website, to other resources available on the network. We thank users of the site for informing us of any omissions or errors by sending an email from the contact section.',
+      ]],
+      ['III', 'Disclaimer of warranty and liability', [
+        'The user of the website www.carsitting.fr acknowledges having read these conditions of use and undertakes to comply with them.',
+        'CARSITTING SAS cannot be held liable for any direct or indirect damage that may result from access to the site or from use of the site and/or this information, including unavailability, loss of data, deterioration, destruction or viruses that may affect the user’s computer equipment, and/or the presence of viruses on their site.',
+        'Although CARSITTING SAS endeavours to provide reliable content on www.carsitting.fr, it does not guarantee that its content is free from inaccuracies or omissions and cannot be held liable for errors or omissions, or for any unavailability of information and services. CARSITTING SAS reserves the right, at any time and without notice, to make improvements and/or changes to the content of its site. Consequently, the user acknowledges using this information at their own sole responsibility.',
+      ]],
+      ['IV', 'Protection of property and persons – Personal data', [
+        'User: any internet user connecting to and using the aforementioned site: www.carsitting.fr.',
+        'In France, personal data is protected in particular by Law No. 78-17 of 6 January 1978, Law No. 2004-801 of 6 August 2004, article L. 226-13 of the Criminal Code and the European Directive of 24 October 1995.',
+        'On the site www.carsitting.fr, the site owner collects personal information about the user only where needed for certain services offered by the site www.carsitting.fr. The user provides this information knowingly, in particular when entering it themselves. The user of the site www.carsitting.fr is then told whether or not providing this information is compulsory. In accordance with articles 38 et seq. of Law 78-17 of 6 January 1978 on information technology, data files and civil liberties, every user has a right of access, rectification, deletion and objection regarding personal data concerning them. To exercise it, send your request to www.carsitting.fr or submit a written, signed request, accompanied by a copy of an identity document bearing the holder’s signature, stating the address to which the reply should be sent.',
+        'No personal information about the user of the site www.carsitting.fr is published without the user’s knowledge, exchanged, transferred, assigned or sold on any medium to third parties. Only the sale of the site www.carsitting.fr to a buyer would allow such information to be passed to the prospective acquirer, who would in turn be bound by the same obligation to retain and modify the data with regard to the user of the site www.carsitting.fr.',
+        'The databases are protected by the provisions of the law of 1 July 1998 transposing Directive 96/9 of 11 March 1996 on the legal protection of databases.',
+      ]],
+      ['V', 'Hyperlinks and cookies', [
+        'The website www.carsitting.fr contains a number of hyperlinks to other sites (partners, information, etc.) set up with the authorisation of the site owner. However, the site owner has no way of checking the content of the sites visited in this way and therefore declines all responsibility for the possible risks of illegal content.',
+        'The user is informed that, during visits to the site www.carsitting.fr, one or more cookies may be installed automatically on their computer. A cookie is a small file that does not identify the user but records information about the navigation of a computer on a site. The data thus obtained is intended to make subsequent navigation of the site easier and also serves for various audience measurements.',
+        'The settings of your browser let you be informed of the presence of cookies and, if you wish, refuse them as described at the following address: ' + cnil + '. Refusing the installation of a cookie may make it impossible to access certain services.',
+      ]],
+    ],
+    note: 'This English version is provided for convenience. In case of discrepancy, the French version prevails.',
+  },
+}[lang];
+---
+<Base title={copy.title} description={copy.description}>
+  {/* Ouverture sobre : pas de photo, un titre et l'ornement de la charte. data-hero pour l'apparition en douceur. */}
+  <section data-hero class="s-nuit px-6 pb-16 pt-36 text-center md:pb-24 md:pt-48">
+    <p class="label hero-reveal mb-8">{copy.label}</p>
+    <h1 class="display hero-reveal">{copy.h1}</h1>
+    <div class="hero-reveal"><Ornament /></div>
+  </section>
+
+  <section class="s-ivoire px-6 py-16 md:py-24">
+    <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-12 lg:gap-16">
+      {/* Sommaire : visible à partir de 1024 px, il reste à l'écran pendant la lecture. */}
+      <nav class="hidden lg:col-span-3 lg:block" aria-label={copy.toc}>
+        <div class="sticky top-32">
+          <p class="label mb-6">{copy.toc}</p>
+          <ol class="space-y-4 border-l border-or/35 pl-6">
+            {copy.sections.map(([n, title], i) => (
+              <li><a href={`#section-${i + 1}`} class="legal-toc"><span class="mr-3 font-serif italic text-or">{n}</span>{title}</a></li>
+            ))}
+          </ol>
+        </div>
+      </nav>
+
+      <div class="lg:col-span-9">
+        {copy.note && <p class="mb-10 border-l border-or/35 pl-6 text-sm italic text-ivoire-muted">{copy.note}</p>}
+
+        {/* Identité de l'éditeur : les informations que la loi impose de rendre accessibles. Aucune coordonnée bancaire. */}
+        <article class="mb-16 border border-encre/10 p-6 md:mb-20 md:p-10">
+          <h2 class="font-serif text-3xl font-normal leading-tight text-nuit">{copy.factsTitle}</h2>
+          <dl class="mt-8 grid gap-x-10 gap-y-6 sm:grid-cols-[14rem_1fr]">
+            {copy.facts.map(([k, v]) => (
+              <>
+                <dt class="label !text-or sm:pt-1">{k}</dt>
+                <dd class="text-[17px] leading-relaxed text-nuit">
+                  {v === 'mail'
+                    ? <>
+                        <a class="legal-link" href="mailto:contact@carsitting.fr">contact@carsitting.fr</a><br />
+                        <a class="legal-link" href="tel:+33783938318">07 83 93 83 18</a> · <a class="legal-link" href="tel:+33783767445">07 83 76 74 45</a>
+                      </>
+                    : v}
+                </dd>
+              </>
+            ))}
+          </dl>
+        </article>
+
+        <div class="space-y-16 md:space-y-20">
+          {copy.sections.map(([n, title, paras], i) => (
+            <article id={`section-${i + 1}`} class="scroll-mt-32">
+              <div class="flex items-baseline gap-5">
+                <span class="font-serif text-4xl font-light italic text-or">{n}</span>
+                <h2 class="font-serif text-[28px] font-normal leading-tight text-nuit md:text-[34px]">{title}</h2>
+              </div>
+              <div class="mt-8 space-y-5 text-[17px] leading-[1.8] text-ivoire-muted md:pl-[3.25rem]">
+                {(paras as string[]).map((p) => <p set:html={p} />)}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

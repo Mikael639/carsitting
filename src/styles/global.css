@@ -66,6 +66,13 @@ body::after { content: ""; position: fixed; inset: -50%; z-index: 70; pointer-ev
 .link-arrow:hover::before, .link-arrow:focus-visible::before { width: 64px; }
 .s-nuit .link-arrow, .s-encre .link-arrow { @apply text-ivoire; }
 
+/* Mentions légales : liens du texte (soulignement or fin) et sommaire. */
+.legal-link { color: var(--color-nuit); text-decoration: underline; text-decoration-color: rgb(169 139 84 / .6); text-underline-offset: 4px; transition: text-decoration-color .4s; }
+.legal-link:hover { text-decoration-color: var(--color-or); }
+.legal-toc { display: block; font-size: 15px; line-height: 1.4; color: rgb(26 26 26 / .7); transition: color .4s; }
+.legal-toc:hover, .legal-toc:focus-visible { color: var(--color-nuit); }
+.s-ivoire article p a.legal-link { color: var(--color-nuit); }
+
 /* Pied de page */
 .footer-link { @apply inline-block py-1 transition-colors duration-500 hover:text-ivoire; }
 

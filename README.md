@@ -120,7 +120,7 @@ Pas encore fait. Le site est statique : il suffit de relier ce dépôt à un pro
 
 - Choisir le service de réception des demandes (Formspree ou route Vercel + Resend).
 - Remplacer le monogramme « CS » de substitution par le fichier de logo officiel.
-- Renseigner les vraies coordonnées (téléphone, mentions légales, réseaux sociaux) dans `Footer.astro`.
+- Renseigner les liens Instagram et LinkedIn dans `Footer.astro` (téléphone, adresse et mentions légales sont en place).
 - Remplacer les photos qui s'éloignent de la charte (lumière basse, gros plans sur le geste), notamment celle de l'hôtel.
 - Obtenir l'accord des maisons pour afficher leurs logos et les remplacer par les versions officielles (kit presse, ou Paris Society pour ses adresses).
 

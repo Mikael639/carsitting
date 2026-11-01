@@ -180,7 +180,9 @@ function marquee() {
   if (!list || list.dataset.ready) return;
   list.dataset.ready = '1';
   list.innerHTML += list.innerHTML;
-  const tween = gsap.to(list, { xPercent: -50, duration: 14, ease: 'none', repeat: -1 });
+  // Vitesse constante en px/s, quel que soit le nombre de logos (avant : 14 s fixes, trop rapide dès qu'on en ajoutait).
+  const duration = Math.max(14, list.scrollWidth / 2 / 140);
+  const tween = gsap.to(list, { xPercent: -50, duration, ease: 'none', repeat: -1, force3D: true });
   list.addEventListener('mouseenter', () => gsap.to(tween, { timeScale: 0.2, duration: 0.6 }));
   list.addEventListener('mouseleave', () => gsap.to(tween, { timeScale: 1, duration: 0.6 }));
 }

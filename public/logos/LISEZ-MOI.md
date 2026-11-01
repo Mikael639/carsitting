@@ -1,6 +1,6 @@
 # Logos des maisons partenaires
 
-Les 12 logos sont déjà en place (provisoires, voir `SOURCES.md` pour leur origine et la réserve sur les droits). Pour en remplacer un par la version officielle d'une maison, déposez ici un fichier, nommé exactement comme ci-dessous. Format accepté : `.svg` (idéal), `.png`, `.webp` ou `.jpg`.
+Les 22 logos sont déjà en place (provisoires, voir `SOURCES.md` pour leur origine et la réserve sur les droits). Pour en remplacer un par la version officielle d'une maison, déposez ici un fichier, nommé exactement comme ci-dessous. Format accepté : `.svg` (idéal), `.png`, `.webp` ou `.jpg`.
 Tant qu'un logo manque, le nom de la maison s'affiche à sa place dans le défilé : rien ne casse.
 
 | Maison | Nom du fichier |
@@ -17,6 +17,16 @@ Tant qu'un logo manque, le nom de la maison s'affiche à sa place dans le défil
 | Café de l'Homme | `cafe-de-l-homme` |
 | Thoumieux | `thoumieux` |
 | Maxim's | `maxims` |
+| Beau CoCo | `coco` |
+| Dar Mima | `dar-mima` |
+| Mondaine | `mondaine` |
+| Le Pompon | `pompon` |
+| Monsieur Bleu | `monsieur-bleu` |
+| Cassaro's | `cassaros` |
+| Kong | `kong` |
+| Laurent | `laurent` |
+| Gigi | `gigi` |
+| Le Grand Véfour | `grand-vefour` |
 
 Conseils pour un rendu soigné :
 

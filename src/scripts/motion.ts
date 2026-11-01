@@ -9,10 +9,12 @@ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Téléphones et tablettes : on défile vite au doigt, les photos doivent être là tout de suite
 // (retour de Jerry). Aucun dévoilement ni fondu sur les photos ; les textes gardent leur apparition.
 const touch = () => window.matchMedia('(max-width: 1023px), (hover: none)').matches;
+// Défilement fluide (Lenis) : réservé aux souris. Au doigt, le défilement natif (inertie iOS) est le plus fluide.
+const mouse = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 let lenis: Lenis | null = null;
 
 function smoothScroll() {
-  if (reduced || lenis) return;
+  if (reduced || lenis || !mouse()) return;
   lenis = new Lenis({ duration: 0.8, easing: (t) => 1 - Math.pow(1 - t, 3) });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis?.raf(time * 1000));
@@ -83,7 +85,7 @@ function intro() {
 
   // Parallaxe : la photo glisse plus lentement que le texte.
   const media = hero.querySelector<HTMLElement>('[data-hero-media]');
-  if (media) {
+  if (media && !touch()) {
     gsap.to(media, {
       yPercent: 6,
       ease: 'none',
@@ -164,6 +166,7 @@ function images() {
 }
 
 function ctaParallax() {
+  if (touch()) return;
   document.querySelectorAll<HTMLElement>('[data-cta-media]').forEach((m) => {
     gsap.fromTo(m.querySelector('img'), { yPercent: -4, scale: 1.08 }, {
       yPercent: 4, scale: 1.08, ease: 'none',

@@ -110,6 +110,8 @@ html.js-motion main section [data-marquee] li, html.js-motion [data-hero] .hero-
 .hero-slide img { transform: scale(1); }
 .hero-slide[data-active] img { animation: hero-zoom 10s cubic-bezier(.22, 1, .36, 1) forwards; }
 @keyframes hero-zoom { from { transform: scale(1.08); } to { transform: scale(1); } }
+/* Tablettes et téléphones : pas de grain plein écran ni de zoom animé sur une photo filtrée (saccades, surtout sur iPad). */
+@media (hover: none), (max-width: 1279px) { body::after { display: none; } .hero-slide[data-active] img { animation: none; } }
 .hero-veil { background:
   linear-gradient(180deg, rgb(18 25 48 / .62) 0%, rgb(18 25 48 / .22) 26%, rgb(18 25 48 / .30) 62%, rgb(18 25 48 / .88) 100%),
   radial-gradient(ellipse 62% 50% at 50% 46%, rgb(18 25 48 / .42), transparent 100%); }
@@ -180,6 +182,7 @@ html.menu-open { overflow: hidden; }
 ::view-transition-new(root) { animation: .7s cubic-bezier(.44, 0, .56, 1) .15s both fade-in; }
 @keyframes fade-out { to { opacity: 0; } }
 @keyframes fade-in { from { opacity: 0; } }
+.partners-track [data-marquee] { will-change: transform; }
 header { transition-property: background-color; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
 html.lenis, html.lenis body { height: auto; }

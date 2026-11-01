@@ -18,4 +18,19 @@ Récupérés le 15 octobre 2026 sur les sites officiels des maisons, à titre pr
 | `too.svg` | Too Hôtel | toohotel.com — logo vectoriel intégré à l'en-tête de la page |
 | `madame-reve.svg` | Madame Rêve | madamereve.com — logo vectoriel intégré à l'en-tête de la page |
 
+Ajoutés le 1er novembre 2026 (restaurants cités par le client) :
+
+| Fichier | Maison | Source |
+|---|---|---|
+| `coco.svg` | Beau CoCo (à confirmer : « Coco ») | restaurant-beaucoco.com — `/paris/uploads/sites/3/2024/10/BeauCoCo-Logo-White.svg` |
+| `dar-mima.svg` | Dar Mima | darmima-restaurant.com — `/uploads/2024/11/logo-1.svg` |
+| `mondaine.svg` | Mondaine de Pariso | mondaine-depariso.com — `/uploads/2023/09/header-logo.svg` |
+| `pompon.png` | Le Pompon | lepompon-restaurant.com — `/wp-content/uploads/2025/11/logo-white.png` |
+| `monsieur-bleu.svg` | Monsieur Bleu | monsieurbleu-restaurant.com — `/paris/uploads/sites/3/2024/11/logo.svg` |
+| `cassaros.svg` | Cassaro's | cassaros.fr — `white-logo.svg` (Webflow) |
+| `kong.png` | Kong | kong.fr — `/wp-content/uploads/2023/10/logo.png` |
+| `laurent.svg` | Laurent | laurent.paris — `/uploads/2026/07/laurent-logo-white.svg` |
+| `gigi.svg` | Gigi | gigi-restaurant.com — `/paris/uploads/sites/2/2023/09/gigi-logo.svg` |
+| `grand-vefour.svg` | Le Grand Véfour | legrandvefour.com — `/uploads/2026/04/le-grand-vefour-logo.svg` |
+
 Tous passent en ivoire uni sur le site (`brightness(0) invert(1)`), seule la forme compte.

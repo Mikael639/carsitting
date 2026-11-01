@@ -1,8 +1,7 @@
 ---
 // Défilé des maisons partenaires. Un logo est utilisé s'il est déposé dans public/logos/<identifiant>.(svg|png|webp|jpg) ;
 // sinon le nom s'affiche en capitales. Voir public/logos/LISEZ-MOI.md pour la liste des identifiants.
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import sizes from '../data/logos.json';
 
 // scale : hauteur relative (formes carrées plus hautes) · wide : logotype très allongé, autorisé plus large.
 interface Partner { name: string; slug: string; scale: number; wide?: boolean }
@@ -33,11 +32,10 @@ const all: Partner[] = [
 import { getLang, t } from '../i18n';
 const ui = t(getLang(Astro.url));
 const { only, title = 'Ils nous font confiance' } = Astro.props as { only?: string[]; title?: string };
-const dir = join(process.cwd(), 'public', 'logos');
-const exts = ['svg', 'png', 'webp', 'jpg'];
 const partners = (only ? all.filter((p) => only.includes(p.slug)) : all).map((p) => {
-  const ext = exts.find((e) => existsSync(join(dir, `${p.slug}.${e}`)));
-  return { ...p, logo: ext ? `/logos/${p.slug}.${ext}` : null };
+  // Images ivoire prêtes à l'emploi (scripts/logos.mjs) : aucun filtre à calculer pendant le défilement.
+  const size = (sizes as Record<string, { w: number; h: number }>)[p.slug];
+  return { ...p, size, logo: size ? `/logos-ivoire/${p.slug}.webp` : null };
 });
 ---
 <section id="les-maisons" class="s-encre scroll-mt-20 px-6 py-12 text-center md:py-14">
@@ -47,7 +45,7 @@ const partners = (only ? all.filter((p) => only.includes(p.slug)) : all).map((p)
       {partners.map((p) => (
         <li class:list={['partner shrink-0', p.wide && 'partner--wide']} role="listitem" style={`--s:${p.scale}`}>
           {p.logo
-            ? <img src={p.logo} alt={p.name} loading="lazy" class="partner__logo" />
+            ? <img src={p.logo} alt={p.name} width={p.size.w} height={p.size.h} decoding="async" class="partner__logo" />
             : <span class="partner__name">{p.name}</span>}
         </li>
       ))}

@@ -6,7 +6,9 @@ import Ornament from '../components/Ornament.astro';
 import Partners from '../components/Partners.astro';
 import Cta from '../components/Cta.astro';
 import { getLang, path, t } from '../i18n';
+import { getPhotos } from '../lib/photos';
 
+const photo = await getPhotos();
 const lang = getLang(Astro.url);
 const ui = t(lang);
 const copy = {
@@ -77,14 +79,14 @@ const copy = {
     ],
   },
 }[lang];
-const cardMedia = [['/images/hotel.jpg', 'center 55%'], ['/images/restaurant.jpg', 'center'], ['/images/evenement.jpg', '60% center']];
+const cardMedia = [[photo('homeCardHotel', '/images/hotel.jpg'), 'center 55%'], [photo('homeCardRestaurant', '/images/restaurant.jpg'), 'center'], [photo('homeCardEvent', '/images/evenement.jpg'), '60% center']];
 ---
 <Base title={copy.title} description={copy.description}>
   <Hero
     slides={[
-      { src: '/images/paris-nuit.jpg', position: 'center 55%' },
-      { src: '/images/services-evenement.jpg', position: 'center 35%' },
-      { src: '/images/hotel.jpg', position: 'center 60%' },
+      { src: photo('homeHero1', '/images/paris-nuit.jpg'), position: 'center 55%' },
+      { src: photo('homeHero2', '/images/services-evenement.jpg'), position: 'center 35%' },
+      { src: photo('homeHero3', '/images/hotel.jpg'), position: 'center 60%' },
     ]}
     label={copy.heroLabel}
     title={copy.heroTitle}
@@ -104,7 +106,7 @@ const cardMedia = [['/images/hotel.jpg', 'center 55%'], ['/images/restaurant.jpg
     <div class="mx-auto grid max-w-7xl items-end gap-12 md:grid-cols-12 md:gap-10">
       <figure class="md:col-span-7">
         <div class="overflow-hidden">
-          <img src="/images/voiturier-demeure.jpg" alt={copy.gestureAlt} width="1536" height="1024" loading="lazy" class="aspect-[4/5] w-full object-cover object-[35%_20%] md:aspect-[5/6]" />
+          <img src={photo('homeGesture', '/images/voiturier-demeure.jpg')} alt={copy.gestureAlt} width="1536" height="1024" loading="lazy" class="aspect-[4/5] w-full object-cover object-[35%_20%] md:aspect-[5/6]" />
         </div>
         <figcaption class="label mt-5 !text-encre/50">{copy.gestureCaption}</figcaption>
       </figure>
@@ -165,5 +167,5 @@ const cardMedia = [['/images/hotel.jpg', 'center 55%'], ['/images/restaurant.jpg
     </div>
   </section>
 
-  <Cta image="/images/voiturier-smoking.jpg" />
+  <Cta image={photo('ctaImage', '/images/voiturier-smoking.jpg')} />
 </Base>

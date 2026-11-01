@@ -6,7 +6,9 @@ import Stats from '../components/Stats.astro';
 import Field from '../components/form/Field.astro';
 import Submit from '../components/form/Submit.astro';
 import { getLang, path, t } from '../i18n';
+import { getPhotos } from '../lib/photos';
 
+const photo = await getPhotos();
 const lang = getLang(Astro.url);
 const ui = t(lang);
 const copy = {
@@ -77,7 +79,7 @@ const f = copy.fields;
 ---
 <Base title={copy.title} description={copy.description}>
   <Hero
-    slides={[{ src: '/images/paris-nuit.jpg', position: 'center 55%' }]}
+    slides={[{ src: photo('aboutHero', '/images/paris-nuit.jpg'), position: 'center 55%' }]}
     label="CarSitting · Paris"
     title={copy.heroTitle}
   />
@@ -122,7 +124,7 @@ const f = copy.fields;
         <p class="lede text-ivoire-muted">{copy.teamsText}</p>
       </div>
       <div class="overflow-hidden">
-        <img src="/images/voiturier-smoking.jpg" alt={copy.teamsAlt} width="1000" height="525" loading="lazy" class="aspect-[1000/525] w-full object-cover" />
+        <img src={photo('aboutTeams', '/images/voiturier-smoking.jpg')} alt={copy.teamsAlt} width="1000" height="525" loading="lazy" class="aspect-[1000/525] w-full object-cover" />
       </div>
     </div>
   </section>

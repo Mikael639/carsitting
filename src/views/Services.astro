@@ -5,7 +5,9 @@ import Hero from '../components/Hero.astro';
 import Partners from '../components/Partners.astro';
 import Cta from '../components/Cta.astro';
 import { getLang, path, t } from '../i18n';
+import { getPhotos } from '../lib/photos';
 
+const photo = await getPhotos();
 const lang = getLang(Astro.url);
 const ui = t(lang);
 const copy = {
@@ -50,11 +52,11 @@ const copy = {
     partners: 'They already trust us',
   },
 }[lang];
-const media = ['/images/services-hotel.jpg', '/images/services-restaurant.webp', '/images/services-evenement.jpg'];
+const media = [photo('servicesHotel', '/images/services-hotel.jpg'), photo('servicesRestaurant', '/images/services-restaurant.webp'), photo('servicesEvent', '/images/services-evenement.jpg')];
 ---
 <Base title={copy.title} description={copy.description}>
   <Hero
-    slides={[{ src: '/images/services-evenement.jpg', position: 'center 35%' }]}
+    slides={[{ src: photo('servicesHero', '/images/services-evenement.jpg'), position: 'center 35%' }]}
     label={copy.heroLabel}
     title={copy.heroTitle}
     quote={copy.heroQuote}

@@ -7,7 +7,9 @@ import Hero from '../components/Hero.astro';
 import Field from '../components/form/Field.astro';
 import Submit from '../components/form/Submit.astro';
 import { getLang, t } from '../i18n';
+import { getPhotos } from '../lib/photos';
 
+const photo = await getPhotos();
 const lang = getLang(Astro.url);
 const ui = t(lang);
 const en = lang === 'en';
@@ -64,7 +66,7 @@ const c = {
 <Base title={c.title} description={c.description}>
   <Hero
     size="tall"
-    slides={[{ src: '/images/restaurant.jpg', position: 'center 40%' }]}
+    slides={[{ src: photo('quoteHero', '/images/restaurant.jpg'), position: 'center 40%' }]}
     label="Car Sitting · Paris"
     title={c.heroTitle}
     quote={c.heroQuote}

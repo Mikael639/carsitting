@@ -10,7 +10,7 @@ const CONTACT = 'contact@carsitting.fr';
 const MSG = {
   fr: {
     required: 'Ce champ est requis.', choose: 'Veuillez choisir une option.',
-    email: 'Indiquez une adresse email valide (ex. vous@maison.fr).', tel: 'Indiquez un numéro de téléphone valide (10 chiffres minimum).',
+    email: 'Indiquez une adresse email valide (ex. vous@exemple.fr).', tel: 'Indiquez un numéro de téléphone valide (10 chiffres minimum).',
     dateMin: (d: string) => `Choisissez une date à partir du ${d}.`, min: (n: string) => `La valeur doit être au moins ${n}.`,
     max: (n: string) => `La valeur doit être au plus ${n}.`, integer: 'Indiquez un nombre entier.',
     pending: 'Envoi en cours…', sent: 'Demande transmise',
@@ -21,7 +21,7 @@ const MSG = {
   },
   en: {
     required: 'This field is required.', choose: 'Please choose an option.',
-    email: 'Please enter a valid email address (e.g. you@house.com).', tel: 'Please enter a valid phone number (at least 10 digits).',
+    email: 'Please enter a valid email address (e.g. you@example.com).', tel: 'Please enter a valid phone number (at least 10 digits).',
     dateMin: (d: string) => `Please choose a date from ${d}.`, min: (n: string) => `The value must be at least ${n}.`,
     max: (n: string) => `The value must be at most ${n}.`, integer: 'Please enter a whole number.',
     pending: 'Sending…', sent: 'Request sent',

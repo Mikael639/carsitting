@@ -185,7 +185,7 @@ function marquee() {
 function stats() {
   document.querySelectorAll<HTMLElement>('[data-stat]').forEach((el) => {
     const m = el.textContent?.match(/^(\d[\d\s,  ]*)(\+?)$/);
-    if (!m) return;
+    if (!m || /^\d{4}$/.test(m[1])) return; // une année ne se décompte pas
     const end = parseInt(m[1].replace(/[\s,  ]/g, ''), 10);
     const locale = document.documentElement.lang === 'en' ? 'en-GB' : 'fr-FR';
     const obj = { v: 0 };
